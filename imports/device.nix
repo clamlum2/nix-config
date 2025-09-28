@@ -3,6 +3,6 @@
 {
   imports =
     [
-      ./imports/pc.nix
+      ./pc.nix
     ];
 }
