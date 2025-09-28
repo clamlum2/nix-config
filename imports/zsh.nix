@@ -12,6 +12,7 @@
 
     shellAliases = {
       nrt = "sudo nixos-rebuild test && hyprshade on extravibrance";
+      updatenix = "sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/refs/heads/main/install.sh)";
       cdnix = "cd ~/nix-config/";
       codenix = "code ~/nix-config/";
     };
@@ -66,7 +67,7 @@
 
         cd "$CONFIG_DIR" || { echo "Config dir not found!"; return 1; }
 
-        sudo rsync -av --exclude='.git' --exclude='README.md' "$CONFIG_DIR/" /etc/nixos/
+        sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$CONFIG_DIR/" /etc/nixos/
 
         sudo nixos-rebuild switch
         
