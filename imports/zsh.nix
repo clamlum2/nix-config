@@ -12,7 +12,7 @@
 
     shellAliases = {
       nrt = "sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild test && hyprshade on extravibrance";
-      nrs = "sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild test && hyprshade on extravibrance";
+      nrs = "sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild switch && hyprshade on extravibrance";
       updatenix = "sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/refs/heads/main/install.sh)";
       cdnix = "cd ~/nix-config/";
       codenix = "code ~/nix-config/";
