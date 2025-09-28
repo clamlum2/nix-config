@@ -52,6 +52,35 @@
             echo "Usage: prox <last octet of remote machine ip>"
         fi
       }
+
+      function nrs() {
+        CONFIG_DIR="$HOME/nix-config"
+        GIT_REMOTE="origin"
+        GIT_BRANCH="main"
+
+        if [ -z "$1" ]; then
+          echo "Usage: nrs \"commit message\""
+          return 1
+        fi
+
+        COMMIT_MSG="$1"
+
+        cd "$CONFIG_DIR" || { echo "Config dir not found!"; return 1; }
+
+        sudo rsync -av --exclude='.git' --exclude='README.md' "$CONFIG_DIR/" /etc/nixos/
+
+        sudo nixos-rebuild switch
+        
+        if [ $? -eq 0 ]; then
+          git add .
+          git commit -m "$COMMIT_MSG"
+          git push "$GIT_REMOTE" "$GIT_BRANCH"
+          echo "NixOS rebuild and config push successful!"
+        else
+          echo "NixOS rebuild failed; not pushing to GitHub."
+          return 1
+        fi
+      }
     '';
   };
 
