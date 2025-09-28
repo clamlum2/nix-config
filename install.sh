@@ -10,7 +10,7 @@ else
     cd ~
     git clone "$REPO_URL_HTTPS"
     cd nix-config
-    sudo rsync -av --exclude='.git' --exclude='README.md' "$CONFIG_DIR/" /etc/nixos/
+    sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$CONFIG_DIR/" /etc/nixos/
     sudo nixos-rebuild switch --generation-name "config installed"
     reboot
 fi
