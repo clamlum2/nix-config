@@ -12,7 +12,6 @@
 
     shellAliases = {
       nrt = "sudo nixos-rebuild test && hyprshade on extravibrance";
-      nrs = "sudo nixos-rebuild switch && hyprshade on extravibrance";
       cdnix = "cd /etc/nixos/";
       codenix = "code /etc/nixos/";
     };
@@ -72,11 +71,13 @@
         sudo nixos-rebuild switch
         
         if [ $? -eq 0 ]; then
+          hyprshade on extravibrance
           git add .
           git commit -m "$COMMIT_MSG"
           git push "$GIT_REMOTE" "$GIT_BRANCH"
           echo "NixOS rebuild and config push successful!"
         else
+          hyprshade on extravibrance
           echo "NixOS rebuild failed; not pushing to GitHub."
           return 1
         fi
