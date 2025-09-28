@@ -12,8 +12,8 @@
 
     shellAliases = {
       nrt = "sudo nixos-rebuild test && hyprshade on extravibrance";
-      cdnix = "cd /etc/nixos/";
-      codenix = "code /etc/nixos/";
+      cdnix = "cd ~/nix-config/";
+      codenix = "code ~/nix-config/";
     };
 
     history.size = 10000;
