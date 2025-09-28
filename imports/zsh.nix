@@ -69,7 +69,7 @@
 
         sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$CONFIG_DIR/" /etc/nixos/
 
-        sudo nixos-rebuild switch --generation-name "$COMMIT_MSG"
+        sudo nixos-rebuild switch --profile-name "$COMMIT_MSG"
         
         if [ $? -eq 0 ]; then
           hyprshade on extravibrance
