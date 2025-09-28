@@ -1,15 +1,19 @@
-REPO_URL_HTTPS="https://github.com/clamlum2/nix-config.git"
-REPO_URL_SSH="git@github.com:clamlum2/nix-config.git"
-CURRENT_URL=$(git config --get remote.origin.url 2>/dev/null)
+REPO_URL="https://github.com/clamlum2/nix-config.git"
+CONFIG_DIR="$HOME/nix-config"
+BRANCH="${1:-main}"
 
-if [ "$CURRENT_URL" = "$REPO_URL_HTTPS" ] || [ "$CURRENT_URL" = "$REPO_URL_SSH" ]; then
-    git pull --rebase
-    sudo rsync -av --exclude='.git' --exclude='README.md' "$CONFIG_DIR/" /etc/nixos/
-    sudo nixos-rebuild switch --profile-name "config updated"
-else
-    cd ~
-    git clone "$REPO_URL_HTTPS"
-    cd nix-config
+if [ -d "$CONFIG_DIR/.git" ]; then
+    echo "Repo found at $CONFIG_DIR. Updating..."
+    cd "$CONFIG_DIR" || { echo "Failed to cd to $CONFIG_DIR"; exit 1; }
+    CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    echo "On branch: $CURRENT_BRANCH"
+    git pull origin "$CURRENT_BRANCH"
     sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$CONFIG_DIR/" /etc/nixos/
-    sudo nixos-rebuild switch --profile-name "config installed"
+    sudo nixos-rebuild switch --profile-name "config updated ($CURRENT_BRANCH)"
+else
+    echo "Repo not found. Cloning branch '$BRANCH' to $CONFIG_DIR..."
+    git clone --branch "$BRANCH" "$REPO_URL" "$CONFIG_DIR"
+    cd "$CONFIG_DIR" || { echo "Failed to cd to $CONFIG_DIR"; exit 1; }
+    sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$CONFIG_DIR/" /etc/nixos/
+    sudo nixos-rebuild switch --profile-name "config installed ($BRANCH)"
 fi
