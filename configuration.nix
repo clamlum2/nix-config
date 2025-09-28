@@ -15,8 +15,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       (import "${home-manager}/nixos")
-      #/imports/laptop.nix
-      ./imports/pc.nix
+      ./imports/device.nix
     ];
 
   home-manager.useUserPackages = true;
