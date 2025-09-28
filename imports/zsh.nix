@@ -11,7 +11,8 @@
     };
 
     shellAliases = {
-      nrt = "sudo nixos-rebuild test && hyprshade on extravibrance";
+      nrt = "sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild test && hyprshade on extravibrance";
+      nrs = "sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild test && hyprshade on extravibrance";
       updatenix = "sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/refs/heads/main/install.sh)";
       cdnix = "cd ~/nix-config/";
       codenix = "code ~/nix-config/";
@@ -50,37 +51,6 @@
             ssh root@192.168.1.$1
         else
             echo "Usage: prox <last octet of remote machine ip>"
-        fi
-      }
-
-      function nrs() {
-        CONFIG_DIR="$HOME/nix-config"
-        GIT_REMOTE="origin"
-        GIT_BRANCH="main"
-
-        if [ -z "$1" ]; then
-          echo "Usage: nrs \"commit message\""
-          return 1
-        fi
-
-        COMMIT_MSG="$1"
-
-        cd "$CONFIG_DIR" || { echo "Config dir not found!"; return 1; }
-
-        sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$CONFIG_DIR/" /etc/nixos/
-
-        sudo nixos-rebuild switch --profile-name "$COMMIT_MSG"
-        
-        if [ $? -eq 0 ]; then
-          hyprshade on extravibrance
-          git add .
-          git commit -m "$COMMIT_MSG"
-          git push "$GIT_REMOTE" "$GIT_BRANCH"
-          echo "NixOS rebuild and config push successful!"
-        else
-          hyprshade on extravibrance
-          echo "NixOS rebuild failed; not pushing to GitHub."
-          return 1
         fi
       }
     '';
