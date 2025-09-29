@@ -3,6 +3,6 @@
 {
   imports =
     [
-      ./pc.nix
+      ./laptop.nix
     ];
 }
