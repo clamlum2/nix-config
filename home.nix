@@ -14,7 +14,6 @@
     ./imports/kitty.nix
     ./imports/hyprland.nix
     ./imports/cursor.nix
-    ./imports/hyprshade.nix
     ./imports/kvantum.nix
     ./imports/wofi.nix
     ./imports/hyprlock.nix
