@@ -8,12 +8,13 @@
 
   # Import the Zsh config
   imports = [ 
+    ./imports/device-home.nix
+
     ./imports/zsh.nix
     ./imports/kitty.nix
     ./imports/hyprland.nix
     ./imports/cursor.nix
     ./imports/hyprshade.nix
-    ./imports/hyprpanel.nix # need to actually add config through nix
     ./imports/kvantum.nix
     ./imports/wofi.nix
     ./imports/hyprlock.nix
