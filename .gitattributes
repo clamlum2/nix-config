@@ -1,0 +1,2 @@
+device.nix merge=ours
+device-home.nix merge=ours
