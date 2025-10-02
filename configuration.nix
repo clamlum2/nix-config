@@ -8,6 +8,7 @@ let
   home-manager = builtins.fetchTarball {
     url = "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
   };
+  nixpkgs-unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") { config = { allowUnfree = true; }; };
 in
 
 {
@@ -97,7 +98,7 @@ in
     pkgs.pwvucontrol
     pkgs.easyeffects
     pkgs.curl
-    pkgs.spotify
+    nixpkgs-unstable.spotify
     pkgs.p7zip
     pkgs.kdePackages.qtstyleplugin-kvantum
     pkgs.libsForQt5.qtstyleplugin-kvantum
