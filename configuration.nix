@@ -122,6 +122,7 @@ in
     pkgs.dysk
     pkgs.hyprlock
     pkgs.qbittorrent
+    pkgs.wezterm
 
 #    (pkgs.stdenv.mkDerivation {
 #      name = "sddm-sequoia-theme";
