@@ -195,6 +195,8 @@
         bind = $mainMod, F, fullscreen
         bind = $mainMod SHIFT, S, exec, grim -g "$(slurp -d)" - | wl-copy
 
+        bindl=,switch:Lid Switch, exec, hyprlock
+
         windowrule = suppressevent maximize, class:.*
 
         windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
