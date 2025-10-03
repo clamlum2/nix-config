@@ -9,13 +9,13 @@ if [ -d "$CONFIG_DIR/.git" ]; then
     echo "On branch: $CURRENT_BRANCH"
     git pull origin "$CURRENT_BRANCH"
     sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$CONFIG_DIR/" /etc/nixos/
-    sudo nixos-rebuild switch --profile-name "config updated ($CURRENT_BRANCH)"
+    sudo nixos-rebuild switch
     hyprshade on extravibrance
 else
     echo "Repo not found. Cloning branch '$BRANCH' to $CONFIG_DIR..."
     git clone --branch "$BRANCH" "$REPO_URL" "$CONFIG_DIR"
     cd "$CONFIG_DIR" || { echo "Failed to cd to $CONFIG_DIR"; exit 1; }
     sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$CONFIG_DIR/" /etc/nixos/
-    sudo nixos-rebuild switch --profile-name "config installed ($BRANCH)"
+    sudo nixos-rebuild switch
     hyprshade on extravibrance
 fi
