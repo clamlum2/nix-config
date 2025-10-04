@@ -86,7 +86,6 @@ in
     pkgs.zsh  
     pkgs.git
     pkgs.fastfetch
-    pkgs.vscode
     pkgs.google-chrome
     pkgs.wofi
     pkgs.kdePackages.dolphin
@@ -98,7 +97,6 @@ in
     pkgs.pwvucontrol
     pkgs.easyeffects
     pkgs.curl
-    nixpkgs-unstable.spotify
     pkgs.p7zip
     pkgs.kdePackages.qtstyleplugin-kvantum
     pkgs.libsForQt5.qtstyleplugin-kvantum
@@ -123,6 +121,9 @@ in
     pkgs.hyprlock
     pkgs.qbittorrent
     pkgs.wezterm
+
+    nixpkgs-unstable.spotify
+    nixpkgs-unstable.vscode
 
 #    (pkgs.stdenv.mkDerivation {
 #      name = "sddm-sequoia-theme";
