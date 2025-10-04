@@ -1,21 +1,39 @@
+set -e
+
 REPO_URL="https://github.com/clamlum2/nix-config.git"
 CONFIG_DIR="$HOME/nix-config"
-BRANCH="${1:-main}"
+
+sudo echo
+
+if [ -z "$1" ]; then
+    if [ -d "$CONFIG_DIR/.git" ]; then
+        BRANCH=$(git -C "$CONFIG_DIR" rev-parse --abbrev-ref HEAD)
+    else
+        BRANCH="main"
+    fi
+else
+    BRANCH="$1"
+fi
+
+echo
+echo "Using branch: $BRANCH"
+echo
 
 if [ -d "$CONFIG_DIR/.git" ]; then
-    echo "Repo found at $CONFIG_DIR. Updating..."
-    cd "$CONFIG_DIR" || { echo "Failed to cd to $CONFIG_DIR"; exit 1; }
+    echo "Repo found at $CONFIG_DIR, pulling changes..."
+    cd "$CONFIG_DIR"
     CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    echo "On branch: $CURRENT_BRANCH"
-    git pull origin "$CURRENT_BRANCH"
-    sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$CONFIG_DIR/" /etc/nixos/
-    sudo nixos-rebuild switch
-    hyprshade on extravibrance
+    if [ "$CURRENT_BRANCH" != "$BRANCH" ]; then
+        echo "Current branch ($CURRENT_BRANCH) is different from target branch ($BRANCH)."
+        git checkout "$BRANCH"
+    fi
+    git pull --rebase origin "$BRANCH"
+    sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' --exclude='update.sh' "$CONFIG_DIR/" /etc/nixos/
+    sudo nixos-rebuild switch --upgrade
 else
-    echo "Repo not found. Cloning branch '$BRANCH' to $CONFIG_DIR..."
+    echo "Repo not found, cloning to $CONFIG_DIR..."
     git clone --branch "$BRANCH" "$REPO_URL" "$CONFIG_DIR"
-    cd "$CONFIG_DIR" || { echo "Failed to cd to $CONFIG_DIR"; exit 1; }
-    sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$CONFIG_DIR/" /etc/nixos/
-    sudo nixos-rebuild switch
-    hyprshade on extravibrance
+    cd "$CONFIG_DIR"
+    sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' --exclude='update.sh' "$CONFIG_DIR/" /etc/nixos/
+    sudo nixos-rebuild switch --upgrade
 fi
