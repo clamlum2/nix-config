@@ -121,6 +121,7 @@ in
     pkgs.hyprlock
     pkgs.qbittorrent
     pkgs.wezterm
+    pkgs.mpv
 
     nixpkgs-unstable.spotify
     nixpkgs-unstable.vscode
