@@ -26,29 +26,29 @@
         foreground = "#FFFFFF",
         cursor_border = "#FFFFFF",
         cursor_bg = "#FFFFFF",
-        tab_bar = {
-            background = "#0d1520",
-            active_tab = {
-            bg_color = "#0d1520",
-            fg_color = "#FFFFFF",
-            intensity = "Normal",
-            underline = "None",
-            italic = false,
-            strikethrough = false,
+            tab_bar = {
+                background = "#0d1520",
+                active_tab = {
+                    bg_color = "#0d1520",
+                    fg_color = "#FFFFFF",
+                    intensity = "Normal",
+                    underline = "None",
+                    italic = false,
+                    strikethrough = false,
+                },
+                inactive_tab = {
+                    bg_color = "#0d1520",
+                    fg_color = "#FFFFFF",
+                    intensity = "Normal",
+                    underline = "None",
+                    italic = false,
+                    strikethrough = false,
+                },
+                new_tab = {
+                    bg_color = "#0d1520",
+                    fg_color = "#FFFFFF",
+                },
             },
-            inactive_tab = {
-            bg_color = "#0d1520",
-            fg_color = "#FFFFFF",
-            intensity = "Normal",
-            underline = "None",
-            italic = false,
-            strikethrough = false,
-            },
-            new_tab = {
-            bg_color = "#0d1520",
-            fg_color = "#FFFFFF",
-            },
-        },
         }
 
         -- and finally, return the configuration to wezterm
