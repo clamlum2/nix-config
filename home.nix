@@ -11,7 +11,7 @@
     ./imports/device-home.nix
 
     ./imports/zsh.nix
-    ./imports/kitty.nix
+    ./imports/wezterm.nix
     ./imports/hyprland.nix
     ./imports/cursor.nix
     ./imports/kvantum.nix

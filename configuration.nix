@@ -82,8 +82,7 @@ in
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     pkgs.kitty  
-    pkgs.hyprland
-    pkgs.zsh  
+    pkgs.hyprland 
     pkgs.git
     pkgs.fastfetch
     pkgs.google-chrome
@@ -122,6 +121,7 @@ in
     pkgs.qbittorrent
     pkgs.wezterm
     pkgs.mpv
+    pkgs.oh-my-zsh
 
     nixpkgs-unstable.spotify
     nixpkgs-unstable.vscode

@@ -1,62 +1,57 @@
 { config, pkgs, lib, ... }:
 
 {
-  programs.zsh = {
-    enable = true;
+  home.packages = with pkgs; [
+    zsh
+    oh-my-zsh
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+  ];
 
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" "colorize" ];
-      theme = "custom";
-    };
 
-    shellAliases = {
-      nrt = "sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild test && hyprshade on extravibrance";
-      nrs = "sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild switch && hyprshade on extravibrance";
-      updatenix = "sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/refs/heads/main/install.sh)";
-      cdnix = "cd ~/nix-config/";
-      codenix = "code ~/nix-config/";
-    };
+  home.file.".zshrc".text = ''
 
-    history.size = 10000;
+    export ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"
+    ZSH_THEME="custom"
 
-    zplug = {
-      enable = true;
-      plugins = [
-        { name = "zsh-users/zsh-autosuggestions"; }
-        { name = "zsh-users/zsh-syntax-highlighting"; }
-      ];
-    };
+    source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-    initContent = lib.mkOrder 550 ''
-      export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
-      if [[ "$TERM" != "xterm-kitty" ]]; then
-        fastfetch --config "/etc/nixos/resources/fastfetch/ssh.jsonc"
+
+    plugins=(git)
+    source $ZSH/oh-my-zsh.sh
+
+    alias nrt="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild test && hyprshade on extravibrance";
+    alias nrs="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild switch && hyprshade on extravibrance";
+    alias updatenix="sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/refs/heads/main/install.sh)";
+    alias cdnix="cd ~/nix-config/";
+    alias codenix="code ~/nix-config/";
+
+    function sshkey() {
+      if [[ -n $SSH_CONNECTION ]]; then
+          echo "Not running copy command over SSH."
+          cat ~/.ssh/id_ed25519.pub
       else
-        fastfetch --config "/etc/nixos/resources/fastfetch/groups.jsonc"
+          cat ~/.ssh/id_ed25519.pub | wl-copy
+          echo "Public key copied to clipboard."
       fi
+    }
+  
+    function prox() {
+      if [[ -n $1 ]]; then
+          ssh root@192.168.1.$1
+      else
+          echo "Usage: prox <last octet of remote machine ip>"
+      fi
+    }
 
-      function sshkey() {
-        if [[ -n $SSH_CONNECTION ]]; then
-            echo "Not running copy command over SSH."
-            cat ~/.ssh/id_ed25519.pub
-        else
-            cat ~/.ssh/id_ed25519.pub | wl-copy
-            echo "Public key copied to clipboard."
-        fi
-      }
-    
-      function prox() {
-        if [[ -n $1 ]]; then
-            ssh root@192.168.1.$1
-        else
-            echo "Usage: prox <last octet of remote machine ip>"
-        fi
-      }
-    '';
-  };
+    if [[ "$TERM" != "xterm-256color" ]]; then
+      fastfetch --config "/etc/nixos/resources/fastfetch/ssh.jsonc"
+    else
+      fastfetch --config "/etc/nixos/resources/fastfetch/groups.jsonc"
+    fi
+  '';
 
-  # Custom theme file
   home.file.".oh-my-zsh/custom/themes/custom.zsh-theme".text = ''
     PROMPT="%F{cyan}%n@%f"
     PROMPT+="%{$fg[blue]%}%M "
