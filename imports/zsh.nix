@@ -58,9 +58,10 @@
     PROMPT+="%{$fg[cyan]%}%~%  "
     PROMPT+="%(?:%{$fg[green]%}%1{➜%} :%{$fg[red]%}%1{➜%} )%{$reset_color%}"
 
-    ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[blue]%}git:(%{$fg[red]%}"
-    ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-    ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}%1{✗%}"
-    ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+    ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[cyan]%}git:(%{$fg[blue]%}"
+    ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} $(git_prompt_ahead) "
+    ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[cyan]%}) %{$fg[yellow]%}%1{✗%}"
+    ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[cyan]%})"
+    RPROMPT='$(git_prompt_info)$(git_prompt_ahead)'
   '';
 }
