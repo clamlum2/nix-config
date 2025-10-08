@@ -34,7 +34,7 @@ in
   #boot.loader.grub.useOSProber = true;
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_6_16;
+  boot.kernelPackages = pkgs.linuxPackages;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
