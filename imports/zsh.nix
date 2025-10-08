@@ -11,8 +11,9 @@
 
   home.file.".zshrc".text = ''
 
-    export ZSH="$HOME/.oh-my-zsh"
+    export ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"
     ZSH_THEME="custom"
+    source ~/.oh-my-zsh/custom/themes/custom.zsh-theme
 
     source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
