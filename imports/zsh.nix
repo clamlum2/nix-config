@@ -45,7 +45,7 @@
       fi
     }
 
-     if [[ "$TERM" != "xterm-256color" ]]; then
+    if [[ -n "$SSH_CONNECTION" ]]; then
       fastfetch --config "/etc/nixos/resources/fastfetch/ssh.jsonc"
     else
       fastfetch --config "/etc/nixos/resources/fastfetch/groups.jsonc"
