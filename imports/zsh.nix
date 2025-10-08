@@ -45,24 +45,12 @@
       fi
     }
 
-    if [[ "$TERM" != "xterm-256color" ]]; then
-      fastfetch --config "/etc/nixos/resources/fastfetch/ssh.jsonc"
-    else
-      fastfetch --config "/etc/nixos/resources/fastfetch/groups.jsonc"
-    fi
+    # if [[ "$TERM" != "xterm-256color" ]]; then
+    #   fastfetch --config "/etc/nixos/resources/fastfetch/ssh.jsonc"
+    # else
+    #   fastfetch --config "/etc/nixos/resources/fastfetch/groups.jsonc"
+    # fi
   '';
 
-  home.file.".oh-my-zsh/custom/themes/custom.zsh-theme".text = ''
-    PROMPT="%F{cyan}%n@%f"
-    PROMPT+="%{$fg[blue]%}%M "
-    PROMPT+="%{$fg[cyan]%}%~%  "
-    PROMPT+="%(?:%{$fg[green]%}%1{➜%} :%{$fg[red]%}%1{➜%} )%{$reset_color%}"
 
-    RPROMPT='$(git_prompt_info)'
-
-    ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[cyan]%}git:(%{$fg[blue]%}"
-    ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-    ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[cyan]%}) %{$fg[yellow]%}%1{✗%}"
-    ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[cyan]%})"
-  '';
 }
