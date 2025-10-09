@@ -3,7 +3,7 @@
 {
   imports =
     [
-      ./hyprpanel-pc.nix
+      ./hyprpanel-laptop.nix
       ./hyprshade.nix
     ];
 }
