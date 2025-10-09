@@ -122,8 +122,6 @@ in
     pkgs.wezterm
     pkgs.mpv
     pkgs.oh-my-zsh
-    pkgs.wine
-    pkgs.wine64
 
     nixpkgs-unstable.spotify
     nixpkgs-unstable.vscode
