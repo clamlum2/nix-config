@@ -68,5 +68,11 @@
     package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
-  services.sunshine.enable = true;
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+
+  };
 }
