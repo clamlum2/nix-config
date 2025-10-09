@@ -113,6 +113,7 @@ in
     pkgs.wezterm
     pkgs.mpv
     pkgs.oh-my-zsh
+    pkgs.kdePackages.ark
 
     nixpkgs-unstable.spotify
     nixpkgs-unstable.vscode
