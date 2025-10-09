@@ -115,6 +115,8 @@ in
     pkgs.oh-my-zsh
     pkgs.kdePackages.ark
 
+
+    nixpkgs-unstable.ghostty
     nixpkgs-unstable.spotify
     nixpkgs-unstable.vscode
   ];

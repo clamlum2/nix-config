@@ -15,7 +15,7 @@
         monitor=DP-1,2560x1440@165,1920x0,1
         monitor=DP-2,1920x1080@300,0x260,1
 
-        $terminal = wezterm
+        $terminal = ghostty
         $fileManager = dolphin
         $menu = wofi --show drun
 

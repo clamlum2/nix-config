@@ -18,6 +18,7 @@
     ./imports/wofi.nix
     ./imports/hyprlock.nix
     ./imports/ssh.nix
+    ./imports/ghostty.nix
 
     # need to add proper fastfetch config
   ];
