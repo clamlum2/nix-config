@@ -8,7 +8,6 @@
     pkgs.lutris
     pkgs.wine
     pkgs.wine64
-    pkgs.sunshine
   ];
 
   programs.steam = {
@@ -68,5 +67,12 @@
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.beta;
+  };
+
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
   };
 }
