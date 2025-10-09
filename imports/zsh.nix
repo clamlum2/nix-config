@@ -25,6 +25,7 @@
     alias updatenix="sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/refs/heads/main/install.sh)";
     alias cdnix="cd ~/nix-config/";
     alias codenix="code ~/nix-config/";
+    alias ls="lsd --group-directories-first -A"
 
     function sshkey() {
       if [[ -n $SSH_CONNECTION ]]; then

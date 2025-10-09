@@ -114,6 +114,7 @@ in
     pkgs.mpv
     pkgs.oh-my-zsh
     pkgs.kdePackages.ark
+    pkgs.lsd
 
 
     nixpkgs-unstable.ghostty
