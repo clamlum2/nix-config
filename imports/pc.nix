@@ -4,7 +4,6 @@
   networking.hostName = "nixos";
 
   environment.systemPackages = with pkgs; [
-    pkgs.sunshine
     pkgs.protonup-qt
     pkgs.lutris
     pkgs.wine
@@ -68,4 +67,6 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
+
+  services.sunshine.enable = true;
 }
