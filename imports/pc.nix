@@ -8,6 +8,8 @@
     pkgs.lutris
     pkgs.wine
     pkgs.wine64
+    pkgs.prism
+    prism.launcher
   ];
 
   programs.steam = {
