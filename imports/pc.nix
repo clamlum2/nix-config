@@ -9,7 +9,7 @@
     pkgs.wine
     pkgs.wine64
     pkgs.prism
-    prism.launcher
+    pkgs.prismLauncher
   ];
 
   programs.steam = {
