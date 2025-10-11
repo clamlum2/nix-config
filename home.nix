@@ -8,7 +8,8 @@
 
   # Import the Zsh config
   imports = [ 
-    ./imports/device-home.nix
+    ./imports/hyprpanel-pc.nix
+    ./imports/hyprshade.nix
 
     ./imports/zsh.nix
     ./imports/wezterm.nix
