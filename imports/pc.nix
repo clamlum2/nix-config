@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 
+let
+  nixpkgs-unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") { config = { allowUnfree = true; }; };
+in
+
 {
   networking.hostName = "nixos";
 
@@ -8,7 +12,6 @@
     pkgs.lutris
     pkgs.wine
     pkgs.wine64
-    pkgs.prism
     pkgs.prismlauncher
   ];
 
