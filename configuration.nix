@@ -13,9 +13,7 @@ in
       ./hardware-configuration.nix
       (import "${home-manager}/nixos")
 
-      ./imports/pc.nix
-
-      ./imports/device.nix
+      ./imports/laptop.nix
     ];
 
   home-manager.useUserPackages = true;
