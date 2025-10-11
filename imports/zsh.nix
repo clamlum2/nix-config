@@ -15,6 +15,9 @@ in
     zsh-autosuggestions
     zsh-syntax-highlighting
     zsh-you-should-use
+
+    lsd
+    bat
   ];
 
 
