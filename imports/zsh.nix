@@ -1,11 +1,20 @@
 { config, pkgs, lib, ... }:
 
+let
+  zsh-shift-select = pkgs.fetchFromGitHub {
+    owner = "jirutka";
+    repo = "zsh-shift-select";
+    rev = "master";
+    sha256 = "sha256-ekA8acUgNT/t2SjSBGJs2Oko5EB7MvVUccC6uuTI/vc=";
+  };
+in
 {
   home.packages = with pkgs; [
     zsh
     oh-my-zsh
     zsh-autosuggestions
     zsh-syntax-highlighting
+    zsh-you-should-use
   ];
 
 
@@ -15,7 +24,8 @@
 
     source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+    source ${zsh-shift-select}/zsh-shift-select.plugin.zsh
+    source ${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh
 
     plugins=(git)
     source $ZSH/oh-my-zsh.sh
@@ -26,6 +36,7 @@
     alias cdnix="cd ~/nix-config/";
     alias codenix="code ~/nix-config/";
     alias ls="lsd --group-directories-first -A"
+    alias cat="bat -p"
 
     function sshkey() {
       if [[ -n $SSH_CONNECTION ]]; then

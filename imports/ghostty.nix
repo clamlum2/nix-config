@@ -2,12 +2,20 @@
 
 {
     home.file.".config/ghostty/config".text = ''
-        custom-shader = cursor.glsl 
         background = #0d1520
         background-opacity = 0.8
         font-family = DejaVuSansMono
         font-size = 11
-        theme = Builtin Tango Dark
+        theme = Kitty Default
+        custom-shader-animation = always
+        custom-shader = cursor.glsl 
+        selection-foreground = cell-background
+        selection-background = cell-foreground
+        selection-clear-on-typing = true
+        cursor-color = #ffffff
+        foreground = #ffffff
+        cursor-click-to-move = true
+        
     '';
 
     home.file.".config/ghostty/cursor.glsl".text = ''
@@ -123,6 +131,5 @@
             newColor = mix(newColor, fragColor, step(sdfCurrentCursor, 0.));
             fragColor = mix(fragColor, newColor, step(sdfCurrentCursor, easedProgress * lineLength));
         }
-
     '';
 }

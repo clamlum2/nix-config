@@ -115,7 +115,7 @@ in
     pkgs.oh-my-zsh
     pkgs.kdePackages.ark
     pkgs.lsd
-    pkgs.obs-studio
+    pkgs.obs-studio 
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.spotify
