@@ -107,7 +107,6 @@ in
     pkgs.kdePackages.kservice
     pkgs.libxcvt
     pkgs.alsa-utils 
-    pkgs.bat
     pkgs.dysk
     pkgs.hyprlock
     pkgs.qbittorrent
@@ -115,7 +114,6 @@ in
     pkgs.mpv
     pkgs.oh-my-zsh
     pkgs.kdePackages.ark
-    pkgs.lsd
     pkgs.obs-studio 
 
     nixpkgs-unstable.ghostty
