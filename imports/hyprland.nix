@@ -125,6 +125,8 @@
             touchpad {
                 natural_scroll = false
             }
+
+            kb_options = caps:none
         }
 
         device {
