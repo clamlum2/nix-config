@@ -530,7 +530,7 @@
             "menus.clock.weather.unit": "metric",
             "menus.clock.weather.key": "003bd2c5c54b48d2a28154312250108",
             "theme.osd.enable": true,
-            "bar.launcher.autoDetectIcon": true
+            "bar.launcher.autoDetectIcon": true,
             "theme.dashboard.scaling": 85
         }
     '';
