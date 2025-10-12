@@ -119,6 +119,7 @@ in
     pkgs.obs-studio
     pkgs.remmina
     pkgs.gnome-themes-extra
+    pkgs.jq
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.spotify

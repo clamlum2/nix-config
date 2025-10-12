@@ -15,13 +15,15 @@
         monitor=DP-1,2560x1440@165,1920x0,1
         monitor=DP-2,1920x1080@300,0x260,1
 
+        workspace = 1, monitor:DP-2, persistent:true, default:true
+        workspace = 2, monitor:DP-1, persistent:true
+
         $terminal = ghostty
         $fileManager = dolphin
         $menu = wofi --show drun
 
         exec-once = hyprpaper -c /etc/nixos/resources/wallpapers/hyprpaper.conf
         exec-once = hyprshade on extravibrance
-	    exec-once = easyeffects
         exec-once = hyprpanel
         exec-once = kbuildsycoca6
 
@@ -196,12 +198,16 @@
         bind = $mainMod, L, exec, hyprlock
         bind = $mainMod, F, fullscreen
         bind = $mainMod SHIFT, S, exec, grim -g "$(slurp -d)" - | wl-copy
+        bind = $mainMod, S, exec, grim -o $(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | .name') - | wl-copy
 
         bindl=,switch:Lid Switch, exec, hyprlock
 
         windowrule = suppressevent maximize, class:.*
 
         windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
+
+        windowrule = workspace 10, class:com.github.wwmm.easyeffects
+        exec-once = easyeffects
+        exec-once = hyprctl dispatch workspace 1
     '';
 }
-
