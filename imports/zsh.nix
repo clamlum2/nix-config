@@ -18,6 +18,7 @@ in
 
     lsd
     bat
+    zoxide
   ];
 
 
@@ -33,13 +34,14 @@ in
     plugins=(git)
     source $ZSH/oh-my-zsh.sh
 
-    alias nrt="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild test && hyprshade on extravibrance";
-    alias nrs="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild switch && hyprshade on extravibrance";
-    alias updatenix="sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/refs/heads/main/install.sh)";
-    alias cdnix="cd ~/nix-config/";
-    alias codenix="code ~/nix-config/";
+    alias nrt="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild test && hyprshade on extravibrance"
+    alias nrs="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild switch && hyprshade on extravibrance"
+    alias updatenix="sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/refs/heads/main/install.sh)"
+    alias cdnix="cd ~/nix-config/"
+    alias codenix="code ~/nix-config/"
     alias ls="lsd --group-directories-first -A"
     alias cat="bat -p"
+    alias cd="z"
 
     function sshkey() {
       if [[ -n $SSH_CONNECTION ]]; then
@@ -66,6 +68,8 @@ in
     fi
 
     source ~/.oh-my-zsh/custom/themes/custom.zsh-theme
+
+    eval "$(zoxide init zsh)"
   '';
 
   home.file.".oh-my-zsh/custom/themes/custom.zsh-theme".text = ''
