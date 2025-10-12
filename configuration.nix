@@ -118,6 +118,7 @@ in
     pkgs.kdePackages.ark
     pkgs.obs-studio
     pkgs.remmina
+    pkgs.gnome-themes-extra
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.spotify

@@ -40,4 +40,12 @@
     name = "Adwaita";
     package = pkgs.adwaita-icon-theme;
   };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+  };
 }
