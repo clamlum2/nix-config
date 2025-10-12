@@ -60,9 +60,9 @@ in
     }
 
     if [[ -n "$SSH_CONNECTION" ]]; then
-      fastfetch --config "/etc/nixos/resources/fastfetch/ssh.jsonc"
+      fastfetch -c ~/.config/fastfetch/ssh
     else
-      fastfetch --config "/etc/nixos/resources/fastfetch/groups.jsonc"
+      fastfetch -c ~/.config/fastfetch/groups
     fi
 
     source ~/.oh-my-zsh/custom/themes/custom.zsh-theme
@@ -81,4 +81,7 @@ in
     ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[cyan]%}) %{$fg[yellow]%}%1{✗%}"
     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[cyan]%})"
   '';
+
+  home.file.".config/fastfetch/groups.jsonc".source = ../resources/fastfetch/groups.jsonc;
+  home.file.".config/fastfetch/ssh.jsonc".source = ../resources/fastfetch/ssh.jsonc;
 }
