@@ -10,7 +10,7 @@
     recursive = true;
   };
 
-  xdg.configFile."Kvantum/kvantum.kconfig".text = ''
+  xdg.configFile."Kvantum/kvantum.kvconfig".text = ''
     [General]
     theme=Amy-Dark-Kvantum
   '';
