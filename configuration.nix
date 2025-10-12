@@ -76,8 +76,8 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    pkgs.kitty  
-    pkgs.hyprland 
+    pkgs.kitty
+    pkgs.hyprland
     pkgs.git
     pkgs.fastfetch
     pkgs.google-chrome
@@ -108,7 +108,7 @@ in
     pkgs.xdgmenumaker
     pkgs.kdePackages.kservice
     pkgs.libxcvt
-    pkgs.alsa-utils 
+    pkgs.alsa-utils
     pkgs.dysk
     pkgs.hyprlock
     pkgs.qbittorrent
@@ -116,7 +116,8 @@ in
     pkgs.mpv
     pkgs.oh-my-zsh
     pkgs.kdePackages.ark
-    pkgs.obs-studio 
+    pkgs.obs-studio
+    pkgs.remmina
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.spotify
