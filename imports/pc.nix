@@ -5,6 +5,8 @@ let
 in
 
 {
+  imports = [ ./secureboot.nix ];
+
   networking.hostName = "nixos";
 
   environment.systemPackages = with pkgs; [
@@ -13,6 +15,7 @@ in
     pkgs.wine
     pkgs.wine64
     pkgs.prismlauncher
+    pkgs.niv
   ];
 
   programs.steam = {
