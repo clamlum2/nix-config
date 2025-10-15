@@ -14,8 +14,6 @@ in
       (import "${home-manager}/nixos")
 
       ./imports/pc.nix
-
-      ./imports/device.nix
     ];
 
   home-manager.useUserPackages = true;
@@ -120,6 +118,7 @@ in
     pkgs.remmina
     pkgs.gnome-themes-extra
     pkgs.jq
+    pkgs.steam-run
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.spotify
@@ -200,4 +199,11 @@ in
   environment.etc."/xdg/menus/applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
 
   services.udisks2.enable = true;
+
+  nix = {
+    package = pkgs.nix;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 }
