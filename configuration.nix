@@ -119,6 +119,7 @@ in
     pkgs.gnome-themes-extra
     pkgs.jq
     pkgs.steam-run
+    pkgs.btop
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.spotify
