@@ -120,6 +120,9 @@ in
     pkgs.jq
     pkgs.steam-run
     pkgs.btop
+    pkgs.slack
+    pkgs.fuse
+    pkgs.appimage-run
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.spotify
@@ -206,4 +209,6 @@ in
       experimental-features = nix-command flakes
     '';
   };
+
+  services.gvfs.enable = true;
 }
