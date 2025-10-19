@@ -184,12 +184,12 @@ in
 
   services.pipewire = {
     enable = true;
-    extraConfig = {
-      "pipewire" = {
-        "default.clock.rate" = 48000;
-        "default.clock.quantum" = 1024;
-      };
-    };
+    # extraConfig = {
+    #   "pipewire" = {
+    #     "default.clock.rate" = 48000;
+    #     "default.clock.quantum" = 1024;
+    #   };
+    # };
   };
 
   fonts.packages = [
