@@ -21,6 +21,7 @@
         $terminal = ghostty
         $fileManager = dolphin
         $menu = wofi --show drun
+        $browser = helium-browser
 
         exec-once = hyprpaper -c /etc/nixos/resources/wallpapers/hyprpaper.conf
         exec-once = hyprshade on extravibrance
@@ -192,7 +193,7 @@
         bindl = , XF86AudioPlay, exec, playerctl play-pause
         bindl = , XF86AudioPrev, exec, playerctl previous
 
-        bind = $mainMod, C, exec, google-chrome-stable
+        bind = $mainMod, C, exec, $browser
         bind = $mainMod, TAB, exec, pidof gjs | xargs kill || hyprpanel
         bind = , KP_SUBTRACT, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
         bind = $mainMod, L, exec, hyprlock

@@ -127,6 +127,8 @@ in
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.spotify
     nixpkgs-unstable.vscode
+
+    (import ./imports/helium.nix { inherit pkgs; icon = ./resources/icons/helium.png; })
   ];
 
   # Enable the OpenSSH daemon.
