@@ -201,8 +201,8 @@
         bind = $mainMod SHIFT, S, exec, grim -g "$(slurp -d)" - | wl-copy
         bind = $mainMod, S, exec, grim -o $(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | .name') - | wl-copy
 
-        bind = CTRL, LEFT, exec, /etc/nixos/resources/spotify.sh prev
-        bind = CTRL, RIGHT, exec, /etc/nixos/resources/spotify.sh next
+        bind = $mainMod CTRL, LEFT, exec, playerctl previous
+        bind = $mainMod CTRL, RIGHT, exec, playerctl next
 
         bindl=,switch:Lid Switch, exec, hyprlock
 
