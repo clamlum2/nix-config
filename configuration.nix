@@ -123,6 +123,7 @@ in
     pkgs.slack
     pkgs.fuse
     pkgs.appimage-run
+    pkgs.nix-prefetch-git
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.spotify
