@@ -532,7 +532,8 @@
             "theme.osd.enable": true,
             "bar.launcher.autoDetectIcon": true,
             "theme.dashboard.scaling": 85,
-            "theme.bar.menus.menu.media.card.tint": 50
+            "theme.bar.menus.menu.media.card.tint": 50,
+            "menus.volume.raiseMaximumVolume": true
         }
     '';
 }

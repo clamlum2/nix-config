@@ -546,7 +546,8 @@
             "menus.clock.weather.key": "003bd2c5c54b48d2a28154312250108",
             "theme.osd.enable": true,
             "bar.launcher.autoDetectIcon": true,
-            "theme.bar.menus.menu.media.card.tint": 50
+            "theme.bar.menus.menu.media.card.tint": 50,
+            "menus.volume.raiseMaximumVolume": true
         }
     '';
 }

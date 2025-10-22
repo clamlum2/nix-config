@@ -203,6 +203,7 @@
 
         bind = $mainMod CTRL, LEFT, exec, playerctl previous
         bind = $mainMod CTRL, RIGHT, exec, playerctl next
+        bind = $mainMod CTRL, SPACE, exec, playerctl play-pause
 
         bindl=,switch:Lid Switch, exec, hyprlock
 

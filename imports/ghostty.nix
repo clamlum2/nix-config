@@ -15,6 +15,17 @@
         cursor-color = #ffffff
         foreground = #ffffff
         cursor-click-to-move = true
+        focus-follows-mouse = false
+
+        keybind = alt+arrow_down=goto_split:down
+        keybind = alt+arrow_up=goto_split:up
+        keybind = alt+arrow_left=goto_split:left
+        keybind = alt+arrow_right=goto_split:right
+
+        keybind = ctrl+alt+arrow_down=new_split:down
+        keybind = ctrl+alt+arrow_up=new_split:up
+        keybind = ctrl+alt+arrow_left=new_split:left
+        keybind = ctrl+alt+arrow_right=new_split:right
         
     '';
 
