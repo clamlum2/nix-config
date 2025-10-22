@@ -14,6 +14,9 @@ in
       (import "${home-manager}/nixos")
 
       ./imports/pc.nix
+
+      ./imports/nix-ld.nix
+      ./imports/spotify.nix
     ];
 
   home-manager.useUserPackages = true;
@@ -124,9 +127,9 @@ in
     pkgs.fuse
     pkgs.appimage-run
     pkgs.nix-prefetch-git
+    pkgs.unzip
 
     nixpkgs-unstable.ghostty
-    nixpkgs-unstable.spotify
     nixpkgs-unstable.vscode
 
     (import ./imports/helium.nix { inherit pkgs; icon = ./resources/icons/helium.png; })

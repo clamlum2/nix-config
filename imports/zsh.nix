@@ -42,6 +42,7 @@ in
     alias ls="lsd --group-directories-first -A"
     alias cat="bat -p"
     alias cd="z"
+    alias spotifyinstall="sh /etc/nixos/resources/spotify.sh"
 
     function sshkey() {
       if [[ -n $SSH_CONNECTION ]]; then
@@ -70,6 +71,8 @@ in
     source ~/.oh-my-zsh/custom/themes/custom.zsh-theme
 
     eval "$(zoxide init zsh)"
+
+    export PATH="$HOME/.spicetify:$PATH"
   '';
 
   home.file.".oh-my-zsh/custom/themes/custom.zsh-theme".text = ''
