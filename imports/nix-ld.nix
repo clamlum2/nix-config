@@ -28,6 +28,7 @@
         expat
         xorg.libxcb
         libxkbcommon
+        ffmpeg_4
     ];
   };
 }
