@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-    home.packages = [ pkgs.ghostty ];
-
     home.file.".config/ghostty/config".text = ''
         background = #0d1520
         background-opacity = 0.8
