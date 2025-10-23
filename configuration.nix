@@ -16,7 +16,6 @@ in
       ./imports/pc.nix
 
       ./imports/nix-ld.nix
-      ./imports/spotify.nix
     ];
 
   home-manager.useUserPackages = true;
