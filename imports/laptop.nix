@@ -3,7 +3,7 @@
 {  
   networking.hostName = "laptop";
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     pkgs.linuxKernel.packages.linux_6_12.broadcom_sta
     pkgs.upower
   ];

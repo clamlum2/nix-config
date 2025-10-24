@@ -9,7 +9,7 @@ in
 
   networking.hostName = "nixos";
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     pkgs.protonup-qt
     pkgs.lutris
     pkgs.wine

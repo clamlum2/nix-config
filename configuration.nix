@@ -67,7 +67,7 @@ in
     isNormalUser = true;
     description = "clam";
     extraGroups = [ "networkmanager" "wheel" "video" "render" "input" ];
-    packages = with pkgs; [];
+    packages = [];
   };
 
   # Allow unfree packages
@@ -75,7 +75,7 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     pkgs.kitty
     pkgs.hyprland
     pkgs.git
@@ -127,6 +127,8 @@ in
     pkgs.appimage-run
     pkgs.nix-prefetch-git
     pkgs.unzip
+
+    pkgs.furmark
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.vscode

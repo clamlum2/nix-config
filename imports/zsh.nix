@@ -9,16 +9,16 @@ let
   };
 in
 {
-  home.packages = with pkgs; [
-    zsh
-    oh-my-zsh
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    zsh-you-should-use
+  home.packages = [
+    pkgs.zsh
+    pkgs.oh-my-zsh
+    pkgs.zsh-autosuggestions
+    pkgs.zsh-syntax-highlighting
+    pkgs.zsh-you-should-use
 
-    lsd
-    bat
-    zoxide
+    pkgs.lsd
+    pkgs.bat
+    pkgs.zoxide
   ];
 
 

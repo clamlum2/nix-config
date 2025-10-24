@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    kdePackages.breeze
+  home.packages = [
+    pkgs.kdePackages.breeze
   ];
 
   home.pointerCursor = {

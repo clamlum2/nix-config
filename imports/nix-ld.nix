@@ -3,32 +3,32 @@
 {
   programs.nix-ld = {
     enable = true;
-    libraries = with pkgs; [
-        libayatana-appindicator
-        libdbusmenu
-        pango
-        harfbuzz
-        cairo
-        glib
-        xorg.libX11
-        alsa-lib
-        gtk3
-        atk
-        gdk-pixbuf
-        nss
-        nspr
-        dbus
-        cups
-        xorg.libXcomposite
-        xorg.libXdamage
-        xorg.libXext
-        xorg.libXfixes
-        xorg.libXrandr
-        libgbm
-        expat
-        xorg.libxcb
-        libxkbcommon
-        ffmpeg_4
+    libraries =  [
+        pkgs.libayatana-appindicator
+        pkgs.libdbusmenu
+        pkgs.pango
+        pkgs.harfbuzz
+        pkgs.cairo
+        pkgs.glib
+        pkgs.xorg.libX11
+        pkgs.alsa-lib
+        pkgs.gtk3
+        pkgs.atk
+        pkgs.gdk-pixbuf
+        pkgs.nss
+        pkgs.nspr
+        pkgs.dbus
+        pkgs.cups
+        pkgs.xorg.libXcomposite
+        pkgs.xorg.libXdamage
+        pkgs.xorg.libXext
+        pkgs.xorg.libXfixes
+        pkgs.xorg.libXrandr
+        pkgs.libgbm
+        pkgs.expat
+        pkgs.xorg.libxcb
+        pkgs.libxkbcommon
+        pkgs.ffmpeg_4
     ];
   };
 }
