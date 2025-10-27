@@ -17,6 +17,8 @@
 
         workspace = 1, monitor:DP-2, persistent:true, default:true
         workspace = 2, monitor:DP-1, persistent:true
+        workspace = 7, monitor:DP-1, persistent:true
+        workspace = 8, monitor:DP-1, persistent:true
 
         $terminal = ghostty
         $fileManager = dolphin

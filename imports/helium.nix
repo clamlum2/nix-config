@@ -2,10 +2,10 @@
 
 pkgs.stdenv.mkDerivation {
   pname = "helium-browser";
-  version = "0.5.6.1";
+  version = "0.5.8.1";
   src = pkgs.fetchurl {
-    url = "https://github.com/imputnet/helium-linux/releases/download/0.5.6.1/helium-0.5.6.1-x86_64.AppImage";
-    sha256 = "0cnp9plzsk1s4lkrnbswhkjxi9i57v1i9lvys2k0iviqw2m56n17";
+    url = "https://github.com/imputnet/helium-linux/releases/download/0.5.8.1/helium-0.5.8.1-x86_64.AppImage";
+    sha256 = "sha256-d8kwLEU6qgEgp7nlEwdfRevB1JrbEKHRe8+GhGpGUig=";
   };
   unpackPhase = "true";
   buildInputs = [ pkgs.appimage-run ];

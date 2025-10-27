@@ -126,12 +126,10 @@ in
     pkgs.fuse
     pkgs.appimage-run
     pkgs.nix-prefetch-git
-    pkgs.unzip
-
-    pkgs.furmark
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.vscode
+    nixpkgs-unstable.spotify
 
     (import ./imports/helium.nix { inherit pkgs; icon = ./resources/icons/helium.png; })
   ];

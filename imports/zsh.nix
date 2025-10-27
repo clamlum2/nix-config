@@ -71,8 +71,6 @@ in
     source ~/.oh-my-zsh/custom/themes/custom.zsh-theme
 
     eval "$(zoxide init zsh)"
-
-    export PATH="$HOME/.spicetify:$PATH"
   '';
 
   home.file.".oh-my-zsh/custom/themes/custom.zsh-theme".text = ''

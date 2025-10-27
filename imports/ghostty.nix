@@ -15,7 +15,7 @@
         cursor-color = #ffffff
         foreground = #ffffff
         cursor-click-to-move = true
-        focus-follows-mouse = false
+        focus-follows-mouse = true
 
         keybind = alt+arrow_down=goto_split:down
         keybind = alt+arrow_up=goto_split:up
