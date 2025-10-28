@@ -74,6 +74,12 @@ in
                     margin_sides = "-0.1em";
                     outer_spacing = "-2";
                     menus = {
+                        text = "#FFFFFF";
+                        dimtext = "#579599";
+                        feinttext = "#313850";
+                        label = "#FFFFFF";
+                        background = "#0d1520cc";
+                        cards = "#0d1520cc";
                         menu = {
                             media = {
                                 card.tint = 50;
@@ -154,8 +160,124 @@ in
                                     disabled = "#313850";
                                 };
                             };
+                            notifications = {
+                                card = "#0d1520cc";
+                                background = "#0d1520cc";
+                                switch = {
+                                    puck = "#57f7fc";
+                                    enabled = "#579599";
+                                    disabled = "#313850";
+                                };
+                                label = "#FFFFFF";
+                                clear = "#57f7fc";
+                            };
+                            systray = {
+                                dropdownmenu = {
+                                    background = "#0d1520";
+                                    text = "#FFFFFF";
+                                    divider = "#579599";
+                                };
+                            };
+                            clock = {
+                                weather = {
+                                    hourly = {
+                                        temperature = "#FFFFFF";
+                                        icon = "#57f7fc";
+                                        time = "#FFFFFF";
+                                    };
+                                    thermometer = {
+                                        extremelycold = "#8be9fd";
+                                        cold = "#50fa7b";
+                                        moderate = "#f1fa8c";
+                                        hot = "#ffb86c";
+                                        extremelyhot = "#ff5555";
+                                    };
+                                    stats = "#FFFFFF";
+                                    status = "#FFFFFF";
+                                    temperature = "#FFFFFF";
+                                    icon = "#57f7fc";
+                                };
+                                calendar = {
+                                    contextdays = "#579599";
+                                    days = "#FFFFFF";
+                                    currentday = "#57f7fc";
+                                    paginator = "#FFFFFF";
+                                    weekdays = "#FFFFFF";
+                                    yearmonth = "#FFFFFF";
+                                };
+                                time = {
+                                    timeperiod = "#57f7fc";
+                                    time = "#FFFFFF";
+                                };
+                                text = "#FFFFFF";
+                                background.color = "#0d1520cc";
+                                card.color = "#0d1520cc";
+                            };
+                            dashboard = {
+                                background.color = "#0d1520cc";
+                                border.color = "#FFFFFF";
+                                card.color = "#0d1520cc";
+                                profile.name = "#57f7fc";
+                                powermenu = {
+                                    sleep = "#57f7fc";
+                                    logout = "#57f7fc";
+                                    restart = "#57f7fc";
+                                    shutdown = "#57f7fc";
+                                };
+                                controls = {
+                                    input = {
+                                        text = "#000000";
+                                        background = "#57f7fc";
+                                    };
+                                    volume = {
+                                        text = "#000000";
+                                        background = "#57f7fc";
+                                    };
+                                    notifications = {
+                                        text = "#000000";
+                                        background = "#57f7fc";
+                                    };
+                                    bluetooth = {
+                                        text = "#000000";
+                                        background = "#57f7fc";
+                                    };
+                                    wifi = {
+                                        text = "#000000";
+                                        background = "#57f7fc";
+                                    };
+                                    disabled = "#313850";
+                                };
+                            };
                         };
                     };
+                };
+                notification = {
+                    background = "#0d1520cc";
+                    text = "#FFFFFF";
+                    close_button = {
+                        background = "#579599";
+                        label = "#FFFFFF";
+                    };
+                    label = "#FFFFFF";
+                    actions = {
+                        background = "#579599";
+                        text = "#FFFFFF";
+                    };
+                    time = "#FFFFFF";
+                    labelicon = "#57f7fc";
+                    border = "#FFFFFF";
+                };
+            };
+            menus = {
+                clock = {
+                    weather = {
+                        location = "Auckland";
+                        unit = "metric";
+                        key = "003bd2c5c54b48d2a28154312250108";
+                    };
+                };
+                dashboard = {
+                    powermenu.avatar.image = "/etc/nixos/resources/wallpapers/icon.png";
                 };
             };
         };
