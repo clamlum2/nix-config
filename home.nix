@@ -8,7 +8,6 @@
 
   # Import the Zsh config
   imports = [ 
-    ./imports/hyprpanel-pc.nix
     ./imports/hyprshade.nix
 
     ./imports/zsh.nix
@@ -20,6 +19,8 @@
     ./imports/hyprlock.nix
     ./imports/ssh.nix
     ./imports/ghostty.nix
+
+    ./imports/hyprpanel.nix
   ];
 
   fonts.fontconfig.enable = true;
