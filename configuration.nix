@@ -126,6 +126,8 @@ in
     pkgs.fuse
     pkgs.appimage-run
     pkgs.nix-prefetch-git
+    pkgs.grimblast
+    pkgs.python313Packages.gpustat
 
     nixpkgs-unstable.ghostty
     nixpkgs-unstable.vscode
@@ -197,6 +199,7 @@ in
 
   fonts.packages = [
     pkgs.nerd-fonts.noto
+    pkgs.nerd-fonts.dejavu-sans-mono
   ];
 
   xdg.portal = {

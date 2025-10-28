@@ -49,6 +49,7 @@ in
                         ];
                     };
                 };
+                windowtitle.middleClick = "hyprctl dispatch killactive";
             };
             theme = {
                 bar = {
@@ -71,15 +72,19 @@ in
                     };
                     margin_top = "-0.1em";
                     margin_bottom = "0.1em";
-                    margin_sides = "-0.1em";
+                    margin_sides = "-0.2em";
                     outer_spacing = "-2";
                     menus = {
-                        text = "#FFFFFF";
-                        dimtext = "#579599";
-                        feinttext = "#313850";
-                        label = "#FFFFFF";
-                        background = "#0d1520cc";
-                        cards = "#0d1520cc";
+                        # text = "#FFFFFF";
+                        # dimtext = "#579599";
+                        # feinttext = "#313850";
+                        # label = "#FFFFFF";
+                        # background = "#0d1520cc";
+                        # cards = "#0d1520cc";
+                        tooltip = {
+                            text = "#FFFFFF";
+                            background = "#0d1520cc";
+                        };
                         menu = {
                             media = {
                                 card.tint = 50;
@@ -119,11 +124,11 @@ in
                                 background.color = "#0d1520";
                                 border.color = "#FFFFFF";
                                 icons.active = "#57f7fc";
-                                icons.passive = "#579599";
+                                icons.passive = "#57f7fc";
                                 text = "#FFFFFF";
                                 label.color = "#FFFFFF";
                                 listitems.active = "#57f7fc";
-                                iconbutton.active = "#579599";
+                                iconbutton.active = "#57f7fc";
                                 iconbutton.passive = "#57f7fc";
                             };
                             network = {
@@ -212,8 +217,10 @@ in
                                 text = "#FFFFFF";
                                 background.color = "#0d1520cc";
                                 card.color = "#0d1520cc";
+                                border.color = "#FFFFFF";
                             };
                             dashboard = {
+                                scaling = 85;
                                 background.color = "#0d1520cc";
                                 border.color = "#FFFFFF";
                                 card.color = "#0d1520cc";
@@ -247,6 +254,57 @@ in
                                     };
                                     disabled = "#313850";
                                 };
+                                shortcuts = {
+                                    text = "#000000";
+                                    background = "#57f7fc";
+                                };
+                                directories = {
+                                    right = {
+                                        bottom.color = "#57f7fc";
+                                        middle.color = "#57f7fc";
+                                        top.color = "#57f7fc";
+                                    };
+                                    left = {
+                                        bottom.color = "#57f7fc";
+                                        middle.color = "#57f7fc";
+                                        top.color = "#57f7fc";
+                                    };
+                                };
+                                monitors = {
+                                    disk = {
+                                        label = "#FFFFFF";
+                                        bar = "#579599";
+                                        icon = "#57f7fc";
+                                    };
+                                    gpu = {
+                                        label = "#FFFFFF";
+                                        bar = "#579599";
+                                        icon = "#57f7fc";
+                                    };
+                                    ram = {
+                                        label = "#FFFFFF";
+                                        bar = "#579599";
+                                        icon = "#57f7fc";
+                                    };
+                                    cpu = {
+                                        label = "#FFFFFF";
+                                        bar = "#579599";
+                                        icon = "#57f7fc";
+                                    };
+                                    bar_background = "#313850";
+                                };
+                                powermenu = {
+                                    confirmation = {
+                                        button_text = "#000000";
+                                        deny = "#57f7fc";
+                                        confirm = "#57f7fc";
+                                        body = "#FFFFFF";
+                                        label = "#FFFFFF";
+                                        border = "#FFFFFF";
+                                        background = "#0d1520cc";
+                                        card = "#0d1520cc";
+                                    };
+                                };
                             };
                         };
                     };
@@ -278,6 +336,48 @@ in
                 };
                 dashboard = {
                     powermenu.avatar.image = "/etc/nixos/resources/wallpapers/icon.png";
+                    stats.enable_gpu = true;
+                    shortcuts = {
+                        left = {
+                            shortcut1 = {
+                                icon = "󰇩";
+                                command = "helium-browser";
+                                tooltip = "Helium Browser";
+                            };
+                            shortcut2 = {
+                                icon = "";
+                                command = "spotify";
+                                tooltip = "Spotify";
+                            };
+                            shortcut3 = {
+                                icon = "";
+                                command = "vesktop";
+                                tooltip = "Vesktop";
+                            };
+                            shortcut4 = {
+                                icon = "󰨞";
+                                command = "code";
+                                tooltip = "VS Code";
+                            };
+                        };
+                        right = {
+                            shortcut1 = {
+                                icon = "";
+                                command = "hyprshade off && hyprpicker | wl-copy && hyprshade on extravibrance";
+                                tooltip = "Color Picker";
+                            };
+                            shortcut3 = {
+                                icon = "󰄀";
+                                command = "bash -c \"/nix/store/bpbr2ka76yzpgwm8yzbqb4k2ad9lsh8m-hyprpanel-0-unstable-2025-06-20/share/scripts/snapshot.sh\"";
+                                tooltip = "Screenshot";
+                            };
+                            shortcut4 = {
+                                icon = "󰝰";
+                                command = "dolphin";
+                                tooltip = "Dolphin File Manager";
+                            };
+                        };
+                    };
                 };
             };
         };
