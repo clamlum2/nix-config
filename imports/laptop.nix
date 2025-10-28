@@ -17,6 +17,7 @@
     "broadcom-sta-6.30.223.271-57-6.12.52"
     "broadcom-sta-6.30.223.271-57-6.12.53"
     "broadcom-sta-6.30.223.271-57-6.12.54"
+    "broadcom-sta-6.30.223.271-57-6.12.55"
   ];
 
   programs.nix-ld.enable = true;
