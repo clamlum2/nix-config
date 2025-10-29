@@ -1,15 +1,15 @@
 { config, pkgs, lib, ... }:
 
 {
-  wayland.windowManager.hyprland = {
-    enable = true;
-    settings = {
-      env = [
-        "XCURSOR_THEME,breeze_cursors"
-        "XCURSOR_SIZE,24"
-      ];
+    wayland.windowManager.hyprland = {
+        enable = true;
+        settings = {
+            env = [
+                "XCURSOR_THEME,breeze_cursors"
+                "XCURSOR_SIZE,24"
+            ];
+        };
     };
-  };
 
     wayland.windowManager.hyprland.extraConfig = ''
         monitor=DP-1,2560x1440@165,1920x0,1
