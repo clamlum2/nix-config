@@ -9,6 +9,7 @@ let
         "volume" 
         "bluetooth"
         "network" 
+        "battery"
         "clock" 
         "notifications"
     ];
@@ -44,6 +45,7 @@ in
                             "volume"
                             "bluetooth"
                             "network"
+                            "battery"
                             "clock"
                             "notifications"
                         ];
@@ -218,6 +220,28 @@ in
                                 background.color = "#0d1520cc";
                                 card.color = "#0d1520cc";
                                 border.color = "#FFFFFF";
+                            };
+                            battery = {
+                                card.color = "#0d1520cc";
+                                background.color = "#0d1520cc";
+                                border.color = "#FFFFFF";
+                                icons = {
+                                    full = "#57f7fc";
+                                    charging = "#57f7fc";
+                                    discharging = "#579599";
+                                    unknown = "#579599";
+                                };
+                                text = "#FFFFFF";
+                                label.color = "#FFFFFF";
+                                listitems.active = "#57f7fc";
+                                iconbutton.active = "#579599";
+                                iconbutton.passive = "#57f7fc";
+                                slider = {
+                                    puck = "#57f7fc";
+                                    primary = "#579599";
+                                    background = "#313850";
+                                    backgroundhover = "#313850";
+                                };
                             };
                             dashboard = {
                                 scaling = 85;
