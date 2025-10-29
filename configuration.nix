@@ -14,7 +14,7 @@ in
 
       ./imports/nix-ld.nix
 
-      ./imports/pc.nix
+      ./imports/laptop.nix
     ];
 
   # Bootloader.

@@ -7,9 +7,7 @@
   home.stateVersion = "25.05";
 
   # Import the Zsh config
-  imports = [ 
-    ./imports/hyprshade.nix
-
+  imports = [
     ./imports/zsh.nix
     ./imports/wezterm.nix
     ./imports/hyprland.nix
