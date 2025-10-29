@@ -335,7 +335,7 @@ in
                     };
                 };
                 dashboard = {
-                    powermenu.avatar.image = "/etc/nixos/resources/wallpapers/icon.png";
+                    powermenu.avatar.image = "./../resources/wallpapers/icon.png";
                     stats.enable_gpu = true;
                     shortcuts = {
                         left = {

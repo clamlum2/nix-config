@@ -1,11 +1,6 @@
 { config, pkgs, ... }:
 
-let
-  nixpkgs-unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") { config = { allowUnfree = true; }; };
-in
-
 {
-  imports = [ ./secureboot.nix ];
 
   networking.hostName = "nixos";
 

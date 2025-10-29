@@ -1,27 +1,19 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixpkgs-unstable, ... }:
 
 let
-  home-manager = builtins.fetchTarball {
-    url = "https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz";
+  unstable = import nixpkgs-unstable {
+    system = pkgs.system or "x86_64-linux";
+    config.allowUnfree = true;
   };
-  nixpkgs-unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") { config = { allowUnfree = true; }; };
 in
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      (import "${home-manager}/nixos")
-
-      ./imports/pc.nix
 
       ./imports/nix-ld.nix
     ];
-
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
-  home-manager.backupFileExtension = "backup";
-  home-manager.users.clamt = import ./home.nix;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -128,10 +120,11 @@ in
     pkgs.nix-prefetch-git
     pkgs.grimblast
     pkgs.python313Packages.gpustat
+    pkgs.iperf3
 
-    nixpkgs-unstable.ghostty
-    nixpkgs-unstable.vscode
-    nixpkgs-unstable.spotify
+    unstable.ghostty
+    unstable.vscode
+    unstable.spotify
 
     (import ./imports/helium.nix { inherit pkgs; icon = ./resources/icons/helium.png; })
   ];

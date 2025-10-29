@@ -34,8 +34,8 @@ in
     plugins=(git)
     source $ZSH/oh-my-zsh.sh
 
-    alias nrt="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild test && hyprshade on extravibrance"
-    alias nrs="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sudo nixos-rebuild switch && hyprshade on extravibrance"
+    alias nrt="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sh /etc/nixos/scripts/nrt.sh && hyprshade on extravibrance"
+    alias nrs="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sh /etc/nixos/scripts/nrs.sh && hyprshade on extravibrance"
     alias updatenix="sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/refs/heads/main/install.sh)"
     alias cdnix="cd ~/nix-config/"
     alias codenix="code ~/nix-config/"

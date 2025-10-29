@@ -29,11 +29,11 @@ if [ -d "$CONFIG_DIR/.git" ]; then
     fi
     git pull --rebase origin "$BRANCH"
     sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' --exclude='update.sh' "$CONFIG_DIR/" /etc/nixos/
-    sudo nixos-rebuild switch --upgrade
+    sh "/etc/nixos/scripts/nrs.sh"
 else
     echo "Repo not found, cloning to $CONFIG_DIR..."
     git clone --branch "$BRANCH" "$REPO_URL" "$CONFIG_DIR"
     cd "$CONFIG_DIR"
     sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' --exclude='update.sh' "$CONFIG_DIR/" /etc/nixos/
-    sudo nixos-rebuild switch --upgrade
+    sh "/etc/nixos/scripts/nrs.sh"
 fi
