@@ -13,6 +13,8 @@ in
       ./hardware-configuration.nix
 
       ./imports/nix-ld.nix
+
+      ./imports/pc.nix
     ];
 
   # Bootloader.

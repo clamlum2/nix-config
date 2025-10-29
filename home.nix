@@ -19,7 +19,6 @@
     ./imports/hyprlock.nix
     ./imports/ssh.nix
     ./imports/ghostty.nix
-
     ./imports/hyprpanel.nix
   ];
 
