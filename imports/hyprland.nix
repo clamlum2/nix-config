@@ -4,219 +4,217 @@
     wayland.windowManager.hyprland = {
         enable = true;
         settings = {
+            monitor = [
+                "DP-1,2560x1440@165,1920x0,1"
+                "DP-2,1920x1080@300,0x260,1"
+            ];
+
+            workspace = [
+                "1, monitor:DP-2, persistent:true, default:true"
+                "2, monitor:DP-1, persistent:true"
+                "7, monitor:DP-1, persistent:true"
+                "8, monitor:DP-1, persistent:true"
+            ];
+
+            "$terminal" = "ghostty";
+            "$fileManager" = "dolphin";
+            "$menu" = "wofi --show drun";
+            "$browser" = "helium-browser";
+
+            exec-once = [
+                "hyprpaper -c /etc/nixos/resources/wallpapers/hyprpaper.conf"
+                "hyprshade on extravibrance"
+                "hyprpanel"
+                "kbuildsycoca6"
+                "easyeffects --gapplication-service"
+            ];
+
             env = [
-                "XCURSOR_THEME,breeze_cursors"
-                "XCURSOR_SIZE,24"
+                "QT_QPA_PLATFORM,wayland"
+                "QT_QPA_PLATFORMTHEME,qt6ct"
+                "XDG_MENU_PREFIX,arch-"
+                "QT_QUICK_CONTROLS_STYLE,org.kde.desktop"
+                "QT_STYLE_OVERRIDE,kvantum"
+            ];
+
+            general = {
+                gaps_in = 1;
+                gaps_out = 1;
+
+                border_size = 2;
+
+                "col.active_border" =
+                "rgba(57f7fcee)";
+                "col.inactive_border" = "rgba(595959aa)";
+
+                resize_on_border = false;
+
+                allow_tearing = true;
+
+                layout = "dwindle";
+            };
+
+            decoration = {
+                rounding = 5;
+                rounding_power = 2;
+
+                active_opacity = 1.0;
+                inactive_opacity = 1.0;
+
+                shadow = {
+                    enabled = true;
+                    range = 4;
+                    render_power = 3;
+                    color = "rgba(1a1a1aee)";
+                };
+
+                blur = {
+                    enabled = true;
+                    size = 3;
+                    passes = 1;
+
+                    vibrancy = 0.1696;
+                };
+            };
+
+            animations = {
+                enabled = true;
+
+                bezier = [
+                    "easeOutQuint,0.23,1,0.32,1"
+                    "easeInOutCubic,0.65,0.05,0.36,1"
+                    "linear,0,0,1,1"
+                    "almostLinear,0.5,0.5,0.75,1.0"
+                    "quick,0.15,0,0.1,1"
+                ];
+
+                animation = [
+                    "global, 1, 10, default"
+                    "border, 1, 5.39, easeOutQuint"
+                    "windows, 1, 4.79, easeOutQuint"
+                    "windowsIn, 1, 4.1, easeOutQuint, popin 87%"
+                    "windowsOut, 1, 1.49, linear, popin 87%"
+                    "fadeIn, 1, 1.73, almostLinear"
+                    "fadeOut, 1, 1.46, almostLinear"
+                    "fade, 1, 3.03, quick"
+                    "layers, 1, 3.81, easeOutQuint"
+                    "layersIn, 1, 4, easeOutQuint, fade"
+                    "layersOut, 1, 1.5, linear, fade"
+                    "fadeLayersIn, 1, 1.79, almostLinear"
+                    "fadeLayersOut, 1, 1.39, almostLinear"
+                    "workspaces, 0, 1.94, almostLinear, fade"
+                    "workspacesIn, 0, 1.21, almostLinear, fade"
+                    "workspacesOut, 0, 1.94, almostLinear, fade"
+                ];
+            };
+
+            dwindle = {
+                pseudotile = true;
+                preserve_split = true;
+            };
+
+            master.new_status = "master";
+
+            misc = {
+                force_default_wallpaper = -1;
+                disable_hyprland_logo = true;
+            };
+
+            input = {
+                kb_layout = "us";
+                
+                follow_mouse = 1;
+
+                sensitivity = 0;
+
+                touchpad.natural_scroll = false;
+
+                kb_options = "caps:none";
+
+                #scroll_factor = 0.2;
+            };
+
+            "$mainMod" = "SUPER";
+
+            bind = [
+                "$mainMod, T, exec, $terminal"
+                "$mainMod, Q, killactive"
+                "$mainMod, M, exit"
+                "$mainMod, E, exec, $fileManager"
+                "$mainMod, SPACE, exec, $menu"
+                "$mainMod, R, pseudo"
+                "$mainMod, B, togglesplit"
+                "$mainMod, V, togglefloating"
+
+                "$mainMod, left, movefocus, l"
+                "$mainMod, right, movefocus, r"
+                "$mainMod, up, movefocus, u"
+                "$mainMod, down, movefocus, d"
+
+                "$mainMod, 1, workspace, 1"
+                "$mainMod, 2, workspace, 2"
+                "$mainMod, 3, workspace, 3"
+                "$mainMod, 4, workspace, 4"
+                "$mainMod, 5, workspace, 5"
+                "$mainMod, 6, workspace, 6"
+                "$mainMod, 7, workspace, 7"
+                "$mainMod, 8, workspace, 8"
+                "$mainMod, 9, workspace, 9"
+                "$mainMod, 0, workspace, 10"
+
+                "$mainMod SHIFT, 1, movetoworkspace, 1"
+                "$mainMod SHIFT, 2, movetoworkspace, 2"
+                "$mainMod SHIFT, 3, movetoworkspace, 3"
+                "$mainMod SHIFT, 4, movetoworkspace, 4"
+                "$mainMod SHIFT, 5, movetoworkspace, 5"
+                "$mainMod SHIFT, 6, movetoworkspace, 6"
+                "$mainMod SHIFT, 7, movetoworkspace, 7"
+                "$mainMod SHIFT, 8, movetoworkspace, 8"
+                "$mainMod SHIFT, 9, movetoworkspace, 9"
+                "$mainMod SHIFT, 0, movetoworkspace, 10"
+
+                "$mainMod, mouse_down, workspace, e+1"
+                "$mainMod, mouse_up, workspace, e-1"
+
+                "$mainMod, C, exec, $browser"
+                "$mainMod, TAB, exec, pidof gjs | xargs kill || hyprpanel"
+                ", KP-SUBTRACT, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+                "$mainMod, L, exec, hyprlock"
+                "$mainMod, F, exec, grim -g \"$(slurp -d)\" - | wl-copy"
+                "$mainMod, S, exec, grim -o $(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | .name') - | wl-copy"
+
+                "$mainMod CTRL, LEFT, exec, playerctl previous"
+                "$mainMod CTRL, RIGHT, exec, playerctl next"
+                "$mainMod CTRL, SPACE, exec, playerctl play-pause"
+            ];
+
+            bindm = [
+                "$mainMod, mouse:272, movewindow"
+                "$mainMod, mouse:273, resizewindow"
+            ];
+
+            bindel = [
+                ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+                ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+                ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+                ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+                ", XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
+                ", XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+            ];
+
+            bindl = [
+                ", XF86AudioNext, exec, playerctl next"
+                ", XF86AudioPause, exec, playerctl play-pause"
+                ", XF86AudioPlay, exec, playerctl play-pause"
+                ", XF86AudioPrev, exec, playerctl previous"
+
+                ", switch:Lid Switch, exec, hyprlock"
+            ];
+
+            windowrule = [
+                "suppressevent maximize, class:.*"
+                "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
             ];
         };
     };
-
-    wayland.windowManager.hyprland.extraConfig = ''
-        monitor=DP-1,2560x1440@165,1920x0,1
-        monitor=DP-2,1920x1080@300,0x260,1
-
-        workspace = 1, monitor:DP-2, persistent:true, default:true
-        workspace = 2, monitor:DP-1, persistent:true
-        workspace = 7, monitor:DP-1, persistent:true
-        workspace = 8, monitor:DP-1, persistent:true
-
-        $terminal = ghostty
-        $fileManager = dolphin
-        $menu = wofi --show drun
-        $browser = helium-browser
-
-        exec-once = hyprpaper -c /etc/nixos/resources/wallpapers/hyprpaper.conf
-        exec-once = hyprshade on extravibrance
-        exec-once = hyprpanel
-        exec-once = kbuildsycoca6
-
-        env = QT_QPA_PLATFORM,wayland
-        env = QT_QPA_PLATFORMTHEME,qt6ct
-        env = XDG_MENU_PREFIX,arch-
-        env = QT_QUICK_CONTROLS_STYLE,org.kde.desktop
-        env = QT_STYLE_OVERRIDE,kvantum
-
-        general {
-            gaps_in = 1
-            gaps_out = 1
-
-            border_size = 2
-
-            col.active_border = rgba(57f7fcee)
-            col.inactive_border = rgba(595959aa)
-
-            resize_on_border = false
-
-            allow_tearing = true
-
-            layout = dwindle
-        }
-
-        decoration {
-            rounding = 5
-            rounding_power = 2
-
-            active_opacity = 1.0
-            inactive_opacity = 1.0
-
-            shadow {
-                enabled = true
-                range = 4
-                render_power = 3
-                color = rgba(1a1a1aee)
-            }
-
-            blur {
-                enabled = true
-                size = 3
-                passes = 1
-
-                vibrancy = 0.1696
-            }
-        }
-
-        animations {
-            enabled = yes, please :)
-
-            bezier = easeOutQuint,0.23,1,0.32,1
-            bezier = easeInOutCubic,0.65,0.05,0.36,1
-            bezier = linear,0,0,1,1
-            bezier = almostLinear,0.5,0.5,0.75,1.0
-            bezier = quick,0.15,0,0.1,1
-
-            animation = global, 1, 10, default
-            animation = border, 1, 5.39, easeOutQuint
-            animation = windows, 1, 4.79, easeOutQuint
-            animation = windowsIn, 1, 4.1, easeOutQuint, popin 87%
-            animation = windowsOut, 1, 1.49, linear, popin 87%
-            animation = fadeIn, 1, 1.73, almostLinear
-            animation = fadeOut, 1, 1.46, almostLinear
-            animation = fade, 1, 3.03, quick
-            animation = layers, 1, 3.81, easeOutQuint
-            animation = layersIn, 1, 4, easeOutQuint, fade
-            animation = layersOut, 1, 1.5, linear, fade
-            animation = fadeLayersIn, 1, 1.79, almostLinear
-            animation = fadeLayersOut, 1, 1.39, almostLinear
-            animation = workspaces, 0, 1.94, almostLinear, fade
-            animation = workspacesIn, 0, 1.21, almostLinear, fade
-            animation = workspacesOut, 0, 1.94, almostLinear, fade
-        }
-
-        dwindle {
-            pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-            preserve_split = true # You probably want this
-        }
-
-        master {
-            new_status = master
-        }
-
-        misc {
-            force_default_wallpaper = -1 # Set to 0 or 1 to disable the anime mascot wallpapers
-            disable_hyprland_logo = false # If true disables the random hyprland logo / anime girl background. :(
-        }
-
-        input {
-            kb_layout = us
-            kb_variant =
-            kb_model =
-            kb_options =
-            kb_rules =
-
-            follow_mouse = 1
-
-            sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
-
-            touchpad {
-                natural_scroll = false
-            }
-
-            kb_options = caps:none
-
-            #scroll_factor = 0.2
-        }
-
-        device {
-            name = epic-mouse-v1
-            sensitivity = -0.5
-        }
-
-        $mainMod = SUPER # Sets "Windows" key as main modifier
-
-        bind = $mainMod, T, exec, $terminal
-        bind = $mainMod, Q, killactive,
-        bind = $mainMod, M, exit,
-        bind = $mainMod, E, exec, $fileManager
-        bind = $mainMod, SPACE, exec, $menu
-        bind = $mainMod, R, pseudo, # dwindle
-        bind = $mainMod, B, togglesplit, # dwindle
-        bind = $mainMod, V, togglefloating,
-
-        bind = $mainMod, left, movefocus, l
-        bind = $mainMod, right, movefocus, r
-        bind = $mainMod, up, movefocus, u
-        bind = $mainMod, down, movefocus, d
-
-        bind = $mainMod, 1, workspace, 1
-        bind = $mainMod, 2, workspace, 2
-        bind = $mainMod, 3, workspace, 3
-        bind = $mainMod, 4, workspace, 4
-        bind = $mainMod, 5, workspace, 5
-        bind = $mainMod, 6, workspace, 6
-        bind = $mainMod, 7, workspace, 7
-        bind = $mainMod, 8, workspace, 8
-        bind = $mainMod, 9, workspace, 9
-        bind = $mainMod, 0, workspace, 10
-
-        bind = $mainMod SHIFT, 1, movetoworkspace, 1
-        bind = $mainMod SHIFT, 2, movetoworkspace, 2
-        bind = $mainMod SHIFT, 3, movetoworkspace, 3
-        bind = $mainMod SHIFT, 4, movetoworkspace, 4
-        bind = $mainMod SHIFT, 5, movetoworkspace, 5
-        bind = $mainMod SHIFT, 6, movetoworkspace, 6
-        bind = $mainMod SHIFT, 7, movetoworkspace, 7
-        bind = $mainMod SHIFT, 8, movetoworkspace, 8
-        bind = $mainMod SHIFT, 9, movetoworkspace, 9
-        bind = $mainMod SHIFT, 0, movetoworkspace, 10
-
-        bind = $mainMod, mouse_down, workspace, e+1
-        bind = $mainMod, mouse_up, workspace, e-1
-
-        bindm = $mainMod, mouse:272, movewindow
-        bindm = $mainMod, mouse:273, resizewindow
-
-        bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
-        bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-        bindel = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-        bindel = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-        bindel = ,XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+
-        bindel = ,XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
-
-        bindl = , XF86AudioNext, exec, playerctl next
-        bindl = , XF86AudioPause, exec, playerctl play-pause
-        bindl = , XF86AudioPlay, exec, playerctl play-pause
-        bindl = , XF86AudioPrev, exec, playerctl previous
-
-        bind = $mainMod, C, exec, $browser
-        bind = $mainMod, TAB, exec, pidof gjs | xargs kill || hyprpanel
-        bind = , KP_SUBTRACT, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
-        bind = $mainMod, L, exec, hyprlock
-        bind = $mainMod, F, fullscreen
-        bind = $mainMod SHIFT, S, exec, grim -g "$(slurp -d)" - | wl-copy
-        bind = $mainMod, S, exec, grim -o $(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | .name') - | wl-copy
-
-        bind = $mainMod CTRL, LEFT, exec, playerctl previous
-        bind = $mainMod CTRL, RIGHT, exec, playerctl next
-        bind = $mainMod CTRL, SPACE, exec, playerctl play-pause
-
-        bindl=,switch:Lid Switch, exec, hyprlock
-
-        windowrule = suppressevent maximize, class:.*
-
-        windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0
-
-        windowrule = workspace 10, class:com.github.wwmm.easyeffects
-        exec-once = easyeffects
-        exec-once = hyprctl dispatch workspace 1
-    '';
 }
