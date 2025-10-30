@@ -1,4 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, nixpkgs-unstable, ... }:
+
+let
+  unstable = import nixpkgs-unstable {
+    system = pkgs.system or "x86_64-linux";
+    config.allowUnfree = true;
+  };
+in
 
 {
 

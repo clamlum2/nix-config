@@ -18,7 +18,7 @@
 
             "$terminal" = "ghostty";
             "$fileManager" = "dolphin";
-            "$menu" = "wofi --show drun";
+            "$menu" = "wofi";
             "$browser" = "helium-browser";
 
             exec-once = [
@@ -141,7 +141,7 @@
                 "$mainMod, Q, killactive"
                 "$mainMod, M, exit"
                 "$mainMod, E, exec, $fileManager"
-                "$mainMod, SPACE, exec, $menu"
+                "$mainMod, SPACE, exec, pkill wofi || $menu"
                 "$mainMod, R, pseudo"
                 "$mainMod, B, togglesplit"
                 "$mainMod, V, togglefloating"
@@ -180,7 +180,8 @@
                 "$mainMod, TAB, exec, pidof gjs | xargs kill || hyprpanel"
                 ", KP-SUBTRACT, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
                 "$mainMod, L, exec, hyprlock"
-                "$mainMod, F, exec, grim -g \"$(slurp -d)\" - | wl-copy"
+                "$mainMod, F, fullscreen"
+                "$mainMod SHIFT, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
                 "$mainMod, S, exec, grim -o $(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | .name') - | wl-copy"
 
                 "$mainMod CTRL, LEFT, exec, playerctl previous"

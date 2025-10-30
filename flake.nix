@@ -26,6 +26,9 @@
             home-manager.useUserPackages = true;
             home-manager.users.clamt = import ./home.nix;
             home-manager.backupFileExtension = "backup";
+            home-manager.extraSpecialArgs = {
+              nixpkgs-unstable = nixpkgs-unstable;
+            };
           }
 
           lanzaboote.nixosModules.lanzaboote
@@ -58,6 +61,9 @@
             home-manager.useUserPackages = true;
             home-manager.users.clamt = import ./home.nix;
             home-manager.backupFileExtension = "backup";
+            home-manager.extraSpecialArgs = {
+              nixpkgs-unstable = nixpkgs-unstable;
+            };
           }
         ];
         specialArgs = {
