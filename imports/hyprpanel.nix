@@ -106,7 +106,7 @@ in
                                     background = "#313850";
                                     backgroundhover = "#313850";
                                 };
-                                background.color = "#0d1520";
+                                background.color = "#0d1520cc";
                                 border.color = "#FFFFFF";
                             };
                             volume = {
@@ -123,7 +123,7 @@ in
                                     background = "#313850";
                                     backgroundhover = "#313850";
                                 };
-                                background.color = "#0d1520";
+                                background.color = "#0d1520cc";
                                 border.color = "#FFFFFF";
                                 icons.active = "#57f7fc";
                                 icons.passive = "#57f7fc";

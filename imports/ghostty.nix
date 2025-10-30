@@ -1,33 +1,46 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixpkgs-unstable, ... }:
+
+let
+  unstable = import nixpkgs-unstable {
+    system = pkgs.system or "x86_64-linux";
+    config.allowUnfree = true;
+  };
+in
 
 {
-    home.file.".config/ghostty/config".text = ''
-        background = #0d1520
-        background-opacity = 0.8
-        font-family = DejaVuSansMono
-        font-size = 11
-        theme = Kitty Default
-        custom-shader-animation = always
-        custom-shader = cursor.glsl 
-        selection-foreground = cell-background
-        selection-background = cell-foreground
-        selection-clear-on-typing = true
-        cursor-color = #ffffff
-        foreground = #ffffff
-        cursor-click-to-move = true
-        focus-follows-mouse = true
 
-        keybind = alt+arrow_down=goto_split:down
-        keybind = alt+arrow_up=goto_split:up
-        keybind = alt+arrow_left=goto_split:left
-        keybind = alt+arrow_right=goto_split:right
+    programs.ghostty = {
+        enable = true;
+        package = unstable.ghostty;
+        settings = {
+            background = "#0d1520";
+            background-opacity = 0.8;
+            font-family = "DejaVuSansMono";
+            font-size = 11;
+            theme = "Kitty Default";
+            custom-shader-animation = "always";
+            custom-shader = "cursor.glsl";
+            selection-foreground = "cell-background";
+            selection-background = "cell-foreground";
+            selection-clear-on-typing = true;
+            cursor-color = "#ffffff";
+            foreground = "#ffffff";
+            cursor-click-to-move = true;
+            focus-follows-mouse = true;
 
-        keybind = ctrl+alt+arrow_down=new_split:down
-        keybind = ctrl+alt+arrow_up=new_split:up
-        keybind = ctrl+alt+arrow_left=new_split:left
-        keybind = ctrl+alt+arrow_right=new_split:right
-        
-    '';
+            keybind = [
+                "alt+arrow_down=goto_split:down"
+                "alt+arrow_up=goto_split:up"
+                "alt+arrow_left=goto_split:left"
+                "alt+arrow_right=goto_split:right"
+
+                "ctrl+alt+arrow_down=new_split:down"
+                "ctrl+alt+arrow_up=new_split:up"
+                "ctrl+alt+arrow_left=new_split:left"
+                "ctrl+alt+arrow_right=new_split:right"
+            ];
+        };
+    };
 
     home.file.".config/ghostty/cursor.glsl".text = ''
         float getSdfRectangle(in vec2 p, in vec2 xy, in vec2 b)

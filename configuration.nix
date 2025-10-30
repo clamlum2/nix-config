@@ -71,11 +71,9 @@ in
   # $ nix search wget
   environment.systemPackages = [
     pkgs.kitty
-    pkgs.hyprland
     pkgs.git
     pkgs.fastfetch
     pkgs.google-chrome
-    pkgs.wofi
     pkgs.kdePackages.dolphin
     pkgs.polkit
     pkgs.polkit_gnome
@@ -106,7 +104,6 @@ in
     pkgs.dysk
     pkgs.hyprlock
     pkgs.qbittorrent
-    pkgs.wezterm
     pkgs.mpv
     pkgs.oh-my-zsh
     pkgs.kdePackages.ark
@@ -124,7 +121,6 @@ in
     pkgs.python313Packages.gpustat
     pkgs.iperf3
 
-    unstable.ghostty
     unstable.vscode
     unstable.spotify
 
