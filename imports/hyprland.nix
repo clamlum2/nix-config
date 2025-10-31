@@ -18,7 +18,7 @@
 
             "$terminal" = "ghostty";
             "$fileManager" = "dolphin";
-            "$menu" = "wofi";
+            "$menu" = "vicinae toggle";
             "$browser" = "helium-browser";
 
             exec-once = [
@@ -144,7 +144,7 @@
                 "$mainMod, SPACE, exec, pkill wofi || $menu"
                 "$mainMod, R, pseudo"
                 "$mainMod, B, togglesplit"
-                "$mainMod, V, togglefloating"
+                "$mainMod, N, togglefloating"
 
                 "$mainMod, left, movefocus, l"
                 "$mainMod, right, movefocus, r"
@@ -176,13 +176,18 @@
                 "$mainMod, mouse_down, workspace, e+1"
                 "$mainMod, mouse_up, workspace, e-1"
 
-                "$mainMod, C, exec, $browser"
+                "$mainMod, D, exec, $browser"
                 "$mainMod, TAB, exec, pidof gjs | xargs kill || hyprpanel"
-                ", KP-SUBTRACT, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+                ", KP_SUBTRACT, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
                 "$mainMod, L, exec, hyprlock"
                 "$mainMod, F, fullscreen"
-                "$mainMod SHIFT, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
+
                 "$mainMod, S, exec, grim -o $(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | .name') - | wl-copy"
+                "$mainMod SHIFT, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
+
+                "$mainMod, C, sendshortcut, CTRL, Insert,"
+                "$mainMod, V, sendshortcut, SHIFT, Insert,"
+                "$mainMod ALT, V, exec, vicinae vicinae://extensions/vicinae/clipboard/history"
 
                 "$mainMod CTRL, LEFT, exec, playerctl previous"
                 "$mainMod CTRL, RIGHT, exec, playerctl next"
@@ -216,6 +221,8 @@
                 "suppressevent maximize, class:.*"
                 "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
             ];
+
+            layerrule = [ "noanim, vicinae" ];
         };
     };
 }

@@ -8,13 +8,15 @@
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    vicinae.url = "github:vicinaehq/vicinae";
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{self, nixpkgs, home-manager, nixpkgs-unstable, lanzaboote, ...}: {
+  outputs = inputs@{self, nixpkgs, home-manager, nixpkgs-unstable, lanzaboote, vicinae, ...}: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         modules = [
@@ -24,10 +26,15 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.clamt = import ./home.nix;
             home-manager.backupFileExtension = "backup";
             home-manager.extraSpecialArgs = {
               nixpkgs-unstable = nixpkgs-unstable;
+            };
+            home-manager.users.clamt = { pkgs, ... }: {
+              imports = [
+                inputs.vicinae.homeManagerModules.default
+                ./home.nix
+              ];
             };
           }
 

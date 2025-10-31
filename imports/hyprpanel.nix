@@ -363,7 +363,7 @@ in
                         right = {
                             shortcut1 = {
                                 icon = "";
-                                command = "hyprshade off && hyprpicker | wl-copy && hyprshade on extravibrance";
+                                command = "hyprshade off && hyprpicker -a && hyprshade on extravibrance";
                                 tooltip = "Color Picker";
                             };
                             shortcut3 = {
