@@ -71,6 +71,12 @@
             home-manager.extraSpecialArgs = {
               nixpkgs-unstable = nixpkgs-unstable;
             };
+            home-manager.users.clamt = { pkgs, ... }: {
+              imports = [
+                inputs.vicinae.homeManagerModules.default
+                ./home.nix
+              ];
+            };
           }
         ];
         specialArgs = {
