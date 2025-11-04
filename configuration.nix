@@ -78,7 +78,6 @@ in
     pkgs.polkit
     pkgs.polkit_gnome
     pkgs.hyprpaper
-    pkgs.vesktop
     pkgs.hyprshade
     pkgs.pwvucontrol
     pkgs.easyeffects
@@ -121,6 +120,8 @@ in
     pkgs.python313Packages.gpustat
     pkgs.iperf3
 
+    unstable.vesktop
+    unstable.discord
     unstable.vscode
     unstable.spotify
 
