@@ -119,6 +119,7 @@ in
     pkgs.grimblast
     pkgs.python313Packages.gpustat
     pkgs.iperf3
+    pkgs.localsend
 
     unstable.vesktop
     unstable.discord
