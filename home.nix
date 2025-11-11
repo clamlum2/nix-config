@@ -55,4 +55,14 @@ in
       package = pkgs.gnome-themes-extra;
     };
   };
+
+  xdg.desktopEntries = {
+    vesktop = {
+      name = "Vesktop";
+      exec = "vesktop--ozone-platform=wayland";
+      icon = "vesktop";
+      type = "Application";
+      categories = [ "Network" "InstantMessaging" "Chat" ];
+    };
+  };
 }

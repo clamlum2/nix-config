@@ -215,17 +215,4 @@ in
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
-
-  environment.etc."vesktop.desktop".text = ''
-    [Desktop Entry]
-    Categories=Network;InstantMessaging;Chat
-    Exec=vesktop --ozone-platform=waylandx %U
-    GenericName=Internet Messenger
-    Icon=vesktop
-    Keywords=discord;vencord;electron;chat
-    Name=Vesktop
-    StartupWMClass=Vesktop
-    Type=Application
-    Version=1.4
-  '';
 }
