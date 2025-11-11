@@ -119,8 +119,9 @@ in
     pkgs.grimblast
     pkgs.python313Packages.gpustat
     pkgs.iperf3
+    pkgs.localsend
+    pkgs.vesktop
 
-    unstable.vesktop
     unstable.discord
     unstable.vscode
     unstable.spotify
