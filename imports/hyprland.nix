@@ -18,7 +18,7 @@
 
             "$terminal" = "ghostty";
             "$fileManager" = "dolphin";
-            "$menu" = "vicinae toggle";
+            "$menu" = "vicinae toggle || wofi";
             "$browser" = "helium-browser";
 
             exec-once = [
