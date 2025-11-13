@@ -25,8 +25,6 @@ in
     ./imports/ssh.nix
     ./imports/ghostty.nix
     ./imports/hyprpanel.nix
-
-    ./imports/vicinae.nix
   ];
 
   fonts.fontconfig.enable = true;
