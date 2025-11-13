@@ -131,7 +131,7 @@
 
                 kb_options = "caps:none";
 
-                #scroll_factor = 0.2;
+                scroll_factor = 0.2;
             };
 
             "$mainMod" = "SUPER";
