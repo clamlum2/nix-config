@@ -129,6 +129,10 @@ in
     (import ./imports/helium.nix { inherit pkgs; icon = ./resources/icons/helium.png; })
   ];
 
+  nixpkgs.overlays = [
+    (import ./overlays/vesktop.nix)
+  ];
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
