@@ -16,6 +16,7 @@ in
   # Import the Zsh config
   imports = [ 
     ./imports/hyprshade.nix
+    ./imports/vicinae.nix
 
     ./imports/zsh.nix
     ./imports/wezterm.nix
@@ -27,8 +28,6 @@ in
     ./imports/ssh.nix
     ./imports/ghostty.nix
     ./imports/hyprpanel.nix
-
-    ./imports/vicinae.nix
   ];
 
   fonts.fontconfig.enable = true;
