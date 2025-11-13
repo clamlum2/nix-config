@@ -72,7 +72,6 @@
             };
             home-manager.users.clamt = { pkgs, ... }: {
               imports = [
-                inputs.vicinae.homeManagerModules.default
                 ./home.nix
               ];
             };
