@@ -4,34 +4,29 @@
   services.vicinae = {
     enable = true;
     autoStart = true;
+    settings = {
+      closeOnFocusLoss = false;
+      faviconService = "twenty";
+      font = {
+        normal = "DejaVu Sans Mono";
+        size = 10.5;
+      };
+      keybinding = "default";
+      popToRootOnClose = true;
+      rootSearch = {
+        searchFiles = false;
+      };
+      theme = {
+        iconTheme = "Breeze";
+        name = "custom";
+      };
+      window = {
+        csd = true;
+        opacity = 0.95;
+        rounding = 10;
+      };
+    };
   };
-
-  home.file.".config/vicinae/vicinae.json".text = ''
-    {
-      "closeOnFocusLoss": false,
-      "faviconService": "twenty",
-      "font": {
-        "normal": "DejaVu Sans Mono",
-        "size": 10.5
-      },
-      "keybinding": "default",
-      "keybinds": {
-      },
-      "popToRootOnClose": true,
-      "rootSearch": {
-        "searchFiles": false
-      },
-      "theme": {
-        "iconTheme": "Breeze",
-        "name": "custom"
-      },
-      "window": {
-        "csd": true,
-        "opacity": 0.95,
-        "rounding": 10
-      }
-    }
-  '';
 
   home.file.".local/share/vicinae/themes/custom.toml".text = ''
     [meta]
