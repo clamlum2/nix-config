@@ -14,11 +14,40 @@
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+
+    hyprlauncher.url = "github:hyprwm/hyprlauncher";
   };
 
-  outputs = inputs@{self, nixpkgs, home-manager, nixpkgs-unstable, lanzaboote, vicinae, ...}: {
+  outputs = inputs@{
+    self,
+    nixpkgs,
+    home-manager,
+    nixpkgs-unstable,
+    lanzaboote,
+    vicinae,
+    spicetify-nix,
+    hyprlauncher,
+    ...
+  }: 
+  {
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
+      nixos = let
+        system = "x86_64-linux";
+        pkgs = import nixpkgs { inherit system; };
+
+        hyprOverlays = if builtins.hasAttr "overlays" hyprlauncher && builtins.hasAttr "default" hyprlauncher.overlays
+          then [ hyprlauncher.overlays.default ]
+          else [];
+
+        hyprPkg = if builtins.hasAttr "packages" hyprlauncher && builtins.hasAttr system hyprlauncher.packages && builtins.hasAttr "default" (hyprlauncher.packages.${system})
+          then hyprlauncher.packages.${system}.default
+          else null;
+
+        spicePkgs = spicetify-nix.legacyPackages.${system};
+      in nixpkgs.lib.nixosSystem {
+        system = system;
         modules = [
           ./configuration.nix
           ./imports/pc.nix
@@ -44,8 +73,8 @@
 
             environment.systemPackages = [
               pkgs.sbctl
-            ];
-
+            ] ++ lib.optional (hyprPkg != null) hyprPkg;
+            
             boot.loader.systemd-boot.enable = lib.mkForce false;
 
             boot.lanzaboote = {
@@ -53,12 +82,30 @@
               pkiBundle = "/var/lib/sbctl";
             };
           })
+
+          spicetify-nix.nixosModules.default
+
+          (import ./imports/spicetify.nix { inherit spicePkgs; })
+
         ];
         specialArgs = {
           inherit nixpkgs-unstable;
         };
       };
-      laptop = nixpkgs.lib.nixosSystem {
+      laptop = let
+        system = "x86_64-linux";
+        pkgs = import nixpkgs { inherit system; };
+
+        hyprOverlays = if builtins.hasAttr "overlays" hyprlauncher && builtins.hasAttr "default" hyprlauncher.overlays
+          then [ hyprlauncher.overlays.default ]
+          else [];
+
+        hyprPkg = if builtins.hasAttr "packages" hyprlauncher && builtins.hasAttr system hyprlauncher.packages && builtins.hasAttr "default" (hyprlauncher.packages.${system})
+          then hyprlauncher.packages.${system}.default
+          else null;
+        
+        spicePkgs = spicetify-nix.legacyPackages.${system};
+      in nixpkgs.lib.nixosSystem {
         modules = [
           ./configuration.nix
           ./imports/laptop.nix
@@ -76,6 +123,10 @@
               ];
             };
           }
+
+          ({ pkgs, lib, ... }: {
+            environment.systemPackages = [ ] ++ lib.optional (hyprPkg != null) hyprPkg;
+          })
         ];
         specialArgs = {
           inherit nixpkgs-unstable;

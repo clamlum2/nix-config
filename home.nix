@@ -15,6 +15,9 @@ in
 
   # Import the Zsh config
   imports = [
+  imports = [ 
+    ./imports/hyprlauncher.nix
+
     ./imports/zsh.nix
     ./imports/wezterm.nix
     ./imports/hyprland.nix
@@ -49,17 +52,6 @@ in
     theme = {
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
-    };
-  };
-
-  xdg.desktopEntries = {
-    vesktop = {
-      name = "Vesktop";
-      exec = "vesktop --ozone-platform=wayland";
-      icon = "vesktop";
-      type = "Application";
-      categories = [ "Network" "InstantMessaging" "Chat" ];
-      terminal = false;
     };
   };
 }
