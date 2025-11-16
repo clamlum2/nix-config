@@ -15,7 +15,8 @@ in
 
   # Import the Zsh config
   imports = [
-  imports = [ 
+    ./imports/hyprshade.nix
+    ./imports/vicinae.nix
     ./imports/hyprlauncher.nix
 
     ./imports/zsh.nix
