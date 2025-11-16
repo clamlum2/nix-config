@@ -18,7 +18,7 @@
 
             "$terminal" = "ghostty";
             "$fileManager" = "dolphin";
-            "$menu" = "vicinae toggle || wofi";
+            "$menu" = "hyprlauncher";
             "$browser" = "helium-browser";
 
             exec-once = [
@@ -141,7 +141,8 @@
                 "$mainMod, Q, killactive"
                 "$mainMod, M, exit"
                 "$mainMod, E, exec, $fileManager"
-                "$mainMod, SPACE, exec, pkill wofi || $menu"
+                "$mainMod, SPACE, exec, $menu"
+                "$mainMod ALT, SPACE, exec, vicinae toggle"
                 "$mainMod, R, pseudo"
                 "$mainMod, B, togglesplit"
                 "$mainMod, N, togglefloating"
@@ -222,7 +223,11 @@
                 "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
             ];
 
-            layerrule = [ "noanim, vicinae" ];
+            layerrule = [ 
+                "noanim, vicinae" 
+                "noanim, wofi"
+                "noanim, hyprlauncher"
+            ];
         };
     };
 }

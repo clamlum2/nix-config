@@ -7,31 +7,56 @@ let
 in
 {
   vesktop-with-wayland = stdenv.mkDerivation {
-    pname = "vesktop";
+    pname = "vesktop-with-wayland";
     version = "wrapped-" + (orig.version or "0");
+
+    src = null;
+    dontUnpack = true;
+    phases = [ "installPhase" ];
 
     nativeBuildInputs = [ makeWrapper ];
     buildInputs = [];
 
     installPhase = ''
-      mkdir -p $out/bin $out/share/applications
+      set -euo pipefail
 
-      ${makeWrapper}/bin/makeWrapper ${orig}/bin/vesktop $out/bin/vesktop \
+      mkdir -p "$out/bin" "$out/share/applications"
+
+      if [ -x "${orig}/bin/vesktop" ]; then
+        src_exec="${orig}/bin/vesktop"
+      elif [ -x "${orig}/libexec/vesktop" ]; then
+        src_exec="${orig}/libexec/vesktop"
+      elif [ -d "${orig}/bin" ] && [ "$(ls -A "${orig}/bin" || true)" ]; then
+        src_exec="$(ls -d "${orig}/bin/"* | head -n1)"
+      else
+        echo "error: could not find vesktop executable in ${orig}" >&2
+        exit 1
+      fi
+
+      makeWrapper "$src_exec" "$out/bin/vesktop" \
         --add-flags "--ozone-platform=wayland"
-      chmod +x $out/bin/vesktop
+      chmod +x "$out/bin/vesktop"
 
-      if [ -f ${orig}/share/applications/vesktop.desktop ]; then
-        mkdir -p $out/share/applications
-        cp ${orig}/share/applications/vesktop.desktop $out/share/applications/
+      if [ -f "${orig}/share/applications/vesktop.desktop" ]; then
+        mkdir -p "$out/share/applications"
+        cp "${orig}/share/applications/vesktop.desktop" "$out/share/applications/"
+        execfile="$out/share/applications/vesktop.desktop"
 
-        substituteInPlace $out/share/applications/vesktop.desktop \
-          --replace 'Exec=vesktop %U' "Exec=$out/bin/vesktop %U" || true
-        substituteInPlace $out/share/applications/vesktop.desktop \
-          --replace 'Exec=vesktop' "Exec=$out/bin/vesktop" || true
-        substituteInPlace $out/share/applications/vesktop.desktop \
-          --replace 'Exec=/run/current-system/sw/bin/vesktop %U' "Exec=$out/bin/vesktop %U" || true
-        substituteInPlace $out/share/applications/vesktop.desktop \
-          --replace 'Exec=/run/current-system/sw/bin/vesktop' "Exec=$out/bin/vesktop" || true
+        orig_exec_line="$(grep '^Exec=' "${orig}/share/applications/vesktop.desktop" | head -n1 || true)"
+        if [ -n "$orig_exec_line" ]; then
+          orig_exec="$(printf '%s' "$orig_exec_line" | sed 's/^Exec=//')"
+
+          rest="$(printf '%s' "$orig_exec" | cut -s -d' ' -f2-)"
+
+          if [ -n "$rest" ]; then
+            new_exec="$out/bin/vesktop --ozone-platform=wayland $rest"
+          else
+            new_exec="$out/bin/vesktop --ozone-platform=wayland"
+          fi
+
+          awk -v new="Exec=$new_exec" 'BEGIN{repl=0} /^Exec=/ && !repl {print new; repl=1; next} {print}' "$execfile" > "$execfile.tmp"
+          mv "$execfile.tmp" "$execfile"
+        fi
       fi
     '';
 

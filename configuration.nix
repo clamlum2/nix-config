@@ -120,11 +120,11 @@ in
     pkgs.python313Packages.gpustat
     pkgs.iperf3
     pkgs.localsend
-    pkgs.vesktop
 
     unstable.discord
     unstable.vscode
-    unstable.spotify
+
+    pkgs.vesktop-with-wayland
 
     (import ./imports/helium.nix { inherit pkgs; icon = ./resources/icons/helium.png; })
   ];
@@ -137,8 +137,21 @@ in
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 139 445 47984 47989 47990 48010 ];
+  networking.firewall.allowedTCPPorts = [ 22 139 445 47984 47989 47990 48010 57621 ];
   networking.firewall.allowedUDPPorts = [ 137 138 47998 47999 48000 48002 48010 ];
+
+  networking.firewall.extraCommands = ''
+    ${pkgs.iptables}/bin/iptables -I OUTPUT -p udp -d 224.0.0.251 --dport 5353 -j DROP
+    ${pkgs.iptables}/bin/iptables -I INPUT  -p udp --dport 5353 -j DROP
+
+    ${pkgs.iptables}/bin/iptables -I OUTPUT -p udp -d 239.255.255.250 --dport 1900 -j DROP
+    ${pkgs.iptables}/bin/iptables -I INPUT  -p udp --dport 1900 -j DROP
+
+    ${pkgs.iptables}/bin/iptables -I OUTPUT -p tcp --dport 57621 -j DROP
+    ${pkgs.iptables}/bin/iptables -I OUTPUT -p udp --dport 57621 -j DROP
+    ${pkgs.iptables}/bin/iptables -I OUTPUT -p tcp --dport 57622 -j DROP
+    ${pkgs.iptables}/bin/iptables -I OUTPUT -p tcp --dport 4070 -j DROP
+  '';
 
   system.stateVersion = "25.05"; 
 
