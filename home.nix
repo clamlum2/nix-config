@@ -14,7 +14,7 @@ in
   home.stateVersion = "25.05";
 
   # Import the Zsh config
-  imports = [ 
+  imports = [
     ./imports/hyprshade.nix
     ./imports/vicinae.nix
     ./imports/hyprlauncher.nix
