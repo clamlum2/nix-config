@@ -34,8 +34,10 @@ in
     plugins=(git)
     source $ZSH/oh-my-zsh.sh
 
-    alias nrt="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sh /etc/nixos/scripts/nrt.sh && hyprshade on extravibrance"
-    alias nrs="sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' ~/nix-config/ /etc/nixos/ && sh /etc/nixos/scripts/nrs.sh && hyprshade on extravibrance"
+  # Aliases now call the scripts directly; the scripts handle syncing and
+  # calling hyprshade so flags (eg. --upgrade) are forwarded correctly.
+    alias nrt="sh /etc/nixos/scripts/nrt.sh"
+    alias nrs="sh /etc/nixos/scripts/nrs.sh"
     alias updatenix="sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/refs/heads/main/install.sh)"
     alias cdnix="cd ~/nix-config/"
     alias codenix="code ~/nix-config/"
