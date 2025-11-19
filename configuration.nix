@@ -80,7 +80,6 @@ in
     pkgs.hyprpaper
     pkgs.hyprshade
     pkgs.pwvucontrol
-    pkgs.easyeffects
     pkgs.curl
     pkgs.p7zip
     pkgs.kdePackages.qtstyleplugin-kvantum
@@ -120,9 +119,11 @@ in
     pkgs.python313Packages.gpustat
     pkgs.iperf3
     pkgs.localsend
+    pkgs.nextcloud-client
 
     unstable.discord
     unstable.vscode
+    unstable.easyeffects
 
     pkgs.vesktop-with-wayland
 

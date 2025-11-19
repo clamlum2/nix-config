@@ -127,6 +127,10 @@
           ({ pkgs, lib, ... }: {
             environment.systemPackages = [ ] ++ lib.optional (hyprPkg != null) hyprPkg;
           })
+
+          spicetify-nix.nixosModules.default
+
+          (import ./imports/spicetify.nix { inherit spicePkgs; })
         ];
         specialArgs = {
           inherit nixpkgs-unstable;
