@@ -34,7 +34,7 @@ in
       fi
 
       makeWrapper "$src_exec" "$out/bin/vesktop" \
-        --add-flags "--ozone-platform=wayland"
+        --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=angle --use-angle=gl --enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoEncoder --enable-features=VaapiIgnoreDriverChecks,VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization,UseMultiPlaneFormatForHardwareVideo"
       chmod +x "$out/bin/vesktop"
 
       if [ -f "${orig}/share/applications/vesktop.desktop" ]; then

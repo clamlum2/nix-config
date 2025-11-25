@@ -110,7 +110,6 @@ in
     pkgs.gnome-themes-extra
     pkgs.jq
     pkgs.steam-run
-    pkgs.btop
     pkgs.slack
     pkgs.fuse
     pkgs.appimage-run
@@ -120,10 +119,10 @@ in
     pkgs.iperf3
     pkgs.localsend
     pkgs.nextcloud-client
+    pkgs.easyeffects
 
     unstable.discord
     unstable.vscode
-    unstable.easyeffects
 
     pkgs.vesktop-with-wayland
 
@@ -154,7 +153,7 @@ in
     ${pkgs.iptables}/bin/iptables -I OUTPUT -p tcp --dport 4070 -j DROP
   '';
 
-  system.stateVersion = "25.05"; 
+  system.stateVersion = "25.05";
 
   programs.hyprland = {
     enable = true;
@@ -233,4 +232,12 @@ in
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
+
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+  '';
 }

@@ -27,6 +27,7 @@ in
     ./imports/ssh.nix
     ./imports/ghostty.nix
     ./imports/hyprpanel.nix
+    ./imports/btop.nix
   ];
 
   fonts.fontconfig.enable = true;

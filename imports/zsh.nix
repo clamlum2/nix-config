@@ -21,7 +21,6 @@ in
     pkgs.zoxide
   ];
 
-
   home.file.".zshrc".text = ''
 
     export ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"
@@ -55,7 +54,7 @@ in
           echo "Public key copied to clipboard."
       fi
     }
-  
+
     function prox() {
       if [[ -n $1 ]]; then
           ssh root@192.168.1.$1
