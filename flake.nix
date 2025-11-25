@@ -136,6 +136,38 @@
           inherit nixpkgs-unstable;
         };
       };
+      wsl = let
+        system = "aarch64-linux";
+        pkgs = import nixpkgs { inherit system; };
+      in nixpkgs.lib.nixosSystem {
+        system = system;
+        modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+            home-manager.extraSpecialArgs = {
+              nixpkgs-unstable = nixpkgs-unstable;
+            };
+            home-manager.users.clamt = { pkgs, ... }: {
+              imports = [
+                ./home.nix
+              ];
+            };
+          }
+
+          nixos-wsl.nixosModules.default
+          {
+            system.stateVersion = "25.11";
+            wsl.enable = true;
+          }
+        ];
+        specialArgs = {
+          inherit nixpkgs-unstable;
+        };
+      };
     };
   };
 }
