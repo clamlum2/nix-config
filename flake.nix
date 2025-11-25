@@ -168,7 +168,7 @@
           ({ pkgs, lib, ... }: {
             environment.systemPackages = [
               pkgs.git
-            ]
+            ];
           })
 
           nixos-wsl.nixosModules.default
