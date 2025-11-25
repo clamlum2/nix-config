@@ -3,6 +3,7 @@
 {
   home.packages = [
     pkgs.kdePackages.breeze
+    pkgs.adwaita-icon-theme
   ];
 
   home.pointerCursor = {
@@ -20,10 +21,6 @@
     sansSerif = [ "NotoSans Nerd Font" "Noto Sans" ];
     serif = [ "NotoSerif Nerd Font" "Noto Serif" ];
   };
-
-  home.packages = [
-    pkgs.adwaita-icon-theme
-  ];
 
   gtk.iconTheme = {
     name = "Adwaita";
