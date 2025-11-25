@@ -6,7 +6,7 @@
   ];
 
   xdg.configFile."Kvantum/Amy-Dark-Kvantum" = {
-    source = ./../resources/Amy-Dark-Kvantum;
+    source = ./../../resources/Amy-Dark-Kvantum;
     recursive = true;
   };
 
