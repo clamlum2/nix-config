@@ -90,4 +90,6 @@ in
 
   home.file.".config/fastfetch/groups.jsonc".source = ../../resources/fastfetch/groups.jsonc;
   home.file.".config/fastfetch/ssh.jsonc".source = ../../resources/fastfetch/ssh.jsonc;
+
+  home.file.".ssh/id_ed25519.pub".source = ./../resources/ssh/id_ed25519.pub;
 }

@@ -30,7 +30,6 @@ in
 
     # shell
     ./modules/shell/btop.nix
-    ./modules/shell/ssh.nix
     ./modules/shell/zsh.nix
 
     # terminals
