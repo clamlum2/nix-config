@@ -15,7 +15,6 @@ in
   imports = [
     # apps
     ./modules/apps/hyprlauncher.nix
-    ./modules/apps/vicinae.nix
     ./modules/apps/wofi.nix
 
     # desktop

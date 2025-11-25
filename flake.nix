@@ -66,6 +66,7 @@
               imports = [
                 inputs.vicinae.homeManagerModules.default
                 ./home.nix
+                ./modules/apps/vicinae.nix
               ];
             };
           }
