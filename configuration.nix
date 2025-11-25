@@ -12,6 +12,8 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
+      ./pkgs.nix
+
       ./modules/misc/nix-ld.nix
     ];
 
