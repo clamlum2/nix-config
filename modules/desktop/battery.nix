@@ -1,4 +1,13 @@
-{ /* no-op battery helper; insertion handled in `hyprpanel.nix` */ }:
+{ config, pkgs, lib, ... }:
 
 {
+  programs.hyprpanel.settings.bar.layouts."*".right = [
+    "systray"
+    "battery"
+    "volume"
+    "bluetooth"
+    "network"
+    "clock"
+    "notifications"
+  ];
 }
