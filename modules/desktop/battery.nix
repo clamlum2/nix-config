@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  existing = if config ? programs && config.programs ? hyprpanel && config.programs.hyprpanel ? settings && config.programs.hyprpanel.settings ? bar && config.programs.hyprpanel.settings.bar ? layouts && config.programs.hyprpanel.settings.bar.layouts
+  existing = if config ? programs && config.programs ? hyprpanel && config.programs.hyprpanel ? settings && config.programs.hyprpanel.settings ? bar && config.programs.hyprpanel.settings.bar ? layouts && config.programs.hyprpanel.settings.bar.layouts ? "*" && config.programs.hyprpanel.settings.bar.layouts."*" ? right
     then config.programs.hyprpanel.settings.bar.layouts."*".right
     else [];
 
