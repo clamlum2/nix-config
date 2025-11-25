@@ -88,6 +88,6 @@ in
     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[cyan]%})"
   '';
 
-  home.file.".config/fastfetch/groups.jsonc".source = ../resources/fastfetch/groups.jsonc;
-  home.file.".config/fastfetch/ssh.jsonc".source = ../resources/fastfetch/ssh.jsonc;
+  home.file.".config/fastfetch/groups.jsonc".source = ../../resources/fastfetch/groups.jsonc;
+  home.file.".config/fastfetch/ssh.jsonc".source = ../../resources/fastfetch/ssh.jsonc;
 }
