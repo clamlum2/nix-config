@@ -1,4 +1,4 @@
-{   config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
     buttonNames = [
@@ -21,7 +21,10 @@ let
             border = "#FFFFFF";
         };
     }) buttonNames);
-    isLaptop = config.networking.hostName == "laptop";
+        isLaptop = let
+            hostRes = builtins.tryEval (builtins.getEnv "HOSTNAME");
+            host = if hostRes.success then hostRes.value else "";
+        in host == "laptop";
 in
 
 {
