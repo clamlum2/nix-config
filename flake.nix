@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -23,6 +25,7 @@
   outputs = inputs@{
     self,
     nixpkgs,
+    nixos-wsl,
     home-manager,
     nixpkgs-unstable,
     lanzaboote,
