@@ -6,6 +6,7 @@ let
         "windowtitle"
         "media"
         "systray"
+        "battery"
         "volume"
         "bluetooth"
         "network"
