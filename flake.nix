@@ -36,6 +36,11 @@
   }:
   {
     nixosConfigurations = {
+
+      ##################
+      # PC Configuration
+      ##################
+
       nixos = let
         system = "x86_64-linux";
         pkgs = import nixpkgs { inherit system; };
@@ -97,6 +102,11 @@
           inherit nixpkgs-unstable;
         };
       };
+
+      ######################
+      # Laptop Configuration
+      ######################
+
       laptop = let
         system = "x86_64-linux";
         pkgs = import nixpkgs { inherit system; };
@@ -143,6 +153,11 @@
           inherit nixpkgs-unstable;
         };
       };
+
+      ###################
+      # WSL Configuration
+      ###################
+
       wsl = let
         system = "aarch64-linux";
         pkgs = import nixpkgs { inherit system; };
