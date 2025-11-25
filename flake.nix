@@ -133,7 +133,7 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               backupFileExtension = "backup";
-              home-manager.extraSpecialArgs = {
+              extraSpecialArgs = {
                 nixpkgs-unstable = nixpkgs-unstable;
               };
               users.clamt = { pkgs, ... }: {
