@@ -1,9 +1,6 @@
 { config, pkgs, lib, ... }:
 
 let
-        hostOverride = if config ? _module && builtins.hasAttr "hostOverride" config._module.args
-            then config._module.args.hostOverride
-            else null;
     buttonNames = [
         "dashboard"
         "windowtitle"
@@ -24,8 +21,6 @@ let
             border = "#FFFFFF";
         };
     }) buttonNames);
-
-        isLaptop = if hostOverride != null then hostOverride else (config ? networking && config.networking.hostName == "laptop");
 in
 
 {
@@ -44,7 +39,7 @@ in
                             "windowtitle"
                         ];
                         middle = [ "media" ];
-                        right = lib.optional isLaptop "battery" ++ [
+                        right = [
                             "systray"
                             "volume"
                             "bluetooth"

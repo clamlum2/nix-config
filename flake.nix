@@ -135,6 +135,7 @@
             home-manager.users.clamt = { pkgs, ... }: {
               imports = [
                 ./home.nix
+                ./modules/desktop/battery.nix
               ];
             };
           }
@@ -194,7 +195,6 @@
         ];
         specialArgs = {
           inherit nixpkgs-unstable;
-          hostOverride = true;
         };
       };
     };
