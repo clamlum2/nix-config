@@ -14,8 +14,6 @@ in
 
       ./imports/nix-ld.nix
 
-      ./imports/pc.nix
-
       ./imports/ai.nix
     ];
 

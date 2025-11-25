@@ -30,7 +30,7 @@
     spicetify-nix,
     hyprlauncher,
     ...
-  }: 
+  }:
   {
     nixosConfigurations = {
       nixos = let
@@ -74,7 +74,7 @@
             environment.systemPackages = [
               pkgs.sbctl
             ] ++ lib.optional (hyprPkg != null) hyprPkg;
-            
+
             boot.loader.systemd-boot.enable = lib.mkForce false;
 
             boot.lanzaboote = {
@@ -103,7 +103,7 @@
         hyprPkg = if builtins.hasAttr "packages" hyprlauncher && builtins.hasAttr system hyprlauncher.packages && builtins.hasAttr "default" (hyprlauncher.packages.${system})
           then hyprlauncher.packages.${system}.default
           else null;
-        
+
         spicePkgs = spicetify-nix.legacyPackages.${system};
       in nixpkgs.lib.nixosSystem {
         modules = [
