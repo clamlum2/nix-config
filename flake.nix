@@ -164,7 +164,6 @@
       in nixpkgs.lib.nixosSystem {
         system = system;
         modules = [
-          ./configuration.nix
           ./modules/devices/wsl.nix
           home-manager.nixosModules.home-manager
           {
