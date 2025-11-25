@@ -22,7 +22,10 @@ let
         };
     }) buttonNames);
 
-    isLaptop = builtins.pathExists "/sys/class/power_supply";
+        isLaptop = let
+            hostRes = builtins.tryEval (builtins.getEnv "HOST");
+            host = if hostRes.success then hostRes.value else "";
+        in host == "laptop";
 in
 
 {
