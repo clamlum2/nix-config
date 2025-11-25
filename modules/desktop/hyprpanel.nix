@@ -21,6 +21,7 @@ let
             border = "#FFFFFF";
         };
     }) buttonNames);
+    isLaptop = config.networking.hostName == "laptop";
 in
 
 {
@@ -39,7 +40,7 @@ in
                             "windowtitle"
                         ];
                         middle = [ "media" ];
-                        right = [
+                        right = lib.optional isLaptop "battery" ++ [
                             "systray"
                             "volume"
                             "bluetooth"
