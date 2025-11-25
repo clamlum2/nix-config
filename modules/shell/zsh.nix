@@ -21,9 +21,6 @@ in
     pkgs.zoxide
   ];
 
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
-
   home.file.".zshrc".text = ''
 
     export ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"

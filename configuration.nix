@@ -9,7 +9,7 @@ in
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
 
       ./pkgs.nix
@@ -17,19 +17,12 @@ in
       ./modules/misc/nix-ld.nix
     ];
 
-  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
 
-  #boot.loader.grub.enable = true;
-  #boot.loader.grub.device = "/dev/sda";
-  #boot.loader.grub.useOSProber = true;
-
-  # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages;
 
-  # Enable networking
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -171,4 +164,7 @@ in
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
   '';
+
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 }
