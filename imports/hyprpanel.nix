@@ -2,14 +2,14 @@
 
 let
     buttonNames = [
-        "dashboard" 
-        "windowtitle" 
+        "dashboard"
+        "windowtitle"
         "media"
-        "systray" 
-        "volume" 
+        "systray"
+        "volume"
         "bluetooth"
-        "network" 
-        "clock" 
+        "network"
+        "clock"
         "notifications"
     ];
     buttonAttrs = builtins.listToAttrs (map (name: {
@@ -327,6 +327,7 @@ in
                 };
             };
             menus = {
+                volume.raiseMaximumVolume = true;
                 clock = {
                     weather = {
                         location = "Auckland";
