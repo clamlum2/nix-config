@@ -53,7 +53,7 @@
         system = system;
         modules = [
           ./configuration.nix
-          ./imports/pc.nix
+          ./modules/devices/pc.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -88,7 +88,7 @@
 
           spicetify-nix.nixosModules.default
 
-          (import ./imports/spicetify.nix { inherit spicePkgs; })
+          (import ./modules/apps/spicetify.nix { inherit spicePkgs; })
 
         ];
         specialArgs = {
@@ -111,7 +111,7 @@
       in nixpkgs.lib.nixosSystem {
         modules = [
           ./configuration.nix
-          ./imports/laptop.nix
+          ./modules/devices/laptop.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -133,7 +133,7 @@
 
           spicetify-nix.nixosModules.default
 
-          (import ./imports/spicetify.nix { inherit spicePkgs; })
+          (import ./modules/apps/spicetify.nix { inherit spicePkgs; })
         ];
         specialArgs = {
           inherit nixpkgs-unstable;
@@ -146,6 +146,7 @@
         system = system;
         modules = [
           ./configuration.nix
+          ./modules/devices/wsl.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

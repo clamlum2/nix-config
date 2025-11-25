@@ -12,7 +12,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
 
-      ./imports/nix-ld.nix
+      ./modules/misc/nix-ld.nix
     ];
 
   # Bootloader.

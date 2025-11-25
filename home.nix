@@ -15,45 +15,26 @@ in
 
   # Import the Zsh config
   imports = [
-    ./imports/hyprshade.nix
-    ./imports/vicinae.nix
-    ./imports/hyprlauncher.nix
+    # apps
+    ./modules/apps/hyprlauncher.nix
+    ./modules/apps/vicinae.nix
+    ./modules/apps/wofi.nix
 
-    ./imports/zsh.nix
-    ./imports/wezterm.nix
-    ./imports/hyprland.nix
-    ./imports/cursor.nix
-    ./imports/kvantum.nix
-    ./imports/wofi.nix
-    ./imports/hyprlock.nix
-    ./imports/ssh.nix
-    ./imports/ghostty.nix
-    ./imports/hyprpanel.nix
-    ./imports/btop.nix
+    # desktop
+    ./modules/desktop/hyprland.nix
+    ./modules/desktop/hyprlock.nix
+    ./modules/desktop/hyprpanel.nix
+    ./modules/desktop/hyprshade.nix
+    ./modules/desktop/kvantum.nix
+    ./modules/desktop/theme.nix
+
+    # shell
+    ./modules/shell/btop.nix
+    ./modules/shell/ssh.nix
+    ./modules/shell/zsh.nix
+
+    # terminals
+    ./modules/terminals/ghostty.nix
+    ./modules/terminals/wezterm.nix
   ];
-
-  fonts.fontconfig.enable = true;
-
-  fonts.fontconfig.defaultFonts = {
-    monospace = [ "NotoSans Nerd Font Mono" "Noto Sans Mono" ];
-    sansSerif = [ "NotoSans Nerd Font" "Noto Sans" ];
-    serif = [ "NotoSerif Nerd Font" "Noto Serif" ];
-  };
-
-  home.packages = [
-    pkgs.adwaita-icon-theme
-  ];
-
-  gtk.iconTheme = {
-    name = "Adwaita";
-    package = pkgs.adwaita-icon-theme;
-  };
-
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-  };
 }
