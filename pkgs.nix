@@ -68,6 +68,6 @@ in
   ];
 
   nixpkgs.overlays = [
-    (import ./overlays/vesktop.nix)
+    (import ./modules/overlays/vesktop.nix)
   ];
 }
