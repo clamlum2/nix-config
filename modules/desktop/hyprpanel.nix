@@ -40,14 +40,6 @@ in
                             "windowtitle"
                         ];
                         middle = [ "media" ];
-                        right = [
-                            "systray"
-                            "volume"
-                            "bluetooth"
-                            "network"
-                            "clock"
-                            "notifications"
-                        ];
                     };
                 };
                 windowtitle.middleClick = "hyprctl dispatch killactive";
