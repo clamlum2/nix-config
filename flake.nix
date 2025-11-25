@@ -61,18 +61,21 @@
           ./modules/devices/pc.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = {
-              nixpkgs-unstable = nixpkgs-unstable;
-            };
-            home-manager.users.clamt = { pkgs, ... }: {
-              imports = [
-                inputs.vicinae.homeManagerModules.default
-                ./home.nix
-                ./modules/apps/vicinae.nix
-              ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                nixpkgs-unstable = nixpkgs-unstable;
+              };
+              users.clamt = { pkgs, ... }: {
+                imports = [
+                  inputs.vicinae.homeManagerModules.default
+                  ./home.nix
+                  ./modules/devices/no-battery.nix
+                  ./modules/apps/vicinae.nix
+                ];
+              };
             };
           }
 
@@ -126,17 +129,19 @@
           ./modules/devices/laptop.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = {
-              nixpkgs-unstable = nixpkgs-unstable;
-            };
-            home-manager.users.clamt = { pkgs, ... }: {
-              imports = [
-                ./home.nix
-                ./modules/desktop/battery.nix
-              ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              home-manager.extraSpecialArgs = {
+                nixpkgs-unstable = nixpkgs-unstable;
+              };
+              users.clamt = { pkgs, ... }: {
+                imports = [
+                  ./home.nix
+                  ./modules/desktop/battery.nix
+                ];
+              };
             };
           }
 
@@ -168,16 +173,18 @@
           ./modules/devices/wsl.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = {
-              nixpkgs-unstable = nixpkgs-unstable;
-            };
-            home-manager.users.clamt = { pkgs, ... }: {
-              imports = [
-                ./modules/devices/wsl-home.nix
-              ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                nixpkgs-unstable = nixpkgs-unstable;
+              };
+              users.clamt = { pkgs, ... }: {
+                imports = [
+                  ./modules/devices/wsl-home.nix
+                ];
+              };
             };
           }
 
