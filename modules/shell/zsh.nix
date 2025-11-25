@@ -16,6 +16,7 @@ in
     pkgs.zsh-syntax-highlighting
     pkgs.zsh-you-should-use
 
+    pkgs.fastfetch
     pkgs.lsd
     pkgs.bat
     pkgs.zoxide

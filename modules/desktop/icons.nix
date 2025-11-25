@@ -14,14 +14,6 @@
     x11.enable = true;
   };
 
-  fonts.fontconfig.enable = true;
-
-  fonts.fontconfig.defaultFonts = {
-    monospace = [ "NotoSans Nerd Font Mono" "Noto Sans Mono" ];
-    sansSerif = [ "NotoSans Nerd Font" "Noto Sans" ];
-    serif = [ "NotoSerif Nerd Font" "Noto Serif" ];
-  };
-
   gtk.iconTheme = {
     name = "Adwaita";
     package = pkgs.adwaita-icon-theme;

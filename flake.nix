@@ -75,6 +75,7 @@
           ({ pkgs, lib, ... }: {
 
             environment.systemPackages = [
+              pkgs.git
               pkgs.sbctl
             ] ++ lib.optional (hyprPkg != null) hyprPkg;
 
@@ -128,7 +129,9 @@
           }
 
           ({ pkgs, lib, ... }: {
-            environment.systemPackages = [ ] ++ lib.optional (hyprPkg != null) hyprPkg;
+            environment.systemPackages = [
+              pkgs.git
+            ] ++ lib.optional (hyprPkg != null) hyprPkg;
           })
 
           spicetify-nix.nixosModules.default
@@ -157,10 +160,16 @@
             };
             home-manager.users.clamt = { pkgs, ... }: {
               imports = [
-                ./home.nix
+                ./modules/devices/wsl-home.nix
               ];
             };
           }
+
+          ({ pkgs, lib, ... }: {
+            environment.systemPackages = [
+              pkgs.git
+            ]
+          })
 
           nixos-wsl.nixosModules.default
           {
