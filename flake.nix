@@ -194,6 +194,7 @@
         ];
         specialArgs = {
           inherit nixpkgs-unstable;
+          hostOverride = true;
         };
       };
     };

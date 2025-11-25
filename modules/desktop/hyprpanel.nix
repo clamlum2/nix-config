@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 
 let
+        hostOverride = if config ? _module && builtins.hasAttr "hostOverride" config._module.args
+            then config._module.args.hostOverride
+            else null;
     buttonNames = [
         "dashboard"
         "windowtitle"
@@ -22,10 +25,7 @@ let
         };
     }) buttonNames);
 
-        isLaptop = let
-            hostRes = builtins.tryEval (builtins.getEnv "HOST");
-            host = if hostRes.success then hostRes.value else "";
-        in host == "laptop";
+        isLaptop = if hostOverride != null then hostOverride else (config ? networking && config.networking.hostName == "laptop");
 in
 
 {
