@@ -19,6 +19,8 @@ in
   ];
 
   home.file.".zshrc".text = ''
+    alias win="cd /mnt/c/Users/clamt"
+
     cd ~
   '';
 }
