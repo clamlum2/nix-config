@@ -15,5 +15,5 @@
     ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[cyan]%})"
   '';
 
-  home.file.".config/fastfetch/ssh.jsonc".source = ../../../resources/fastfetch/purple.jsonc;
+  home.file.".config/fastfetch/ssh.jsonc".source = ../../../resources/fastfetch/blue.jsonc;
 }
