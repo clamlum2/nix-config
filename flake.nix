@@ -66,6 +66,7 @@
               imports = [
                 inputs.vicinae.homeManagerModules.default
                 ./home.nix
+                ./modules/shell/themes/blue.nix
               ];
             };
           }
@@ -123,6 +124,7 @@
             home-manager.users.clamt = { pkgs, ... }: {
               imports = [
                 ./home.nix
+                ./modules/shell/themes/blue.nix
               ];
             };
           }
@@ -158,6 +160,7 @@
             home-manager.users.clamt = { pkgs, ... }: {
               imports = [
                 ./home.nix
+                ./modules/shell/themes/purple.nix
               ];
             };
           }
