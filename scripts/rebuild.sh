@@ -115,7 +115,7 @@ fi
 
 echo "Using hostname: $HOST"
 
-echo "==> Rebuilding system for flake: $CONFIG_REPO#$HOST"
+echo "==> Rebuild/$ACTION system for flake: $CONFIG_REPO#$HOST"
 if sudo nixos-rebuild $ACTION --flake "$CONFIG_REPO#$HOST"; then
     echo "==> Rebuild/$ACTION complete"
     if command -v hyprshade >/dev/null 2>&1; then
