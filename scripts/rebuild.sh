@@ -97,7 +97,7 @@ fi
 
 if [[ -d "$SRC_REPO" ]]; then
     echo "==> Syncing $SRC_REPO -> $CONFIG_REPO"
-    if ! sudo rsync -av --exclude='.git' --exclude='README.md' --exclude='install.sh' "$SRC_REPO/" "$CONFIG_REPO/"; then
+    if ! sudo rsync -av --exclude='.git' --exclude='/hardware-configuration.nix' --delete "$SRC_REPO/" "$CONFIG_REPO/"; then
         echo "Error: rsync from '$SRC_REPO' to '$CONFIG_REPO' failed"
         exit 1
     fi

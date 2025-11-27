@@ -64,7 +64,7 @@ in
 
     pkgs.vesktop-with-wayland
 
-    (import ./imports/helium.nix { inherit pkgs; icon = ./resources/icons/helium.png; })
+    (import ./modules/apps/helium.nix { inherit pkgs; icon = ./resources/icons/helium.png; })
   ];
 
   nixpkgs.overlays = [
