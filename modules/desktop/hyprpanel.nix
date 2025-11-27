@@ -1,4 +1,4 @@
-{   config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
     buttonNames = [
@@ -6,6 +6,7 @@ let
         "windowtitle"
         "media"
         "systray"
+        "battery"
         "volume"
         "bluetooth"
         "network"
@@ -39,14 +40,6 @@ in
                             "windowtitle"
                         ];
                         middle = [ "media" ];
-                        right = [
-                            "systray"
-                            "volume"
-                            "bluetooth"
-                            "network"
-                            "clock"
-                            "notifications"
-                        ];
                     };
                 };
                 windowtitle.middleClick = "hyprctl dispatch killactive";

@@ -16,6 +16,7 @@ in
     pkgs.zsh-syntax-highlighting
     pkgs.zsh-you-should-use
 
+    pkgs.fastfetch
     pkgs.lsd
     pkgs.bat
     pkgs.zoxide
@@ -37,7 +38,7 @@ in
     # calling hyprshade so flags (eg. --upgrade) are forwarded correctly.
     alias nrt="sh /etc/nixos/scripts/nrt.sh"
     alias nrs="sh /etc/nixos/scripts/nrs.sh"
-    alias updatenix="sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config//main/scripts/update.sh)"
+    alias updatenix="sh <(curl https://raw.githubusercontent.com/clamlum2/nix-config/main/scripts/update.sh)"
     alias cdnix="cd ~/nix-config/"
     alias codenix="code ~/nix-config/"
     alias ls="lsd --group-directories-first -A"

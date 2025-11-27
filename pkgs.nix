@@ -11,7 +11,6 @@ in
     environment.systemPackages = [
     pkgs.kitty
     pkgs.git
-    pkgs.fastfetch
     pkgs.google-chrome
     pkgs.kdePackages.dolphin
     pkgs.polkit
@@ -69,6 +68,6 @@ in
   ];
 
   nixpkgs.overlays = [
-    (import ./overlays/vesktop.nix)
+    (import ./modules/overlays/vesktop.nix)
   ];
 }

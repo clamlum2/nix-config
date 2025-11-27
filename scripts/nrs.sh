@@ -98,22 +98,6 @@ fi
 
 HOST=$(hostname)
 
-VALID_HOSTS=("nixos" "laptop")
-
-map_branch_to_host() {
-    local branch="$1"
-    case "$branch" in
-        main) echo "nixos" ;;
-        laptop) echo "laptop" ;;
-        *) echo "unknown" ;;
-    esac
-}
-
-if [[ ! " ${VALID_HOSTS[@]} " =~ " ${HOST} " ]]; then
-    BRANCH=$(git -C "$CONFIG_REPO" rev-parse --abbrev-ref HEAD || true)
-    HOST=$(map_branch_to_host "$BRANCH")
-fi
-
 if [[ "$HOST" == "unknown" ]]; then
     echo "Error: Could not determine valid hostname (branch: '${BRANCH:-unset}')"
     exit 1

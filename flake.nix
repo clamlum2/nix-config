@@ -36,6 +36,11 @@
   }:
   {
     nixosConfigurations = {
+
+      ##################
+      # PC Configuration
+      ##################
+
       nixos = let
         system = "x86_64-linux";
         pkgs = import nixpkgs { inherit system; };
@@ -56,18 +61,22 @@
           ./modules/devices/pc.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = {
-              nixpkgs-unstable = nixpkgs-unstable;
-            };
-            home-manager.users.clamt = { pkgs, ... }: {
-              imports = [
-                inputs.vicinae.homeManagerModules.default
-                ./home.nix
-                ./modules/shell/themes/blue.nix
-              ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                nixpkgs-unstable = nixpkgs-unstable;
+              };
+              users.clamt = { pkgs, ... }: {
+                imports = [
+                  inputs.vicinae.homeManagerModules.default
+                  ./home.nix
+                  ./modules/devices/no-battery.nix
+                  ./modules/apps/vicinae.nix`
+                  ./modules/shell/themes/blue.nix
+                ];
+              };
             };
           }
 
@@ -76,6 +85,7 @@
           ({ pkgs, lib, ... }: {
 
             environment.systemPackages = [
+              pkgs.git
               pkgs.sbctl
             ] ++ lib.optional (hyprPkg != null) hyprPkg;
 
@@ -96,6 +106,11 @@
           inherit nixpkgs-unstable;
         };
       };
+
+      ######################
+      # Laptop Configuration
+      ######################
+
       laptop = let
         system = "x86_64-linux";
         pkgs = import nixpkgs { inherit system; };
@@ -115,22 +130,27 @@
           ./modules/devices/laptop.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = {
-              nixpkgs-unstable = nixpkgs-unstable;
-            };
-            home-manager.users.clamt = { pkgs, ... }: {
-              imports = [
-                ./home.nix
-                ./modules/shell/themes/blue.nix
-              ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                nixpkgs-unstable = nixpkgs-unstable;
+              };
+              users.clamt = { pkgs, ... }: {
+                imports = [
+                  ./home.nix
+                  ./modules/desktop/battery.nix
+                  ./modules/shell/themes/blue.nix
+                ];
+              };
             };
           }
 
           ({ pkgs, lib, ... }: {
-            environment.systemPackages = [ ] ++ lib.optional (hyprPkg != null) hyprPkg;
+            environment.systemPackages = [
+              pkgs.git
+            ] ++ lib.optional (hyprPkg != null) hyprPkg;
           })
 
           spicetify-nix.nixosModules.default
@@ -141,29 +161,41 @@
           inherit nixpkgs-unstable;
         };
       };
+
+      ###################
+      # WSL Configuration
+      ###################
+
       wsl = let
         system = "aarch64-linux";
         pkgs = import nixpkgs { inherit system; };
       in nixpkgs.lib.nixosSystem {
         system = system;
         modules = [
-          ./configuration.nix
           ./modules/devices/wsl.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = {
-              nixpkgs-unstable = nixpkgs-unstable;
-            };
-            home-manager.users.clamt = { pkgs, ... }: {
-              imports = [
-                ./home.nix
-                ./modules/shell/themes/purple.nix
-              ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                nixpkgs-unstable = nixpkgs-unstable;
+              };
+              users.clamt = { pkgs, ... }: {
+                imports = [
+                  ./modules/devices/wsl-home.nix
+                  ./modules/shell/themes/purple.nix
+                ];
+              };
             };
           }
+
+          ({ pkgs, lib, ... }: {
+            environment.systemPackages = [
+              pkgs.git
+            ];
+          })
 
           nixos-wsl.nixosModules.default
           {

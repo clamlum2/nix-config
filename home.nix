@@ -8,25 +8,23 @@ let
 in
 
 {
-
   home.username = "clamt";
   home.homeDirectory = "/home/clamt";
   home.stateVersion = "25.05";
 
-  # Import the Zsh config
   imports = [
     # apps
     ./modules/apps/hyprlauncher.nix
-    ./modules/apps/vicinae.nix
     ./modules/apps/wofi.nix
 
     # desktop
+    ./modules/desktop/fonts.nix
     ./modules/desktop/hyprland.nix
     ./modules/desktop/hyprlock.nix
     ./modules/desktop/hyprpanel.nix
     ./modules/desktop/hyprshade.nix
+    ./modules/desktop/icons.nix
     ./modules/desktop/kvantum.nix
-    ./modules/desktop/theme.nix
 
     # shell
     ./modules/shell/btop.nix
