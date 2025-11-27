@@ -70,13 +70,12 @@ in
       fastfetch -c ~/.config/fastfetch/groups
     fi
 
-    source ~/.oh-my-zsh/custom/themes/custom.zsh-theme
+    # source ~/.oh-my-zsh/custom/themes/custom.zsh-theme
 
     eval "$(zoxide init zsh)"
   '';
 
   home.file.".config/fastfetch/groups.jsonc".source = ../../resources/fastfetch/groups.jsonc;
-  home.file.".config/fastfetch/ssh.jsonc".source = ../../resources/fastfetch/ssh.jsonc;
 
   home.file.".ssh/id_ed25519.pub".source = ./../../resources/ssh/id_ed25519.pub;
 }
