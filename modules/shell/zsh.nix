@@ -70,7 +70,7 @@ in
       fastfetch -c ~/.config/fastfetch/groups
     fi
 
-    # source ~/.oh-my-zsh/custom/themes/custom.zsh-theme
+    source ~/.oh-my-zsh/custom/themes/custom.zsh-theme
 
     eval "$(zoxide init zsh)"
   '';
