@@ -23,7 +23,6 @@ in
   ];
 
   home.file.".zshrc".text = ''
-
     export ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"
 
     source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
