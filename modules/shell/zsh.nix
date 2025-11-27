@@ -64,10 +64,10 @@ in
       fi
     }
 
-    if [[ -n "$SSH_CONNECTION" ]]; then
-      fastfetch -c ~/.config/fastfetch/ssh
-    else
+    if [[ "$TERM" = "xterm-ghostty" ]]; then
       fastfetch -c ~/.config/fastfetch/groups
+    else
+      fastfetch -c ~/.config/fastfetch/ssh
     fi
 
     source ~/.oh-my-zsh/custom/themes/custom.zsh-theme
