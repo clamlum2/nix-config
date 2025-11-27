@@ -17,4 +17,8 @@ in
     ./../shell/zsh.nix
     ./../desktop/fonts.nix
   ];
+
+  home.file.".zshrc".text = ''
+    cd ~
+  '';
 }
