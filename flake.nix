@@ -73,7 +73,7 @@
                   inputs.vicinae.homeManagerModules.default
                   ./home.nix
                   ./modules/devices/no-battery.nix
-                  ./modules/apps/vicinae.nix`
+                  ./modules/apps/vicinae.nix
                   ./modules/shell/themes/blue.nix
                 ];
               };
