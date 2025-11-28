@@ -1,14 +1,19 @@
-{ pkgs, nixpkgs-unstable, ... }:
+{ pkgs, nixpkgs-unstable, nixpkgs-beta, ... }:
 
 let
   unstable = import nixpkgs-unstable {
     system = pkgs.system or "x86_64-linux";
     config.allowUnfree = true;
   };
+
+  beta = import nixpkgs-beta {
+    system = pkgs.system or "x86_64-linux";
+    config.allowUnfree = true;
+  };
 in
 
 {
-    environment.systemPackages = [
+  environment.systemPackages = [
     pkgs.kitty
     pkgs.git
     pkgs.google-chrome

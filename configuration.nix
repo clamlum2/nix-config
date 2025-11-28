@@ -1,9 +1,18 @@
-{ config, pkgs, nixpkgs-unstable, ... }:
+{ config, pkgs, nixpkgs-unstable, nixpkgs-beta, ... }:
 
 let
   unstable = import nixpkgs-unstable {
     system = pkgs.system or "x86_64-linux";
     config.allowUnfree = true;
+  };
+
+  beta = import nixpkgs-beta {
+    system = pkgs.system or "x86_64-linux";
+    config.allowUnfree = true;
+  };
+
+  hyprlandOverlay = final: prev: {
+    hyprland = unstable.hyprland;
   };
 in
 
@@ -21,7 +30,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
 
-  boot.kernelPackages = pkgs.linuxPackages;
+  # boot.kernelPackages = pkgs.linuxPackages;
 
   networking.networkmanager.enable = true;
 
@@ -81,6 +90,8 @@ in
   '';
 
   system.stateVersion = "25.05";
+
+  nixpkgs.overlays = [ hyprlandOverlay ];
 
   programs.hyprland = {
     enable = true;

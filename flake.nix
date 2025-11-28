@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-beta.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
@@ -25,9 +26,10 @@
   outputs = inputs@{
     self,
     nixpkgs,
+    nixpkgs-beta,
+    nixpkgs-unstable,
     nixos-wsl,
     home-manager,
-    nixpkgs-unstable,
     lanzaboote,
     vicinae,
     spicetify-nix,
@@ -59,6 +61,7 @@
         modules = [
           ./configuration.nix
           ./modules/devices/pc.nix
+          ./modules/devices/drivers.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -67,6 +70,7 @@
               backupFileExtension = "backup";
               extraSpecialArgs = {
                 nixpkgs-unstable = nixpkgs-unstable;
+                nixpkgs-beta = nixpkgs-beta;
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
@@ -104,6 +108,7 @@
         ];
         specialArgs = {
           inherit nixpkgs-unstable;
+          inherit nixpkgs-beta;
         };
       };
 
