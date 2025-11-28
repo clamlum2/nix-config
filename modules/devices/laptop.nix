@@ -15,6 +15,7 @@
   boot.blacklistedKernelModules = [ "b43" "ssb" "bcma" "brcm80211" "brcmfmac" "brcmsmac" "bcmdhd" ];
   nixpkgs.config.permittedInsecurePackages = [
     "broadcom-sta-6.30.223.271-59-6.12.58"
+    "broadcom-sta-6.30.223.271-59-6.17.8"
   ];
 
   programs.nix-ld.enable = true;
