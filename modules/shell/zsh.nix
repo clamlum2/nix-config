@@ -38,6 +38,7 @@
 
     alias nrs="sh ~/nix-config/scripts/rebuild.sh -a switch"
     alias nrt="sh ~/nix-config/scripts/rebuild.sh -a test"
+    alias nrb="time sh ~/nix-config/scripts/rebuild.sh -a build"
     alias ncg="sudo nix-collect-garbage -d"
 
     alias i="nix-shell -p"
