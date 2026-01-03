@@ -52,6 +52,7 @@
                   ./modules/hyprland/hyprpaper.nix
 
                   ./modules/desktop/icons.nix
+                  ./modules/desktop/mako.nix
 
                   ./modules/shell/zsh.nix
                   ./modules/shell/themes/blue.nix
