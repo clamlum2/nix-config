@@ -42,6 +42,7 @@
               backupFileExtension = "backup";
               extraSpecialArgs = {
                 nixpkgs-stable = nixpkgs-stable;
+                self = self;
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
@@ -69,6 +70,7 @@
         ];
         specialArgs = {
           inherit nixpkgs-stable;
+          inherit self;
         };
       };
     };

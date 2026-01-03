@@ -1,6 +1,24 @@
-{ config, pkgs, ... }:
+{ config, pkgs, self, ... }:
+
+let
+  calculator-script = "${self.outPath}/scripts/fuzzel-calc.sh";
+in
 
 {
+  home.packages = [
+    pkgs.fuzzel
+    pkgs.bc
+  ];
+
+  xdg.enable = true;
+  xdg.desktopEntries.calc = {
+    name = "=";
+    comment = "Fuzzel Calculator";
+    exec = "sh ${calculator-script}";
+    terminal = false;
+    categories = [ "Utility" ];
+  };
+
   programs.fuzzel = {
     enable = true;
 
@@ -13,7 +31,6 @@
         show-actions = "no";
         match-mode = "fuzzy";
         terminal = "ghostty";
-        launch-prefix = "";
         exit-on-keyboard-focus-loss = "yes";
 
         width = 80;
@@ -33,12 +50,8 @@
         sort-result = "yes";
         match-counter = "yes";
 
-        show-history = "yes";
-        history-size = 1000;
-
         render-workers = 2;
 
-        selection-wrap = "yes";
       };
 
       colors = {
@@ -66,46 +79,6 @@
       dmenu = {
         mode = "text";
         exit-immediately-if-empty = "no";
-      };
-
-      key-bindings = {
-        up = "Up Control+k";
-        down = "Down Control+j";
-        left = "Left";
-        right = "Right";
-
-        accept = "Return KP_Enter";
-        cancel = "Escape Control+g";
-
-        delete-prev = "BackSpace";
-        delete-next = "Delete";
-        delete-line = "Control+u";
-        delete-prev-word = "Control+w";
-
-        history-prev = "Alt+p";
-        history-next = "Alt+n";
-
-        copy = "Control+c";
-        paste = "Control+v";
-
-        toggle-actions = "Tab";
-      };
-
-      mouse = {
-        enabled = "yes";
-        hide-cursor = "yes";
-      };
-
-      search = {
-        wrap = "yes";
-      };
-
-      rendering = {
-        use-csd = "no";
-      };
-
-      experimental = {
-        layer-shell = "yes";
       };
     };
   };
