@@ -8,4 +8,9 @@
     sansSerif = [ "NotoSans Nerd Font" "Noto Sans" ];
     serif = [ "NotoSerif Nerd Font" "Noto Serif" ];
   };
+
+  fonts.packages = [
+    pkgs.nerd-fonts.noto
+    pkgs.nerd-fonts.dejavu-sans-mono
+  ];
 }

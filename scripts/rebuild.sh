@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG_REPO=/etc/nixos
-
-if [[ -n "${SUDO_USER:-}" ]]; then
-    SRC_REPO="/home/${SUDO_USER}/nix-config"
-else
-    SRC_REPO="$HOME/nix-config"
-fi
+CONFIG_REPO="$HOME/nix-config"
 
 usage() {
     cat <<EOF
@@ -55,73 +49,19 @@ fi
 
 
 if [[ "$UPGRADE" -eq 1 ]]; then
-    echo "==> Updating flake (preferred: $SRC_REPO, fallback: $CONFIG_REPO)"
-    UPDATE_OK=0
-
-    if [[ -d "$SRC_REPO" ]]; then
-        if [[ -n "${SUDO_USER:-}" ]]; then
-            echo "==> Running 'nix flake update' as ${SUDO_USER} in $SRC_REPO"
-            if sudo -u "${SUDO_USER}" bash -c "cd '$SRC_REPO' && nix flake update"; then
-                UPDATE_OK=1
-            else
-                echo "Warning: 'nix flake update' in $SRC_REPO as ${SUDO_USER} failed"
-            fi
-        else
-            echo "==> Running 'nix flake update' in $SRC_REPO"
-            if (cd "$SRC_REPO" && nix flake update); then
-                UPDATE_OK=1
-            else
-                echo "Warning: 'nix flake update' in $SRC_REPO failed"
-            fi
-        fi
-    else
-        echo "Note: source repo '$SRC_REPO' not found; will try updating $CONFIG_REPO as root"
-    fi
-
-    if [[ "$UPDATE_OK" -ne 1 ]]; then
-        echo "==> Trying to update flake in $CONFIG_REPO as root"
-        if sudo bash -c "cd '$CONFIG_REPO' && nix flake update"; then
-            UPDATE_OK=1
-        else
-            echo "Warning: 'nix flake update' in $CONFIG_REPO (as root) failed"
-        fi
-    fi
-
-    if [[ "$UPDATE_OK" -ne 1 ]]; then
-        echo "Error: 'nix flake update' failed in both $SRC_REPO and $CONFIG_REPO"
-        exit 1
-    fi
-
+    echo "==> Updating flake in $CONFIG_REPO"
+    cd "$CONFIG_REPO"
+    nix flake update
     echo "==> Flake update complete"
 fi
 
-if [[ -d "$SRC_REPO" ]]; then
-    echo "==> Syncing $SRC_REPO -> $CONFIG_REPO"
-    if ! sudo rsync -av --exclude='.git' --exclude='/hardware-configuration.nix' --delete "$SRC_REPO/" "$CONFIG_REPO/"; then
-        echo "Error: rsync from '$SRC_REPO' to '$CONFIG_REPO' failed"
-        exit 1
-    fi
-    echo "==> Sync complete"
-else
-    echo "Warning: source repo '$SRC_REPO' not found; skipping sync"
-fi
-
 HOST=$(hostname)
-
-if [[ "$HOST" == "unknown" ]]; then
-    echo "Error: Could not determine valid hostname (branch: '${BRANCH:-unset}')"
-    exit 1
-fi
 
 echo "Using hostname: $HOST"
 
 echo "==> Rebuild/$ACTION system for flake: $CONFIG_REPO#$HOST"
 if sudo nixos-rebuild $ACTION --flake "$CONFIG_REPO#$HOST"; then
     echo "==> Rebuild/$ACTION complete"
-    if command -v hyprshade >/dev/null 2>&1; then
-        echo "==> Restoring hyprshade"
-        hyprshade on extravibrance || true
-    fi
 else
     echo "Error: nixos-rebuild failed"
     exit 1

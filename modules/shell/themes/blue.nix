@@ -2,18 +2,16 @@
 
 {
   home.file.".oh-my-zsh/custom/themes/custom.zsh-theme".text = ''
-    PROMPT="%F{cyan}%n@%f"
-    PROMPT+="%{$fg[blue]%}%M "
-    PROMPT+="%{$fg[cyan]%}%~%  "
-    PROMPT+="%(?:%{$fg[green]%}%1{➜%} :%{$fg[red]%}%1{➜%} )%{$reset_color%}"
+    PROMPT="%F{#4EA1FF}%n@%f"
+    PROMPT+="%F{#6C8AFF}%M%f "
+    PROMPT+="%F{#B4D7FF}%~%f  "
+    PROMPT+="%(?:%F{#4EA1FF}%1{➜%} :%F{#E06C75}%1{➜%} )%{$reset_color%}"
 
     RPROMPT='$(git_prompt_info)'
 
-    ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[cyan]%}git:(%{$fg[blue]%}"
-    ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
-    ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[cyan]%}) %{$fg[yellow]%}%1{✗%}"
-    ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[cyan]%})"
+    ZSH_THEME_GIT_PROMPT_PREFIX="%F{#4EA1FF}git:(%F{#0B1F3A}"
+    ZSH_THEME_GIT_PROMPT_SUFFIX="%f "
+    ZSH_THEME_GIT_PROMPT_DIRTY="%F{#4EA1FF}) %F{#FFB86B}%1{✗%}%f"
+    ZSH_THEME_GIT_PROMPT_CLEAN="%F{#4EA1FF})%f"
   '';
-
-  home.file.".config/fastfetch/ssh.jsonc".source = ../../../resources/fastfetch/blue.jsonc;
 }

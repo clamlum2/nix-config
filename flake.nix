@@ -1,67 +1,39 @@
 {
-  description = "My main NixOS flake";
-
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-beta.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    vicinae.url = "github:vicinaehq/vicinae";
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-
-    hyprlauncher.url = "github:hyprwm/hyprlauncher";
   };
 
-  outputs = inputs@{
+  outputs = inputs@ {
     self,
     nixpkgs,
-    nixpkgs-beta,
-    nixpkgs-unstable,
-    nixos-wsl,
+    nixpkgs-stable,
     home-manager,
-    lanzaboote,
-    vicinae,
-    spicetify-nix,
-    hyprlauncher,
     ...
   }:
   {
     nixosConfigurations = {
-
-      ##################
-      # PC Configuration
-      ##################
-
       nixos = let
         system = "x86_64-linux";
         pkgs = import nixpkgs { inherit system; };
-
-        hyprOverlays = if builtins.hasAttr "overlays" hyprlauncher && builtins.hasAttr "default" hyprlauncher.overlays
-          then [ hyprlauncher.overlays.default ]
-          else [];
-
-        hyprPkg = if builtins.hasAttr "packages" hyprlauncher && builtins.hasAttr system hyprlauncher.packages && builtins.hasAttr "default" (hyprlauncher.packages.${system})
-          then hyprlauncher.packages.${system}.default
-          else null;
-
-        spicePkgs = spicetify-nix.legacyPackages.${system};
       in nixpkgs.lib.nixosSystem {
         system = system;
         modules = [
-          ./configuration.nix
-          ./modules/devices/pc.nix
-          ./modules/devices/drivers.nix
+          ./hardware-configuration.nix
+
+          ./modules/pc/pc.nix
+          ./modules/pc/nvidia.nix
+
+          ./modules/configuration.nix
+          ./modules/pkgs.nix
+
+          ./modules/greetd.nix
+
+          ./modules/desktop/fonts.nix
+          ./modules/apps/gaming.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -69,147 +41,33 @@
               useUserPackages = true;
               backupFileExtension = "backup";
               extraSpecialArgs = {
-                nixpkgs-unstable = nixpkgs-unstable;
-                nixpkgs-beta = nixpkgs-beta;
+                nixpkgs-stable = nixpkgs-stable;
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
-                  inputs.vicinae.homeManagerModules.default
-                  ./home.nix
-                  ./modules/devices/no-battery.nix
-                  ./modules/apps/vicinae.nix
+                  ./modules/home.nix
+
+                  ./modules/hyprland/hyprland.nix
+                  ./modules/hyprland/pc-hyprland.nix
+                  ./modules/hyprland/hyprpaper.nix
+
+                  ./modules/desktop/icons.nix
+
+                  ./modules/shell/zsh.nix
                   ./modules/shell/themes/blue.nix
+
+                  ./modules/bars/quickshell.nix
+
+                  ./modules/terminals/ghostty.nix
+
+                  ./modules/apps/fuzzel.nix
                 ];
               };
             };
           }
-
-          lanzaboote.nixosModules.lanzaboote
-
-          ({ pkgs, lib, ... }: {
-
-            environment.systemPackages = [
-              pkgs.git
-              pkgs.sbctl
-            ] ++ lib.optional (hyprPkg != null) hyprPkg;
-
-            boot.loader.systemd-boot.enable = lib.mkForce false;
-
-            boot.lanzaboote = {
-              enable = true;
-              pkiBundle = "/var/lib/sbctl";
-            };
-          })
-
-          spicetify-nix.nixosModules.default
-
-          (import ./modules/apps/spicetify.nix { inherit spicePkgs; })
-
         ];
         specialArgs = {
-          inherit nixpkgs-unstable;
-          inherit nixpkgs-beta;
-        };
-      };
-
-      ######################
-      # Laptop Configuration
-      ######################
-
-      laptop = let
-        system = "x86_64-linux";
-        pkgs = import nixpkgs { inherit system; };
-
-        hyprOverlays = if builtins.hasAttr "overlays" hyprlauncher && builtins.hasAttr "default" hyprlauncher.overlays
-          then [ hyprlauncher.overlays.default ]
-          else [];
-
-        hyprPkg = if builtins.hasAttr "packages" hyprlauncher && builtins.hasAttr system hyprlauncher.packages && builtins.hasAttr "default" (hyprlauncher.packages.${system})
-          then hyprlauncher.packages.${system}.default
-          else null;
-
-        spicePkgs = spicetify-nix.legacyPackages.${system};
-      in nixpkgs.lib.nixosSystem {
-        modules = [
-          ./configuration.nix
-          ./modules/devices/laptop.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              extraSpecialArgs = {
-                nixpkgs-unstable = nixpkgs-unstable;
-              };
-              users.clamt = { pkgs, ... }: {
-                imports = [
-                  ./home.nix
-                  ./modules/desktop/battery.nix
-                  ./modules/shell/themes/blue.nix
-                ];
-              };
-            };
-          }
-
-          ({ pkgs, lib, ... }: {
-            environment.systemPackages = [
-              pkgs.git
-            ] ++ lib.optional (hyprPkg != null) hyprPkg;
-          })
-
-          spicetify-nix.nixosModules.default
-
-          (import ./modules/apps/spicetify.nix { inherit spicePkgs; })
-        ];
-        specialArgs = {
-          inherit nixpkgs-unstable;
-        };
-      };
-
-      ###################
-      # WSL Configuration
-      ###################
-
-      wsl = let
-        system = "aarch64-linux";
-        pkgs = import nixpkgs { inherit system; };
-      in nixpkgs.lib.nixosSystem {
-        system = system;
-        modules = [
-          ./modules/devices/wsl.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              extraSpecialArgs = {
-                nixpkgs-unstable = nixpkgs-unstable;
-              };
-              users.clamt = { pkgs, ... }: {
-                imports = [
-                  ./modules/devices/wsl-home.nix
-                  ./modules/shell/themes/purple.nix
-                ];
-              };
-            };
-          }
-
-          ({ pkgs, lib, ... }: {
-            environment.systemPackages = [
-              pkgs.git
-            ];
-          })
-
-          nixos-wsl.nixosModules.default
-          {
-            system.stateVersion = "25.11";
-            wsl.enable = true;
-          }
-        ];
-        specialArgs = {
-          inherit nixpkgs-unstable;
+          inherit nixpkgs-stable;
         };
       };
     };
