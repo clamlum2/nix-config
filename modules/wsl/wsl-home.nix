@@ -2,7 +2,7 @@
 
 let
   unstable = import nixpkgs-stable {
-    system = pkgs.system or "x86_64-linux";
+    system = pkgs.system or "aarch64-linux";
     config.allowUnfree = true;
   };
 in

@@ -76,5 +76,7 @@
     fi
 
     eval "$(zoxide init zsh)"
+
+    cd ~
   '';
 }

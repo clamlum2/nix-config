@@ -5,6 +5,8 @@
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 
   outputs = inputs@ {
@@ -12,10 +14,16 @@
     nixpkgs,
     nixpkgs-stable,
     home-manager,
+    nixos-wsl,
     ...
   }:
   {
     nixosConfigurations = {
+
+      ##################
+      # PC Configuration
+      ##################
+
       nixos = let
         system = "x86_64-linux";
         pkgs = import nixpkgs { inherit system; };
@@ -66,6 +74,51 @@
                 ];
               };
             };
+          }
+        ];
+        specialArgs = {
+          inherit nixpkgs-stable;
+          inherit self;
+        };
+      };
+
+      ###################
+      # WSL Configuration
+      ###################
+
+      wsl = let
+        system = "aarch64-linux";
+        pkgs = import nixpkgs { inherit system; };
+      in nixpkgs.lib.nixosSystem {
+        system = system;
+        modules = [
+          ./modules/wsl/wsl.nix
+
+          ./modules/desktop/fonts.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                nixpkgs-stable = nixpkgs-stable;
+                self = self;
+              };
+              users.clamt = { pkgs, ... }: {
+                imports = [
+                  ./modules/wsl/wsl-home.nix
+
+                  ./modules/shell/zsh.nix
+                  ./modules/shell/themes/blue.nix
+                ];
+              };
+            };
+          }
+          nixos-wsl.nixosModules.default
+          {
+            system.stateVersion = "25.11";
+            wsl.enable = true;
           }
         ];
         specialArgs = {
