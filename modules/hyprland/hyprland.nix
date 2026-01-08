@@ -3,6 +3,8 @@
 {
   home.packages = [
     pkgs.hyprshade
+    pkgs.grim
+    pkgs.slurp
   ];
 
   imports = [
