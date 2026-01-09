@@ -3,8 +3,8 @@
 {
   wayland.windowManager.hyprland.settings = {
     env = [
-      "XCURSOR_SIZE=24"
-      "XCURSOR_THEME=Breeze"
+      "XCURSOR_SIZE,24"
+      "XCURSOR_THEME,Breeze"
     ];
 
     exec-once = [
