@@ -7,6 +7,8 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
   outputs = inputs@ {
@@ -15,6 +17,7 @@
     nixpkgs-stable,
     home-manager,
     nixos-wsl,
+    nix-cachyos-kernel,
     ...
   }:
   {
@@ -30,7 +33,7 @@
       in nixpkgs.lib.nixosSystem {
         system = system;
         modules = [
-          ./hardware-configuration.nix
+          ./modules/pc/hardware-configuration.nix
 
           ./modules/pc/pc.nix
           ./modules/pc/nvidia.nix
@@ -75,6 +78,7 @@
               };
             };
           }
+          ({ pkgs, ... }: { nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ]; })
         ];
         specialArgs = {
           inherit nixpkgs-stable;
