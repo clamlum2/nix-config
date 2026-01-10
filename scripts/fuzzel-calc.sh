@@ -13,14 +13,13 @@ while true; do
   expr="$(
     printf '%s\n' "$result" \
     | fuzzel --dmenu \
-        --prompt='calc > ' \
+        --prompt='calc ❯ ' \
+        --placeholder='Enter expression' \
         --lines="$lines" \
         --width=50
 
   )"
 
-  wl-copy "$expr"
-
   result="$(printf '%s\n' "$expr" | bc -l 2>/dev/null || true)"
-  echo "$result"
+  wl-copy $result
 done

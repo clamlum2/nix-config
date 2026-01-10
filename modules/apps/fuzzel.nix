@@ -33,8 +33,8 @@ in
         terminal = "ghostty";
         exit-on-keyboard-focus-loss = "yes";
 
-        width = 80;
-        lines = 10;
+        width = 50;
+        lines = 6;
         line-height = 24;
         horizontal-pad = 1;
         vertical-pad = 1;
