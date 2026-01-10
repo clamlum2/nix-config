@@ -156,21 +156,32 @@ PanelWindow {
 
                 Text {
                     id: volume_icon
+                    width: 16
+                    height: parent.height
                     text: volumeModule.icon
                     color: textColor
-                    font.pixelSize: root.fontSize
-                    scale: 1.1
-                    x: 0
-                    y: (parent.height - implicitHeight) / 2 + 1
+                    font.family: root.fontFamily
+                    scale: 2.25
+                    transformOrigin: Item.Center
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset: 1
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
                 }
 
                 Text {
                     id: volume_level
+                    width: 16
+                    height: parent.height
                     text: volumeModule.level
                     color: textColor
                     font { family: root.fontFamily; pixelSize: fontSize; bold: true }
-                    x:16
-                    y: (parent.height - implicitHeight) / 2 + 1
+                    transformOrigin: Item.Center
+                    anchors.left: volume_icon.right
+                    anchors.leftMargin: 2
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset: 1
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
@@ -207,8 +218,8 @@ PanelWindow {
                     height: parent.height
                     text: microphoneModule.icon
                     color: textColor
-                    font.pixelSize: root.fontSize
-                    scale: 1.15
+                    font.family: root.fontFamily
+                    scale: 2.5
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
@@ -233,7 +244,8 @@ PanelWindow {
                     id: bluetooth_status
                     text: bluetoothModule.icon
                     color: textColor
-                    font.pixelSize: root.fontSize
+                    font.family: root.fontFamily
+                    scale: 1.5
                     width: parent.width
                     height: parent.height
                     horizontalAlignment: Text.AlignHCenter
@@ -253,11 +265,20 @@ PanelWindow {
                 color: mutedColor
             }
 
-            Text {
-                id: network_status
-                text: network.icon
-                color: textColor
-                font.pixelSize: root.fontSize
+            Item {
+                width: 16
+                height: 32
+                Text {
+                    id: network_status
+                    text: network.icon
+                    color: textColor
+                    font.family: root.fontFamily
+                    scale: 1.9
+                    width: parent.width
+                    height: parent.height
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
             }
 
             Rectangle {
