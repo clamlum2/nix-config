@@ -44,6 +44,8 @@
           ./modules/greetd.nix
 
           ./modules/desktop/fonts.nix
+          ./modules/desktop/audio.nix
+
           ./modules/apps/gaming.nix
           home-manager.nixosModules.home-manager
           {
