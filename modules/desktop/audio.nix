@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   security.rtkit.enable = true;
@@ -19,4 +19,17 @@
     pkgs.pavucontrol
     pkgs.alsa-utils
   ];
+
+  security.pam.loginLimits = [
+    { domain = "@audio"; item = "rtprio"; type = "soft"; value = "95"; }
+    { domain = "@audio"; item = "rtprio"; type = "hard"; value = "95"; }
+    { domain = "@audio"; item = "memlock"; type = "soft"; value = "unlimited"; }
+    { domain = "@audio"; item = "memlock"; type = "hard"; value = "unlimited"; }
+  ];
+
+  users.users."clamt".extraGroups = [ "audio" ];
+
+  boot.kernel.sysctl = {
+    "kernel.sched_rt_runtime_us" = -1;
+  };
 }
