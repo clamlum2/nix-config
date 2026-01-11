@@ -59,4 +59,6 @@ in
   programs.nix-ld.enable = true;
 
   environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
+
+  services.hardware.openrgb.enable = true;
 }
