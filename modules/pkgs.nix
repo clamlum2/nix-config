@@ -23,9 +23,9 @@ in
     pkgs.easyeffects
     pkgs.spotify
     pkgs.playerctl
-    pkgs.vesktop
     pkgs.wl-clipboard
 
+    pkgs.vesktop-with-wayland
 
     (import ./apps/helium.nix { inherit pkgs; })
   ];
