@@ -16,7 +16,7 @@ PanelWindow {
     anchors.left: true
     anchors.right: true
 
-    property color backgroundColor: Qt.rgba(15/255, 17/255, 36/255, 1)
+    property color backgroundColor: "#0C0F1B"
     property color textColor: "#c8c8e6"
     property color primaryColor: "#4ea1ff"
     property color secondaryColor: "#6c8aff"
