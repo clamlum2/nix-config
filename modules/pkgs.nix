@@ -24,6 +24,7 @@ in
     pkgs.spotify
     pkgs.playerctl
     pkgs.wl-clipboard
+    pkgs.p7zip
 
     pkgs.vesktop-with-wayland
 
