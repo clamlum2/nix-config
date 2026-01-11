@@ -5,7 +5,7 @@
     pkgs.lutris
     pkgs.protonup-qt
     pkgs.prismlauncher
-    pkgs.jdk
+    pkgs.jdk25
   ];
 
   programs.steam = {
