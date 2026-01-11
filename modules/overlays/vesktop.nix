@@ -33,8 +33,10 @@ in
         exit 1
       fi
 
+      flags="--enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=angle --use-angle=gl --enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoEncoder --enable-features=VaapiIgnoreDriverChecks,VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization,UseMultiPlaneFormatForHardwareVideo"
+
       makeWrapper "$src_exec" "$out/bin/vesktop" \
-        --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland --use-gl=angle --use-angle=gl --enable-features=VaapiVideoDecodeLinuxGL,VaapiVideoEncoder --enable-features=VaapiIgnoreDriverChecks,VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization,UseMultiPlaneFormatForHardwareVideo"
+        --add-flags "$flags"
       chmod +x "$out/bin/vesktop"
 
       if [ -f "${orig}/share/applications/vesktop.desktop" ]; then
@@ -49,9 +51,9 @@ in
           rest="$(printf '%s' "$orig_exec" | cut -s -d' ' -f2-)"
 
           if [ -n "$rest" ]; then
-            new_exec="$out/bin/vesktop --ozone-platform=wayland $rest"
+            new_exec="$out/bin/vesktop $flags $rest"
           else
-            new_exec="$out/bin/vesktop --ozone-platform=wayland"
+            new_exec="$out/bin/vesktop $flags"
           fi
 
           awk -v new="Exec=$new_exec" 'BEGIN{repl=0} /^Exec=/ && !repl {print new; repl=1; next} {print}' "$execfile" > "$execfile.tmp"
