@@ -9,6 +9,8 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    nixos-lxc.url = "path:./lxc-config";
   };
 
   outputs = inputs@ {
@@ -18,6 +20,7 @@
     home-manager,
     nixos-wsl,
     nix-cachyos-kernel,
+    nixos-lxc,
     ...
   }:
   {
@@ -59,7 +62,7 @@
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
-                  ./modules/home.nix
+                  ./modules/home-manager/clamt.nix
 
                   ./modules/hyprland/hyprland.nix
                   ./modules/hyprland/pc-hyprland.nix
@@ -132,6 +135,9 @@
           inherit self;
         };
       };
+    } // {
+      lxc = nixos-lxc.nixosConfigurations.lxc;
+      pterodactyl = nixos-lxc.nixosConfigurations.pterodactyl;
     };
   };
 }
