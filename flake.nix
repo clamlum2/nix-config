@@ -59,7 +59,7 @@
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
-                  ./modules/home-manager/clamt.nix
+                  ./modules/home.nix
 
                   ./modules/hyprland/hyprland.nix
                   ./modules/hyprland/pc-hyprland.nix
@@ -125,44 +125,6 @@
           {
             system.stateVersion = "25.11";
             wsl.enable = true;
-          }
-        ];
-        specialArgs = {
-          inherit nixpkgs-stable;
-          inherit self;
-        };
-      };
-
-      lxc = let
-        system = "x86_64-linux";
-        pkgs = import nixpkgs { inherit system; };
-      in nixpkgs.lib.nixosSystem {
-        system = system;
-        modules = [
-          ./modules/lxc/lxc.nix
-          ./modules/lxc/pkgs.nix
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              extraSpecialArgs = {
-                nixpkgs-stable = nixpkgs-stable;
-                self = self;
-              };
-              users.root = { pkgs, ... }: {
-                imports = [
-                  ./modules/home-manager/root.nix
-
-                  ./modules/lxc/lxc-home.nix
-
-                  ./modules/shell/zsh.nix
-                  ./modules/shell/themes/green.nix
-                ];
-              };
-            };
           }
         ];
         specialArgs = {
