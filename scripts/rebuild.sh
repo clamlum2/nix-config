@@ -15,6 +15,7 @@ EOF
 
 UPGRADE=0
 ACTION="test"
+HOST=$(hostname)
 while [[ ${#} -gt 0 ]]; do
     case "$1" in
         -a|--action)
@@ -30,7 +31,16 @@ while [[ ${#} -gt 0 ]]; do
             UPGRADE=1
             shift
             ;;
-        -h|--help)
+        -h|--hostname)
+            if [[ $# -lt 2 ]]; then
+                echo "Error: --hostname requires an argument"
+                usage
+                exit 2
+            fi
+            HOST="$2"
+            shift 2
+            ;;
+        --help)
             usage
             exit 0
             ;;
@@ -54,8 +64,6 @@ if [[ "$UPGRADE" -eq 1 ]]; then
     nix flake update
     echo "==> Flake update complete"
 fi
-
-HOST=$(hostname)
 
 echo "Using hostname: $HOST"
 
