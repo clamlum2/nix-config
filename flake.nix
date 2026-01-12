@@ -159,7 +159,7 @@
                   ./modules/lxc/lxc-home.nix
 
                   ./modules/shell/zsh.nix
-                  ./modules/shell/themes/blue.nix
+                  ./modules/shell/themes/green.nix
                 ];
               };
             };
