@@ -156,6 +156,8 @@
                 imports = [
                   ./modules/home-manager/root.nix
 
+                  ./modules/lxc/lxc-home.nix
+
                   ./modules/shell/zsh.nix
                   ./modules/shell/themes/blue.nix
                 ];
