@@ -2,6 +2,6 @@
 
 {
   home.file.".zshrc".text = ''
-    export TERM="xterm-256color"
+    export HOST=$(hostname)
   '';
 }
