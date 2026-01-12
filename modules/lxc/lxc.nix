@@ -5,6 +5,7 @@
   proxmoxLXC = {
     manageNetwork = false;
     privileged = true;
+    manageHostName = false;
   };
   security.pam.services.sshd.allowNullPassword = true;
   services.fstrim.enable = false; # Let Proxmox host handle fstrim
@@ -44,4 +45,8 @@
     ];
     shell = pkgs.zsh;
   };
+
+  networking.hostName = "lxc";
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }
