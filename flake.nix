@@ -140,6 +140,7 @@
         system = system;
         modules = [
           ./modules/lxc/lxc.nix
+          ./modules/lxc/pkgs.nix
 
           home-manager.nixosModules.home-manager
           {
