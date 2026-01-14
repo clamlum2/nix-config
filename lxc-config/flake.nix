@@ -61,6 +61,8 @@
           ./modules/configuration.nix
           ./modules/pkgs.nix
 
+          ./modules/pterodactyl/docker.nix
+          ./modules/pterodactyl/pterodactyl.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
