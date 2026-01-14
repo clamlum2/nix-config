@@ -26,6 +26,9 @@ in
     pkgs.wl-clipboard
     pkgs.p7zip
 
+    pkgs.jetbrains.pycharm
+    pkgs.python3
+
     pkgs.vesktop-with-wayland
 
     (import ./apps/helium.nix { inherit pkgs; })
