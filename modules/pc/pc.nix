@@ -16,4 +16,9 @@
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
+
+  networking.firewall = {
+    allowedTCPPorts = [ 22 25565 ];
+    allowedUDPPorts = [ 25565 ];
+  };
 }

@@ -1,16 +1,41 @@
 { config, pkgs, ... }:
 
 {
-  fonts.fontconfig.enable = true;
+  fonts = {
+    enableDefaultPackages = true;
 
-  fonts.fontconfig.defaultFonts = {
-    monospace = [ "NotoSans Nerd Font Mono" "Noto Sans Mono" ];
-    sansSerif = [ "NotoSans Nerd Font" "Noto Sans" ];
-    serif = [ "NotoSerif Nerd Font" "Noto Serif" ];
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      noto-fonts-color-emoji
+
+      nerd-fonts.noto
+      nerd-fonts.dejavu-sans-mono
+    ];
+
+    fontconfig = {
+      enable = true;
+
+      defaultFonts = {
+        sansSerif = [
+          "Noto Sans CJK SC"
+          "Noto Sans"
+        ];
+
+        serif = [
+          "Noto Serif CJK SC"
+          "Noto Serif"
+        ];
+
+        monospace = [
+          "Noto Sans Mono"
+        ];
+
+        emoji = [
+          "Noto Color Emoji"
+        ];
+      };
+    };
   };
-
-  fonts.packages = [
-    pkgs.nerd-fonts.noto
-    pkgs.nerd-fonts.dejavu-sans-mono
-  ];
 }

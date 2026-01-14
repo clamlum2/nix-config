@@ -7,7 +7,18 @@
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
     preload = ~/Pictures/wallpapers/FullSize.png
-    wallpaper = DP-1,~/Pictures/wallpapers/FullSize.png
-    wallpaper = DP-2,~/Pictures/wallpapers/FullSize.png
+    splash = false
+
+    wallpaper {
+      monitor = DP-1
+      path = ~/Pictures/wallpapers/FullSize.png
+      fit_mode = fill
+  }
+
+  wallpaper {
+      monitor = DP-2
+      path = ~/Pictures/wallpapers/FullSize.png
+      fit_mode = fill
+  }
     '';
 }
