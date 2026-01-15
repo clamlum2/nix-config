@@ -8,6 +8,7 @@
     description = "Pterodactyl Docker Compose Stack";
     wants = [ "network-online.target" "docker.service" ];
     after = [ "network-online.target" "docker.service" ];
+
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
