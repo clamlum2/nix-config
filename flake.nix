@@ -62,7 +62,7 @@
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
-                  ./modules/home-manager/clamt.nix
+                  ./modules/home.nix
 
                   ./modules/hyprland/hyprland.nix
                   ./modules/hyprland/pc-hyprland.nix
