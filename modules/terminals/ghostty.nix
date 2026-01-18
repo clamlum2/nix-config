@@ -8,7 +8,7 @@
       background = "#1f2134";
       background-opacity = 0.8;
       # font-family = "DejaVuSansM Nerd Font Mono";
-      font-size = 11;
+      font-size = 12;
       theme = "Kitty Default";
       custom-shader-animation = "always";
       custom-shader = "cursor.glsl";
