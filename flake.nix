@@ -78,6 +78,8 @@
                   ./modules/bars/quickshell.nix
 
                   ./modules/terminals/ghostty.nix
+                  ./modules/terminals/wezterm.nix
+                  ./modules/terminals/kitty.nix
 
                   ./modules/apps/fuzzel.nix
                 ];
