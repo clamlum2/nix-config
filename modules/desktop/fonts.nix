@@ -12,6 +12,7 @@
 
       nerd-fonts.noto
       nerd-fonts.dejavu-sans-mono
+      nerd-fonts.jetbrains-mono
     ];
 
     fontconfig = {
