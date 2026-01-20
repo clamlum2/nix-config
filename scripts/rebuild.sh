@@ -15,7 +15,7 @@ EOF
 
 UPGRADE=0
 ACTION="test"
-HOST=$(hostname)
+HOSTNAME=$(hostname)
 while [[ ${#} -gt 0 ]]; do
     case "$1" in
         -a|--action)
@@ -37,7 +37,7 @@ while [[ ${#} -gt 0 ]]; do
                 usage
                 exit 2
             fi
-            HOST="$2"
+            HOSTNAME="$2"
             shift 2
             ;;
         --help)
@@ -65,10 +65,10 @@ if [[ "$UPGRADE" -eq 1 ]]; then
     echo "==> Flake update complete"
 fi
 
-echo "Using hostname: $HOST"
+echo "Using hostname: $HOSTNAME"
 
-echo "==> Rebuild/$ACTION system for flake: $CONFIG_REPO#$HOST"
-if sudo nixos-rebuild $ACTION --flake "$CONFIG_REPO#$HOST"; then
+echo "==> Rebuild/$ACTION system for flake: $CONFIG_REPO#$HOSTNAME"
+if sudo nixos-rebuild $ACTION --flake "$CONFIG_REPO#$HOSTNAME"; then
     echo "==> Rebuild/$ACTION complete"
 else
     echo "Error: nixos-rebuild failed"
