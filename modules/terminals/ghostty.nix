@@ -20,6 +20,10 @@
       cursor-click-to-move = true;
       focus-follows-mouse = true;
 
+      shell-integration-features = [
+        "ssh-env"
+      ];
+
       keybind = [
         "alt+arrow_down=goto_split:down"
         "alt+arrow_up=goto_split:up"
