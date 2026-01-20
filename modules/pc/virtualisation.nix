@@ -15,4 +15,6 @@
   users.users.clamt = {
     extraGroups = [ "libvirtd" "kvm" ];
   };
+
+  services.spice-vdagentd.enable = true;
 }
