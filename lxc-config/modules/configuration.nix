@@ -46,7 +46,5 @@
     shell = pkgs.zsh;
   };
 
-  networking.hostName = "lxc";
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }
