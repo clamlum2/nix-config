@@ -8,7 +8,7 @@ services:
         - TZ=NZ
         volumes:
         - ./config/jellyfin/config:/config
-        - /mnt/media:/media
+        - /mnt/drive/media:/media
         ports:
         - 8096:8096
         - 7359:7359/udp
@@ -24,7 +24,7 @@ services:
         - TZ=NZ
         volumes:
         - ./config/jellyseerr:/app/config
-        - /mnt/media:/media
+        - /mnt/drive/media:/media
         # ports:
         # - 5055:5055
         network_mode: host
@@ -41,7 +41,7 @@ services:
         - TORRENTING_PORT=6881
         volumes:
         - ./config/qbittorrent/config:/config
-        - /mnt/media:/media
+        - /mnt/drive/media:/media
         # ports:
         # - 8080:8080
         # - 6881:6881
@@ -58,7 +58,7 @@ services:
         - TZ=NZ
         volumes:
         - ./config/sonarr/config:/config
-        - /mnt/media:/media
+        - /mnt/drive/media:/media
         # ports:
         # - 8989:8989
         network_mode: host
@@ -73,7 +73,7 @@ services:
         - TZ=NZ
         volumes:
         - ./config/radarr/config:/config
-        - /mnt/media:/media
+        - /mnt/drive/media:/media
         # ports:
         # - 7878:7878
         network_mode: host
