@@ -89,6 +89,44 @@
           inherit self;
         };
       };
+
+      mediaserver = let
+        system = "x86_64-linux";
+        pkgs = import nixpkgs { inherit system; };
+      in nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./modules/configuration.nix
+          ./modules/pkgs.nix
+
+          ./modules/docker.nix
+          ./modules/mediaserver/mediaserver.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                nixpkgs-stable = nixpkgs-stable;
+                self = self;
+              };
+              users.root = { pkgs, ... }: {
+                imports = [
+                  ./modules/home.nix
+
+                  ../modules/shell/zsh.nix
+                  ../modules/shell/themes/yellow.nix
+                ];
+              };
+            };
+          }
+        ];
+        specialArgs = {
+          inherit nixpkgs-stable;
+          inherit self;
+        };
+      };
     };
   };
 }

@@ -141,6 +141,7 @@
     } // {
       lxc = nixos-lxc.nixosConfigurations.lxc;
       pterodactyl = nixos-lxc.nixosConfigurations.pterodactyl;
+      mediaserver = nixos-lxc.nixosConfigurations.mediaserver;
     };
   };
 }
