@@ -6,7 +6,7 @@
   networking.hostName = "mediaserver";
 
   networking.firewall = {
-    allowedTCPPorts = [ 8080 ];
+    allowedTCPPorts = [ 5055 7878 8080 8989 9696 ];
     allowedUDPPorts = [ ];
   };
 }
