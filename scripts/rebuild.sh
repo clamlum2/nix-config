@@ -61,6 +61,7 @@ fi
 if [[ "$UPGRADE" -eq 1 ]]; then
     echo "==> Updating flake in $CONFIG_REPO"
     cd "$CONFIG_REPO"
+    git pull
     nix flake update
     echo "==> Flake update complete"
 fi
