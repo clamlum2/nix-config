@@ -25,7 +25,6 @@ in
     pkgs.playerctl
     pkgs.wl-clipboard
     pkgs.p7zip
-    pkgs.obs-studio
     pkgs.mpv
 
     pkgs.jetbrains.pycharm
