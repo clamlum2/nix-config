@@ -69,6 +69,7 @@
                   ./modules/hyprland/hyprland.nix
                   ./modules/hyprland/pc-hyprland.nix
                   ./modules/hyprland/hyprpaper.nix
+                  ./modules/hyprland/hyprlock.nix
 
                   ./modules/desktop/icons.nix
                   ./modules/desktop/mako.nix
