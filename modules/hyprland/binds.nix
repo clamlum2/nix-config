@@ -25,22 +25,12 @@
       "$mainMod SHIFT, D, exec, vesktop"
 
       "$mainMod, TAB, exec, sh $HOME/.config/quickshell/position.sh"
-      ", KP_SUBTRACT, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
       "$mainMod, C, sendshortcut, CTRL, Insert,"
       "$mainMod, V, sendshortcut, SHIFT, Insert,"
 
-      "$mainMod ALT, SPACE, exec, vicinae toggle"
-      "$mainMod ALT, V, exec, vicinae vicinae://extensions/vicinae/clipboard/history"
-
       "$mainMod, S, exec, hyprshade off || true && grim -o $(hyprctl monitors -j | jq -r '.[] | select(.focused==true) | .name') - | wl-copy && hyprctl reload"
       "$mainMod SHIFT, S, exec, hyprshade off || true && grim -g \"$(slurp -d)\" - | wl-copy && hyprctl reload"
-
-      "$mainMod CTRL, LEFT, exec, playerctl previous"
-      "$mainMod CTRL, RIGHT, exec, playerctl next"
-      "$mainMod CTRL, SPACE, exec, playerctl play-pause"
-
-      "$mainMod SHIFT, N, exec, ~/.config/hypr/floating.sh"
 
       "$mainMod, left, movefocus, l"
       "$mainMod, right, movefocus, r"
@@ -73,11 +63,6 @@
       "$mainMod, mouse_up, workspace, e-1"
     ];
 
-    binde = [
-      "$mainMod CTRL, UP, exec, playerctl volume 0.05%+"
-      "$mainMod CTRL, DOWN, exec, playerctl volume 0.05%-"
-    ];
-
     bindm = [
       "$mainMod, mouse:272, movewindow"
       "$mainMod, mouse:273, resizewindow"
@@ -90,6 +75,9 @@
       ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
       ", XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
       ", XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
+
+      "$mainMod CTRL, UP, exec, playerctl volume 0.05%+"
+      "$mainMod CTRL, DOWN, exec, playerctl volume 0.05%-"
     ];
 
     bindl = [
@@ -97,6 +85,12 @@
       ", XF86AudioPause, exec, playerctl play-pause"
       ", XF86AudioPlay, exec, playerctl play-pause"
       ", XF86AudioPrev, exec, playerctl previous"
+
+      "$mainMod CTRL, LEFT, exec, playerctl previous"
+      "$mainMod CTRL, RIGHT, exec, playerctl next"
+      "$mainMod CTRL, SPACE, exec, playerctl play-pause"
+
+      ", KP_SUBTRACT, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
 
       ", switch:Lid Switch, exec, hyprlock"
     ];
