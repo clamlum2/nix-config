@@ -19,4 +19,8 @@
 
     package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
+
+  environment.systemPackages = [
+    pkgs.btop-cuda
+  ];
 }
