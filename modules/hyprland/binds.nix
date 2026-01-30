@@ -76,8 +76,8 @@
       ", XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
       ", XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
 
-      "$mainMod CTRL, UP, exec, playerctl volume 0.05%+"
-      "$mainMod CTRL, DOWN, exec, playerctl volume 0.05%-"
+      "$mainMod CTRL, UP, exec, sh $HOME/nix-config/scripts/volume.sh +"
+      "$mainMod CTRL, DOWN, exec, sh $HOME/nix-config/scripts/volume.sh -"
     ];
 
     bindl = [
