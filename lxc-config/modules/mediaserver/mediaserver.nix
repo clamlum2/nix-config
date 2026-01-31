@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   environment.etc."docker/mediaserver/docker-compose.yml".source = ../../resources/mediaserver/mediaserver-compose.yml;
@@ -13,7 +13,6 @@
   users.users.chris = {
     isNormalUser = true;
     description = "chris";
-    packages = with pkgs; [];
   };
 
   services.samba = {
