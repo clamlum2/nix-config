@@ -28,7 +28,7 @@
         browseable = true;
         "read only" = false;
         "guest ok" = false;
-        "valid users" = " chris ";
+        "valid users" = " clamt chris ";
       };
     };
   };
