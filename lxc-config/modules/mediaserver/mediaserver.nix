@@ -15,6 +15,11 @@
     description = "chris";
   };
 
+  users.users.clamt = {
+    isNormalUser = true;
+    description = "clamt";
+  };
+
   services.samba = {
     enable = true;
     settings = {
