@@ -26,6 +26,9 @@ in
     pkgs.wl-clipboard
     pkgs.p7zip
     pkgs.mpv
+    pkgs.ffmpeg
+
+    stable.handbrake
 
     pkgs.jetbrains.pycharm
     pkgs.python3
@@ -33,5 +36,9 @@ in
     pkgs.vesktop-with-wayland
 
     (import ./apps/helium.nix { inherit pkgs; })
+  ];
+
+  users.users.clamt.packages = [
+    pkgs.davinci-resolve
   ];
 }
