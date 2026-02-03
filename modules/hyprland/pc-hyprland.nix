@@ -15,5 +15,9 @@
       "7, monitor:DP-1,"
       "8, monitor:DP-1,"
     ];
+
+    decoration = {
+      screen_shader = "$HOME/.config/hypr/shaders/ev.glsl";
+    };
   };
 }

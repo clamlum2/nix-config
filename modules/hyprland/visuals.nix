@@ -29,8 +29,6 @@
 
       rounding = 0;
       rounding_power = 2;
-
-      screen_shader = "$HOME/.config/hypr/shaders/ev.glsl";
     };
 
     animations = {
