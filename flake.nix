@@ -96,6 +96,70 @@
         };
       };
 
+      ######################
+      # Laptop Configuration
+      ######################
+
+      laptop = let
+        system = "x86_64-linux";
+        pkgs = import nixpkgs { inherit system; };
+      in nixpkgs.lib.nixosSystem {
+        system = system;
+        modules = [
+          ./modules/laptop/hardware-configuration.nix
+
+          ./modules/laptop/laptop.nix
+
+          ./modules/configuration.nix
+          ./modules/pkgs.nix
+
+          ./modules/greetd.nix
+
+          ./modules/desktop/fonts.nix
+          ./modules/desktop/audio.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = {
+                nixpkgs-stable = nixpkgs-stable;
+                self = self;
+              };
+              users.clamt = { pkgs, ... }: {
+                imports = [
+                  ./modules/home.nix
+
+                  ./modules/hyprland/hyprland.nix
+                  ./modules/hyprland/laptop-hyprland.nix
+                  ./modules/hyprland/hyprpaper.nix
+                  ./modules/hyprland/hyprlock.nix
+
+                  ./modules/desktop/icons.nix
+                  ./modules/desktop/mako.nix
+
+                  ./modules/shell/zsh.nix
+                  ./modules/shell/themes/blue.nix
+
+                  ./modules/bars/quickshell.nix
+
+                  ./modules/terminals/ghostty.nix
+                  ./modules/terminals/wezterm.nix
+                  ./modules/terminals/kitty.nix
+
+                  ./modules/apps/fuzzel.nix
+                ];
+              };
+            };
+          }
+        ];
+        specialArgs = {
+          inherit nixpkgs-stable;
+          inherit self;
+        };
+      };
+
       ###################
       # WSL Configuration
       ###################
