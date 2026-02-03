@@ -13,12 +13,18 @@
       monitor = DP-1
       path = ~/Pictures/wallpapers/FullSize.png
       fit_mode = fill
-  }
+    }
 
-  wallpaper {
+    wallpaper {
       monitor = DP-2
       path = ~/Pictures/wallpapers/FullSize.png
       fit_mode = fill
-  }
-    '';
+    }
+
+    wallpaper {
+      monitor = eDP-1
+      path = ~/Pictures/wallpapers/FullSize.png
+      fit_mode = fill
+    }
+  '';
 }
