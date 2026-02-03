@@ -19,6 +19,8 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+    kernelModules = [ "wl" ];
+    blacklistedKernelModules = [ "b43" "ssb" "bcma" "brcm80211" "brcmfmac" "brcmsmac" "bcmdhd" ];
   };
 
   nixpkgs.config.allowInsecurePredicate = pkg:
