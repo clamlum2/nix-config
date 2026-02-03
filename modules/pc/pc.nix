@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+
   fileSystems."/mnt/Games" = {
     device = "/dev/disk/by-uuid/44B26CAFB26CA760";
     fsType = "ntfs-3g";
@@ -21,6 +25,7 @@
   boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
 
   networking.firewall = {
+    enable = true;
     allowedTCPPorts = [ 22 25565 ];
     allowedUDPPorts = [ 25565 ];
   };
@@ -31,4 +36,12 @@
     capSysAdmin = true;
     openFirewall = true;
   };
+
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
+  };
+
+  services.hardware.openrgb.enable = true;
 }
