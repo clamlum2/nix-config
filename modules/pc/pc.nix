@@ -44,4 +44,8 @@
   };
 
   services.hardware.openrgb.enable = true;
+
+  users.users.clamt.packages = [
+    pkgs.davinci-resolve
+  ];
 }

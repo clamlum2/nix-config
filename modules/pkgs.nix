@@ -36,8 +36,4 @@ in
 
     (import ./apps/helium.nix { inherit pkgs; })
   ];
-
-  users.users.clamt.packages = [
-    pkgs.davinci-resolve
-  ];
 }
