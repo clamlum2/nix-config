@@ -21,5 +21,8 @@
     extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
   };
 
+  nixpkgs.config.allowInsecurePredicate = pkg:
+  builtins.match "broadcom-sta-.*" pkg.name != null;
+
   services.upower.enable = true;
 }
