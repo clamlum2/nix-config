@@ -11,4 +11,15 @@
     withUWSM = true;
     xwayland.enable = true;
   };
+
+  environment.systemPackages = [
+    pkgs.linuxKernel.packages.linux_6_12.broadcom_sta
+  ];
+
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+  };
+
+  services.upower.enable = true;
 }
