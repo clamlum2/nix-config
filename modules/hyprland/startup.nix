@@ -12,6 +12,7 @@
       "qs"
       "easyeffects --gapplication-service"
       "hyprpaper"
+      "openrgb --startminimized -p blue"
     ];
   };
 }
