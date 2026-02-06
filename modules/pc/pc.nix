@@ -48,4 +48,6 @@
   users.users.clamt.packages = [
     pkgs.davinci-resolve
   ];
+
+  powerManagement.cpuFreqGovernor = "performance";
 }
