@@ -3,6 +3,7 @@
 {
   home.packages = [
     pkgs.hyprshade
+    pkgs.hyprshutdown
     pkgs.grim
     pkgs.slurp
   ];
@@ -19,7 +20,6 @@
     settings = {
       general = {
         allow_tearing = true;
-        layout = "dwindle";
         resize_on_border = false;
       };
 
