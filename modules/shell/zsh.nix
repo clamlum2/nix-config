@@ -14,13 +14,9 @@
     pkgs.lsd
     pkgs.bat
     pkgs.zoxide
-    pkgs.yazi
-    pkgs.zsh-powerlevel10k
   ];
 
   home.file.".zshrc".text = ''
-    export EDITOR='code'
-
     export ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"
 
     source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -34,7 +30,6 @@
     alias ls="lsd --group-directories-first -A"
     alias cat="bat -p"
     alias cd="z"
-    alias y="yazi"
 
     alias nrs="sh ~/nix-config/scripts/rebuild.sh -a switch"
     alias nrt="sh ~/nix-config/scripts/rebuild.sh -a test"
