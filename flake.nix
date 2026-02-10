@@ -85,6 +85,8 @@
                   ./modules/terminals/kitty.nix
 
                   ./modules/apps/fuzzel.nix
+                  ./modules/apps/yazi.nix
+                  ./modules/apps/micro.nix
                 ];
               };
             };
