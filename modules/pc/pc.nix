@@ -1,4 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixpkgs-stable, ... }:
+
+let
+  stable = import nixpkgs-stable {
+    system = pkgs.system or "x86_64-linux";
+    config.allowUnfree = true;
+  };
+in
 
 {
   boot.loader.systemd-boot.enable = true;
@@ -6,9 +13,8 @@
 
 
   fileSystems."/mnt/Games" = {
-    device = "/dev/disk/by-uuid/44B26CAFB26CA760";
-    fsType = "ntfs-3g";
-    options = [ "rw" "uid=1000" "gid=1000" "umask=0022" ];
+    device = "/dev/disk/by-uuid/8f56f8cf-1cd4-4dab-a2fc-37c29f4e6ed5";
+    fsType = "ext4";
   };
 
   nix.settings = {
@@ -21,8 +27,8 @@
     ];
   };
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
 
   networking.firewall = {
     enable = true;
