@@ -5,8 +5,8 @@
     enable = true;
     package = pkgs.ghostty;
     settings = {
-      background = "#1f2134";
-      background-opacity = 0.8;
+      background = "#161828";
+      background-opacity = 1;
       # font-family = "DejaVuSansM Nerd Font Mono";
       font-size = 12;
       theme = "Kitty Default";
