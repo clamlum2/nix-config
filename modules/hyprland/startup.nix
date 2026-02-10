@@ -5,6 +5,7 @@
     env = [
       "XCURSOR_SIZE,24"
       "XCURSOR_THEME,Breeze"
+      "EDITOR,micro"
     ];
 
     exec-once = [
