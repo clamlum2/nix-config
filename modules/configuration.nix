@@ -9,6 +9,8 @@ in
 {
   system.stateVersion = "25.11";
 
+  nix.settings.trusted-users = [ "root" "@wheel" ];
+
   networking.networkmanager.enable = true;
 
   services.openssh.enable = true;

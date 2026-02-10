@@ -1,11 +1,4 @@
-{ config, pkgs, nixpkgs-stable, ... }:
-
-let
-  stable = import nixpkgs-stable {
-    system = pkgs.system or "x86_64-linux";
-    config.allowUnfree = true;
-  };
-in
+{ config, pkgs, ... }:
 
 {
   boot.loader.systemd-boot.enable = true;
@@ -18,17 +11,12 @@ in
   };
 
   nix.settings = {
-    substituters = [
-      "https://attic.xuyh0120.win/lantian"
-    ];
-
-    trusted-public-keys = [
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-    ];
+    "extra-substituters" = [ "https://attic.xuyh0120.win/lantian" ];
+    "extra-trusted-public-keys" = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
 
   networking.firewall = {
     enable = true;
