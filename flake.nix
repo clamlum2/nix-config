@@ -67,10 +67,11 @@
                   ./modules/home.nix
 
                   ./modules/hyprland/hyprland.nix
-                  ./modules/hyprland/pc-hyprland.nix
                   ./modules/hyprland/hyprpaper.nix
                   ./modules/hyprland/hyprlock.nix
                   ./modules/hyprland/plugins.nix
+
+                  ./modules/pc/hyprland-monitors.nix
 
                   ./modules/desktop/icons.nix
                   ./modules/desktop/mako.nix
@@ -135,9 +136,10 @@
                   ./modules/home.nix
 
                   ./modules/hyprland/hyprland.nix
-                  ./modules/hyprland/laptop-hyprland.nix
                   ./modules/hyprland/hyprpaper.nix
                   ./modules/hyprland/hyprlock.nix
+
+                  ./modules/laptop/hyprland-monitors.nix
 
                   ./modules/desktop/icons.nix
                   ./modules/desktop/mako.nix
