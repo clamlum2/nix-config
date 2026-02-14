@@ -14,11 +14,12 @@ usage() {
 Usage: $(basename "$0") [--disk <disk>] [--branch <branch>] [--hostname <hostname>] [--swap <size>] [--help]
 
 Options:
-    --branch    Specify the configuration branch to use (default: main)
-    --disk      Specify the target disk for installation (e.g., /dev/sda)
-    --hostname  Specify the hostname for the new installation (default: nixos)
-    --swap      Specify the swap size in gigabytes (e.g., 4 for 4GB, defaults to no swap)
-    --skip-install  Skip the NixOS installation step (for further customization)
+    --branch            Specify the configuration branch to use (default: main)
+    --disk              Specify the target disk for installation (e.g., /dev/sda)
+    --hostname          Specify the hostname for the new installation (default: nixos)
+    --swap              Specify the swap size in gigabytes (e.g., 4 for 4GB, defaults to no swap)
+    --skip-install      Skip the NixOS installation step (for further customization)
+    --no-root-passwd    Do not set a root password during installation
   -h, --help   Show this help
 EOF
 }
