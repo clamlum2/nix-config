@@ -17,4 +17,8 @@
   };
 
   services.spice-vdagentd.enable = true;
+
+  virtualisation.docker ={
+    enable = true;
+  };
 }
