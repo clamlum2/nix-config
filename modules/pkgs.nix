@@ -18,7 +18,7 @@ in
 
   environment.systemPackages = [
     pkgs.git
-    pkgs.vscode
+    stable.vscode
     pkgs.ghostty
     pkgs.easyeffects
     pkgs.spotify
