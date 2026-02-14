@@ -31,6 +31,8 @@ in
     stable.handbrake
 
     pkgs.python3
+    pkgs.python3Packages.pyqt6
+
     stable.jetbrains.idea
 
     pkgs.vesktop-with-wayland
