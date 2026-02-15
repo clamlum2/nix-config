@@ -85,7 +85,7 @@ PanelWindow {
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: parent.height + 1
 
-                Workspaces {}
+                WorkspacesAuto {}
             }
 
             Item { width: 180 }
