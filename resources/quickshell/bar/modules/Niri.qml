@@ -191,8 +191,7 @@ Item {
 		command: ["niri", "msg", "-j", "event-stream"]
 		stdout: SplitParser {
 			onRead: _ => {
-				refreshDebounce.stop()
-				refreshDebounce.start()
+				refreshDebounce.running = true
 			}
 		}
 		onExited: {
