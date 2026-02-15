@@ -17,7 +17,7 @@
     ];
 
     decoration = {
-      screen_shader = "$HOME/.config/hypr/shaders/ev.glsl";
+      #screen_shader = "$HOME/.config/hypr/shaders/ev.glsl";
     };
   };
 }
