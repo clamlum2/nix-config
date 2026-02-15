@@ -11,6 +11,11 @@
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     nixos-lxc.url = "path:./lxc-config";
+
+    nvibrant = {
+      url = "github:mikaeladev/nix-nvibrant";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@ {
@@ -21,6 +26,7 @@
     nixos-wsl,
     nix-cachyos-kernel,
     nixos-lxc,
+    nvibrant,
     ...
   }:
   {
@@ -32,10 +38,15 @@
 
       nixos = let
         system = "x86_64-linux";
-        pkgs = import nixpkgs { inherit system; };
       in nixpkgs.lib.nixosSystem {
         system = system;
         modules = [
+          ({ ... }: {
+            nixpkgs.overlays = [
+              nvibrant.overlays.default
+              nix-cachyos-kernel.overlays.pinned
+            ];
+          })
           ./modules/pc/hardware-configuration.nix
 
           ./modules/pc/pc.nix
@@ -44,6 +55,8 @@
 
           ./modules/configuration.nix
           ./modules/pkgs.nix
+
+          ./modules/niri/niri.nix
 
           ./modules/greetd.nix
 
@@ -61,6 +74,7 @@
               extraSpecialArgs = {
                 nixpkgs-stable = nixpkgs-stable;
                 self = self;
+                nvibrant = nvibrant;
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
@@ -72,6 +86,8 @@
                   ./modules/hyprland/plugins.nix
 
                   ./modules/pc/hyprland-monitors.nix
+
+                  ./modules/niri/nvibrant.nix
 
                   ./modules/desktop/icons.nix
                   ./modules/desktop/mako.nix
@@ -92,7 +108,6 @@
               };
             };
           }
-          ({ pkgs, ... }: { nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ]; })
         ];
         specialArgs = {
           inherit nixpkgs-stable;
@@ -209,6 +224,8 @@
           inherit self;
         };
       };
+
+
     } // {
       lxc = nixos-lxc.nixosConfigurations.lxc;
       pterodactyl = nixos-lxc.nixosConfigurations.pterodactyl;
