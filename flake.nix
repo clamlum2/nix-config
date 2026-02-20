@@ -58,7 +58,10 @@
 
           ./modules/niri/niri.nix
 
-          ./modules/greetd.nix
+					./modules/kde/kde.nix
+
+          # ./modules/dm/greetd.nix
+          ./modules/dm/ly.nix
 
           ./modules/desktop/fonts.nix
           ./modules/desktop/audio.nix
@@ -87,7 +90,7 @@
 
                   ./modules/pc/hyprland-monitors.nix
 
-                  ./modules/niri/nvibrant.nix
+                  ./modules/pc/nvibrant.nix
 
                   ./modules/desktop/icons.nix
                   ./modules/desktop/mako.nix
@@ -132,7 +135,7 @@
           ./modules/configuration.nix
           ./modules/pkgs.nix
 
-          ./modules/greetd.nix
+          ./modules/dm/greetd.nix
 
           ./modules/desktop/fonts.nix
           ./modules/desktop/audio.nix
