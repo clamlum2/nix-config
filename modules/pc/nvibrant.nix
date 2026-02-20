@@ -6,12 +6,12 @@
   services.nvibrant = {
     enable = true;
 
-    arguments = [
-      "0"
-      "1023"
-      "0"
-      "0"
-      "1023"
+    vibrancy = [
+      "0%"
+      "200%"
+      "0%"
+      "0%"
+      "200%"
     ];
   };
 }
