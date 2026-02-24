@@ -90,6 +90,8 @@
 
                   ./modules/pc/hyprland-monitors.nix
 
+                  ./modules/niri/niri-config.nix
+
                   ./modules/pc/nvibrant.nix
 
                   ./modules/desktop/icons.nix

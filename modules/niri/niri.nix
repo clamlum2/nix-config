@@ -5,8 +5,8 @@
     enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    xwayland-satellite
-    swaybg
+  environment.systemPackages = [
+    pkgs.xwayland-satellite
+    pkgs.swaybg
   ];
 }
