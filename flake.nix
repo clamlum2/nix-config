@@ -60,8 +60,8 @@
 
 					./modules/kde/kde.nix
 
-          # ./modules/dm/greetd.nix
-          ./modules/dm/ly.nix
+          ./modules/dm/greetd.nix
+          # ./modules/dm/ly.nix
 
           ./modules/desktop/fonts.nix
           ./modules/desktop/audio.nix
