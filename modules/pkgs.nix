@@ -10,32 +10,35 @@ in
 {
   nixpkgs ={
     config.allowUnfree = true;
-    overlays = [
-      (import ./overlays/vesktop.nix)
-    ];
   };
 
 
   environment.systemPackages = [
+    #
     pkgs.git
     pkgs.vscode
-    pkgs.ghostty
+    pkgs.python3
+    pkgs.python3Packages.pyqt6
+    # stable.jetbrains.idea
+
+
+    # media
     pkgs.easyeffects
     pkgs.spotify
     pkgs.playerctl
-    pkgs.wl-clipboard
-    pkgs.p7zip
     pkgs.mpv
     pkgs.ffmpeg
-
     stable.handbrake
 
-    pkgs.python3
-    pkgs.python3Packages.pyqt6
+    # tools
+    pkgs.wl-clipboard
+    pkgs.p7zip
+    pkgs.localsend
+    pkgs.nautilus
+    pkgs.nvtopPackages.nvidia
 
-    stable.jetbrains.idea
-
-    pkgs.vesktop-with-wayland
+    # other
+    pkgs.vesktop
 
     (import ./apps/helium.nix { inherit pkgs; })
   ];
