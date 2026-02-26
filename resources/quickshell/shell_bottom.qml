@@ -1,17 +1,1 @@
-//@ pragma UseQApplication
-import Quickshell
-import "bar"
-
-ShellRoot {
-    Variants {
-        model: Quickshell.screens;
-
-        delegate: Bar {
-            required property var modelData
-
-                bottom: true
-
-                screen: modelData
-        }
-    }
-}
+/nix/store/2wgc4rn2lldkrinv76fzqm93q5yjd9dw-home-manager-files/.config/quickshell/shell_bottom.qml
