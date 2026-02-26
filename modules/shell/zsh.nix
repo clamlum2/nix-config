@@ -36,14 +36,12 @@
     alias nrb="time sh ~/nix-config/scripts/rebuild.sh -a build"
     alias ncg="sudo nix-collect-garbage -d"
 
-    alias i="nix-shell -p"
-
-    ii() {
-        nix-shell -p "$1" --command "$@"
-    }
-
-    ir() {
-        nix-shell -p "$1" --run "$@"
+    i () {
+      if [[ $# -eq 0 ]]; then
+        nix-shell
+      else
+        nix-shell -p "$@"
+      fi
     }
 
     function sshkey() {
