@@ -2,10 +2,6 @@
 
 
 {
-  hardware.graphics = {
-    enable = true;
-  };
-
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
@@ -16,6 +12,8 @@
     powerManagement.finegrained = false;
 
     nvidiaSettings = true;
+
+    videoAcceleration = true;
 
     open = true;
 
@@ -41,4 +39,20 @@
   environment.systemPackages = [
     pkgs.btop-cuda
   ];
+
+  boot.kernelParams = [ "nvidia.NVreg_EnableGpuFirmware=0" ];
+
+  # hardware.graphics = {
+  #   enable = true;0
+  #   extraPackages = [
+  #     pkgs.libva-utils
+  #     pkgs.libva-vdpau-driver
+  #     pkgs.libvdpau
+  #     pkgs.vdpauinfo
+  #     pkgs.nvidia-vaapi-driver
+  #     pkgs.libvdpau-va-gl
+  #   ];
+  # }
+
+  # boot.kernelModules = [ "nvidia_uvm" ];
 }
