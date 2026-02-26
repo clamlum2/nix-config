@@ -128,10 +128,11 @@ binds {
 
     // Apps
 
-    Mod+T { spawn "ghostty"; }
+    Mod+T { spawn "wezterm"; }
     Mod+Space { spawn "fuzzel"; }
     Mod+D { spawn "helium-browser"; }
-    Mod+E { spawn-sh "ghostty -e yazi"; }
+    Mod+E { spawn-sh "wezterm -e yazi"; }
+    Mod+Shift+E { spawn "nautilus"; }
 
     // Navigation
 
