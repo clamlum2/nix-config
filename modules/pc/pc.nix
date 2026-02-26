@@ -1,4 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixpkgs-stable, ... }:
+
+let
+  stable = import nixpkgs-stable {
+    system = pkgs.system or "x86_64-linux";
+    config.allowUnfree = true;
+  };
+in
 
 {
   boot.loader.systemd-boot.enable = true;
@@ -34,6 +41,7 @@
     autoStart = true;
     capSysAdmin = true;
     openFirewall = true;
+    package = stable.sunshine;
   };
 
   programs.hyprland = {
