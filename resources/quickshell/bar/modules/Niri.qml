@@ -29,7 +29,7 @@ Item {
 	property color underlineActiveColor: primaryColor
 	property color underlineInactiveColor: "transparent"
 
-	property real textYOffset: -2
+	property real textYOffset: -3
 	property real visualYOffset: 0
 
 	// Raw IPC snapshots

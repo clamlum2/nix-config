@@ -1,0 +1,1 @@
+/home/clamt/.config/quickshell/shell_bottom.qml
