@@ -140,8 +140,8 @@ binds {
 
     Mod+Q repeat=false { close-window; }
 
-    Mod+Left  { focus-column-left; }
-    Mod+Right { focus-column-right; }
+    Mod+Left  { focus-column-or-monitor-left; }
+    Mod+Right { focus-column-or-monitor-right; }
 
     Mod+Shift+Right { focus-monitor-right; }
     Mod+Shift+Left  { focus-monitor-left; }
@@ -162,8 +162,8 @@ binds {
     Mod+WheelScrollDown      cooldown-ms=75 { focus-workspace-down; }
     Mod+WheelScrollUp        cooldown-ms=75 { focus-workspace-up; }
 
-    Mod+Shift+WheelScrollDown      { focus-column-right; }
-    Mod+Shift+WheelScrollUp        { focus-column-left; }
+    Mod+Shift+WheelScrollUp        { focus-column-or-monitor-left; }
+    Mod+Shift+WheelScrollDown      { focus-column-or-monitor-right; }
 
     Mod+Shift+Ctrl+Down { move-workspace-down; }
     Mod+Shift+Ctrl+Up   { move-workspace-up; }
