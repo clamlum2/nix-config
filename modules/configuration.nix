@@ -42,4 +42,6 @@ in
   programs.nix-ld.enable = true;
 
   environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
+
+  services.cloudflare-warp.enable = true;
 }
