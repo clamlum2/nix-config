@@ -50,7 +50,8 @@
           ./modules/pc/hardware-configuration.nix
 
           ./modules/pc/pc.nix
-          ./modules/pc/nvidia.nix
+          # ./modules/pc/nvidia.nix
+          ./modules/pc/amd.nix
           ./modules/pc/virtualisation.nix
 
           ./modules/configuration.nix
@@ -65,6 +66,7 @@
 
           ./modules/desktop/fonts.nix
           ./modules/desktop/audio.nix
+          ./modules/desktop/gtk.nix
 
           ./modules/apps/gaming.nix
           ./modules/apps/obs.nix
