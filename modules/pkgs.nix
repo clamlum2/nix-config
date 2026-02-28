@@ -21,7 +21,6 @@ in
     pkgs.python3Packages.pyqt6
     # stable.jetbrains.idea
 
-
     # media
     pkgs.easyeffects
     pkgs.spotify
@@ -36,7 +35,6 @@ in
     pkgs.p7zip
     pkgs.localsend
     pkgs.nautilus
-    pkgs.nvtopPackages.nvidia
 
     # other
     pkgs.vesktop
