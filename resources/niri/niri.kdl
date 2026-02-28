@@ -28,7 +28,7 @@ input {
     focus-follows-mouse max-scroll-amount="100%"
 }
 
-output "DP-1" {
+output "DP-3" {
     mode "2560x1440@165"
 
     scale 1
@@ -38,7 +38,7 @@ output "DP-1" {
     position x=1920 y=0
 }
 
-output "DP-2" {
+output "DP-1" {
     mode "1920x1080@300.002"
 
     scale 1
