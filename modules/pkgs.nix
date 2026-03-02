@@ -38,6 +38,7 @@ in
 
     # other
     pkgs.vesktop
+    # pkgs.davinci-resolve
 
     (import ./apps/helium.nix { inherit pkgs; })
   ];

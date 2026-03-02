@@ -6,7 +6,7 @@
     pkgs.protonup-qt
     pkgs.prismlauncher
     pkgs.jdk25
-    pkgs.steamtinkerlaunch
+    # pkgs.steamtinkerlaunch
   ];
 
   programs.steam = {
@@ -14,7 +14,6 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+    # protontricks.enable = true;
   };
-
-  services.earlyoom.enable = true;
 }

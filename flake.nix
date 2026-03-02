@@ -50,7 +50,6 @@
           ./modules/pc/hardware-configuration.nix
 
           ./modules/pc/pc.nix
-          # ./modules/pc/nvidia.nix
           ./modules/pc/amd.nix
           ./modules/pc/virtualisation.nix
 
@@ -59,7 +58,7 @@
 
           ./modules/niri/niri.nix
 
-					./modules/kde/kde.nix
+					# ./modules/kde/kde.nix
 
           ./modules/dm/greetd.nix
           # ./modules/dm/ly.nix
@@ -84,13 +83,6 @@
               users.clamt = { pkgs, ... }: {
                 imports = [
                   ./modules/home.nix
-
-                  ./modules/hyprland/hyprland.nix
-                  ./modules/hyprland/hyprpaper.nix
-                  ./modules/hyprland/hyprlock.nix
-                  ./modules/hyprland/plugins.nix
-
-                  ./modules/pc/hyprland-monitors.nix
 
                   ./modules/niri/niri-config.nix
 
@@ -139,6 +131,8 @@
           ./modules/configuration.nix
           ./modules/pkgs.nix
 
+          ./modules/niri/niri.nix
+
           ./modules/dm/greetd.nix
 
           ./modules/desktop/fonts.nix
@@ -157,11 +151,7 @@
                 imports = [
                   ./modules/home.nix
 
-                  ./modules/hyprland/hyprland.nix
-                  ./modules/hyprland/hyprpaper.nix
-                  ./modules/hyprland/hyprlock.nix
-
-                  ./modules/laptop/hyprland-monitors.nix
+                  ./modules/niri/niri-config.nix
 
                   ./modules/desktop/icons.nix
                   ./modules/desktop/mako.nix

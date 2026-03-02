@@ -44,17 +44,13 @@ in
     package = stable.sunshine;
   };
 
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
-  };
+  # programs.hyprland = {
+  #   enable = true;
+  #   withUWSM = true;
+  #   xwayland.enable = true;
+  # };
 
   services.hardware.openrgb.enable = true;
-
-  users.users.clamt.packages = [
-    pkgs.davinci-resolve
-  ];
 
   powerManagement.cpuFreqGovernor = "performance";
 }
