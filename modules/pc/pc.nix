@@ -17,10 +17,10 @@ in
     fsType = "ext4";
   };
 
-  fileSystems."/mnt/VMs" = {
-    device = "/dev/disk/by-uuid/9a0cfacd-022f-4991-9bdb-8f048c66c143";
-    fsType = "ext4";
-  };
+  # fileSystems."/mnt/VMs" = {
+  #   device = "/dev/disk/by-uuid/9a0cfacd-022f-4991-9bdb-8f048c66c143";
+  #   fsType = "ext4";
+  # };
 
   nix.settings = {
     "extra-substituters" = [ "https://attic.xuyh0120.win/lantian" ];
