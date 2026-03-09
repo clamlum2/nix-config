@@ -51,7 +51,7 @@
 
           ./modules/pc/pc.nix
           ./modules/pc/amd.nix
-          ./modules/pc/virtualisation.nix
+          # ./modules/pc/virtualisation.nix
 
           ./modules/configuration.nix
           ./modules/pkgs.nix
