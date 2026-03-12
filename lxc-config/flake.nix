@@ -25,6 +25,7 @@
           ./modules/configuration.nix
           ./modules/pkgs.nix
 
+          ./modules/docker.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
