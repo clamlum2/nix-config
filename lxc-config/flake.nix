@@ -38,6 +38,7 @@
               extraSpecialArgs = {
                 nixpkgs-stable = nixpkgs-stable;
                 self = self;
+                repoRoot = ./.;
               };
               users.root = { pkgs, ... }: {
                 imports = [
