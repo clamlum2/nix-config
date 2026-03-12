@@ -88,7 +88,7 @@
 
                   ../modules/shell/zsh.nix
                   ../modules/shell/themes/green.nix
-                  ./modules/apps/micro.nix
+                  ../modules/apps/micro.nix
                 ];
               };
             };
@@ -130,7 +130,7 @@
 
                   ../modules/shell/zsh.nix
                   ../modules/shell/themes/yellow.nix
-                  ./modules/apps/micro.nix
+                  ../modules/apps/micro.nix
                 ];
               };
             };
@@ -172,7 +172,7 @@
 
                   ../modules/shell/zsh.nix
                   ../modules/shell/themes/purple.nix
-                  ./modules/apps/micro.nix
+                  ../modules/apps/micro.nix
                 ];
               };
             };
