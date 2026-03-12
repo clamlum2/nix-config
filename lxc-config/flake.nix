@@ -80,6 +80,7 @@
               extraSpecialArgs = {
                 nixpkgs-stable = nixpkgs-stable;
                 self = self;
+                repoRoot = ./.;
               };
               users.root = { pkgs, ... }: {
                 imports = [
@@ -121,6 +122,7 @@
               extraSpecialArgs = {
                 nixpkgs-stable = nixpkgs-stable;
                 self = self;
+                repoRoot = ./.;
               };
               users.root = { pkgs, ... }: {
                 imports = [
@@ -162,6 +164,7 @@
               extraSpecialArgs = {
                 nixpkgs-stable = nixpkgs-stable;
                 self = self;
+                repoRoot = ./.;
               };
               users.root = { pkgs, ... }: {
                 imports = [
