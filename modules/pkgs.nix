@@ -40,6 +40,6 @@ in
     pkgs.vesktop
     # pkgs.davinci-resolve
 
-    (import ./apps/helium.nix { inherit pkgs; })
+    (pkgs.callPackage ./apps/helium.nix {})
   ];
 }
