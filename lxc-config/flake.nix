@@ -16,6 +16,9 @@
   }:
   {
     nixosConfigurations = {
+
+      # Testing LXC configuration
+
       lxc = let
         system = "x86_64-linux";
         pkgs = import nixpkgs { inherit system; };
@@ -52,6 +55,8 @@
           inherit self;
         };
       };
+
+      # Pterodactyl LXC configuration
 
       pterodactyl = let
         system = "x86_64-linux";
@@ -91,6 +96,8 @@
         };
       };
 
+      # Media Server LXC configuration
+
       mediaserver = let
         system = "x86_64-linux";
         pkgs = import nixpkgs { inherit system; };
@@ -128,6 +135,8 @@
           inherit self;
         };
       };
+
+      # Vaultwarden LXC configuration
 
       vaultwarden = let
         system = "x86_64-linux";
