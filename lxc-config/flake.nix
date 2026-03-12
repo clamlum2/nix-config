@@ -45,6 +45,7 @@
 
                   ../modules/shell/zsh.nix
                   ../modules/shell/themes/green.nix
+                  ../modules/apps/micro.nix
                 ];
               };
             };
