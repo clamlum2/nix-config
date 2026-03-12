@@ -40,25 +40,21 @@
               nix-cachyos-kernel.overlays.pinned
             ];
           })
-          ./modules/pc/hardware-configuration.nix
+          ./modules/devices/pc/hardware-configuration.nix
 
-          ./modules/pc/pc.nix
-          ./modules/pc/amd.nix
-          # ./modules/pc/virtualisation.nix
+          ./modules/devices/pc/pc.nix
+          ./modules/devices/pc/amd.nix
 
           ./modules/configuration.nix
           ./modules/pkgs.nix
 
-          ./modules/niri/niri.nix
+          ./modules/desktops/niri/niri.nix
 
-					# ./modules/kde/kde.nix
+          ./modules/desktops/dm/greetd.nix
 
-          ./modules/dm/greetd.nix
-          # ./modules/dm/ly.nix
-
-          ./modules/desktop/fonts.nix
-          ./modules/desktop/audio.nix
-          ./modules/desktop/gtk.nix
+          ./modules/desktops/services/fonts.nix
+          ./modules/desktops/services/audio.nix
+          ./modules/desktops/services/gtk.nix
 
           ./modules/apps/gaming.nix
           ./modules/apps/obs.nix
@@ -71,24 +67,25 @@
               extraSpecialArgs = {
                 nixpkgs-stable = nixpkgs-stable;
                 self = self;
+                repoRoot = ./.;
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
                   ./modules/home.nix
 
-                  ./modules/niri/niri-config.nix
+                  ./modules/desktops/niri/niri-config.nix
 
-                  ./modules/desktop/icons.nix
-                  ./modules/desktop/mako.nix
+                  ./modules/desktops/services/icons.nix
+                  ./modules/desktops/services/mako.nix
 
                   ./modules/shell/zsh.nix
                   ./modules/shell/themes/blue.nix
 
-                  ./modules/bars/quickshell.nix
+                  ./modules/apps/bars/quickshell.nix
 
-                  ./modules/terminals/ghostty.nix
-                  ./modules/terminals/wezterm.nix
-                  ./modules/terminals/kitty.nix
+                  ./modules/apps/terminals/ghostty.nix
+                  ./modules/apps/terminals/wezterm.nix
+                  ./modules/apps/terminals/kitty.nix
 
                   ./modules/apps/fuzzel.nix
                   ./modules/apps/yazi.nix
@@ -114,19 +111,19 @@
       in nixpkgs.lib.nixosSystem {
         system = system;
         modules = [
-          ./modules/laptop/hardware-configuration.nix
+          ./modules/devices/laptop/hardware-configuration.nix
 
-          ./modules/laptop/laptop.nix
+          ./modules/devices/laptop/laptop.nix
 
           ./modules/configuration.nix
           ./modules/pkgs.nix
 
-          ./modules/niri/niri.nix
+          ./modules/desktops/niri/niri.nix
 
-          ./modules/dm/greetd.nix
+          ./modules/desktops/greetd.nix
 
-          ./modules/desktop/fonts.nix
-          ./modules/desktop/audio.nix
+          ./modules/desktops/services/fonts.nix
+          ./modules/desktops/services/audio.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -136,24 +133,25 @@
               extraSpecialArgs = {
                 nixpkgs-stable = nixpkgs-stable;
                 self = self;
+                repoRoot = ./.;
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
                   ./modules/home.nix
 
-                  ./modules/niri/niri-config.nix
+                  ./modules/desktops/niri/niri-config.nix
 
-                  ./modules/desktop/icons.nix
-                  ./modules/desktop/mako.nix
+                  ./modules/desktops/services/icons.nix
+                  ./modules/desktops/services/mako.nix
 
                   ./modules/shell/zsh.nix
                   ./modules/shell/themes/blue.nix
 
-                  ./modules/bars/quickshell.nix
+                  ./modules/apps/bars/quickshell.nix
 
-                  ./modules/terminals/ghostty.nix
-                  ./modules/terminals/wezterm.nix
-                  ./modules/terminals/kitty.nix
+                  ./modules/apps/terminals/ghostty.nix
+                  ./modules/apps/terminals/wezterm.nix
+                  ./modules/apps/terminals/kitty.nix
 
                   ./modules/apps/fuzzel.nix
                 ];
@@ -177,9 +175,9 @@
       in nixpkgs.lib.nixosSystem {
         system = system;
         modules = [
-          ./modules/wsl/wsl.nix
+          ./modules/devices/wsl/wsl.nix
 
-          ./modules/desktop/fonts.nix
+          ./modules/desktops/services/fonts.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
@@ -189,10 +187,11 @@
               extraSpecialArgs = {
                 nixpkgs-stable = nixpkgs-stable;
                 self = self;
+                  repoRoot = ./.;
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
-                  ./modules/wsl/wsl-home.nix
+                  ./modules/devices/wsl/wsl-home.nix
 
                   ./modules/shell/zsh.nix
                   ./modules/shell/themes/blue.nix
