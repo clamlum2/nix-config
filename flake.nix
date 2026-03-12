@@ -11,11 +11,6 @@
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     nixos-lxc.url = "path:./lxc-config";
-
-    nvibrant = {
-      url = "github:mikaeladev/nix-nvibrant";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs@ {
@@ -26,7 +21,6 @@
     nixos-wsl,
     nix-cachyos-kernel,
     nixos-lxc,
-    nvibrant,
     ...
   }:
   {
@@ -43,7 +37,6 @@
         modules = [
           ({ ... }: {
             nixpkgs.overlays = [
-              nvibrant.overlays.default
               nix-cachyos-kernel.overlays.pinned
             ];
           })
@@ -78,15 +71,12 @@
               extraSpecialArgs = {
                 nixpkgs-stable = nixpkgs-stable;
                 self = self;
-                nvibrant = nvibrant;
               };
               users.clamt = { pkgs, ... }: {
                 imports = [
                   ./modules/home.nix
 
                   ./modules/niri/niri-config.nix
-
-                  ./modules/pc/nvibrant.nix
 
                   ./modules/desktop/icons.nix
                   ./modules/desktop/mako.nix
