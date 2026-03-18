@@ -28,17 +28,8 @@ PanelWindow {
     implicitHeight: 32
     color: backgroundColor
 
-    property var classOverrides: {
-        "code": { name: "Visual Studio Code", icon: "" },
-        "helium": { name: "Helium", icon: "" },
-        "spotify": { name: "Spotify", icon: "" },
-        "vesktop": { name: "Vesktop", icon: "" },
-        "com.mitchellh.ghostty": { name: "Ghostty", icon: "" },
-    }
-
     WindowModule {
         id: windowModule
-        classOverrides: root.classOverrides
     }
 
     Volume { id: volumeModule }
