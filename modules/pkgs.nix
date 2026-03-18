@@ -28,7 +28,7 @@ in
     pkgs.mpv
     pkgs.ffmpeg
     stable.handbrake
-    pkgs.feishin
+    stable.feishin
 
     # tools
     pkgs.wl-clipboard
