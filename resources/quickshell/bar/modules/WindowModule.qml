@@ -18,6 +18,7 @@ Item {
         "org.wezfurlong.wezterm": { name: "WezTerm", icon: "" },
         "org.gnome.nautilus": { name: "Nautilus", icon: "" },
         "feishin": { name: "Feishin", icon: "" },
+        "Minecraft* 1.21.11": { name: "Minecraft", icon: "" },
     })
 
     // Optional: override detection ("niri" or "hyprland"). Leave empty to auto-detect.
