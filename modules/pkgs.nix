@@ -19,7 +19,7 @@ in
     pkgs.vscode
     pkgs.python3
     pkgs.python3Packages.pyqt6
-    # stable.jetbrains.idea
+    stable.jetbrains.idea
 
     # media
     pkgs.easyeffects
