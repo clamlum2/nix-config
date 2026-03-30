@@ -24,9 +24,22 @@ in
 appimageTools.wrapType2 {
   inherit pname version src;
 
+  extraPkgs = pkgs: with pkgs; [
+    libva
+    mesa
+    libGL
+    vulkan-loader
+  ];
+
+  extraEnv = {
+    LIBVA_DRIVER_NAME = "radeonsi";
+    LIBVA_DRIVERS_PATH = "/run/opengl-driver/lib/dri";
+    VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json";
+    NIXOS_OZONE_WL = "1";
+  };
+
   extraInstallCommands = ''
     install -Dm444 ${desktopItem}/share/applications/${pname}.desktop \
       -t "$out/share/applications"
   '';
 }
-
