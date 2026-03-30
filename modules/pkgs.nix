@@ -37,7 +37,6 @@ in
     pkgs.nautilus
 
     # other
-    pkgs.vesktop
     # pkgs.davinci-resolve
 
     (pkgs.callPackage ./apps/helium.nix {})

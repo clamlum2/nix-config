@@ -59,6 +59,7 @@
 
           ./modules/apps/gaming.nix
           ./modules/apps/obs.nix
+          ./modules/apps/vesktop.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
