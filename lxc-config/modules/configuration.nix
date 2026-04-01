@@ -18,13 +18,7 @@
         PermitEmptyPasswords = "yes";
     };
   };
-  # Cache DNS lookups to improve performance
-  services.resolved = {
-    extraConfig = ''
-      Cache=true
-      CacheFromLocalhost=true
-    '';
-  };
+
   system.stateVersion = "25.11";
 
   systemd.mounts = [
