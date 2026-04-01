@@ -6,9 +6,14 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     nixos-lxc.url = "path:./lxc-config";
   };
@@ -18,8 +23,9 @@
     nixpkgs,
     nixpkgs-stable,
     home-manager,
-    nixos-wsl,
     nix-cachyos-kernel,
+    lanzaboote,
+    nixos-wsl,
     nixos-lxc,
     ...
   }:
@@ -96,6 +102,20 @@
               };
             };
           }
+          lanzaboote.nixosModules.lanzaboote
+          ({ pkgs, lib, ... }: {
+
+            environment.systemPackages = [
+              pkgs.sbctl
+            ];
+
+            boot.loader.systemd-boot.enable = lib.mkForce false;
+
+            boot.lanzaboote = {
+              enable = true;
+              pkiBundle = "/var/lib/sbctl";
+            };
+          })
         ];
         specialArgs = {
           inherit nixpkgs-stable;
