@@ -18,6 +18,7 @@
 
   home.file.".zshrc".text = ''
     export ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"
+    export JAVA_HOME="${pkgs.jdk25}"
 
     source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
