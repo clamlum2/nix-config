@@ -19,7 +19,9 @@ in
     pkgs.vscode
     pkgs.python3
     pkgs.python3Packages.pyqt6
-    stable.jetbrains.idea
+    pkgs.jetbrains.idea
+    pkgs.gradle_9
+    pkgs.jdk25
 
     # media
     pkgs.easyeffects
