@@ -6,6 +6,7 @@
     pkgs.protonup-qt
     pkgs.prismlauncher
     pkgs.jdk25
+    pkgs.mangohud
     # pkgs.steamtinkerlaunch
   ];
 
