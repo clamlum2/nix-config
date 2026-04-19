@@ -18,7 +18,7 @@
 
   services.spice-vdagentd.enable = true;
 
-  virtualisation.docker ={
-    enable = true;
-  };
+  # virtualisation.docker ={
+  #   enable = true;
+  # };
 }
