@@ -40,7 +40,7 @@
         system = "x86_64-linux";
       in nixpkgs.lib.nixosSystem {
         system = system;
-        modules = [
+        modules = [z
           ({ ... }: {
             nixpkgs.overlays = [
               nix-cachyos-kernel.overlays.pinned
