@@ -12,6 +12,9 @@ in
     config.allowUnfree = true;
   };
 
+  nixpkgs.overlays = [
+    (import apps/overlays/idea.nix)
+  ];
 
   environment.systemPackages = [
     #
@@ -19,9 +22,11 @@ in
     pkgs.vscode
     pkgs.python3
     pkgs.python3Packages.pyqt6
-    pkgs.jetbrains.idea
     pkgs.gradle_9
     pkgs.jdk25
+    pkgs.zed-editor
+
+    pkgs.idea
 
     # media
     pkgs.easyeffects
