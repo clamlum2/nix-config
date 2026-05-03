@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs-stable, ... }:
+{ pkgs, nixpkgs-stable, ... }:
 
 let
   stable = import nixpkgs-stable {
@@ -10,7 +10,6 @@ in
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
 
   fileSystems."/mnt/Games" = {
     device = "/dev/disk/by-uuid/8f56f8cf-1cd4-4dab-a2fc-37c29f4e6ed5";
