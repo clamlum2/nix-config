@@ -1,4 +1,8 @@
-{ config, pkgs, nixpkgs-stable, ... }:
+{
+  pkgs,
+  nixpkgs-stable,
+  ...
+}:
 
 let
   stable = import nixpkgs-stable {
@@ -8,7 +12,7 @@ let
 in
 
 {
-  nixpkgs ={
+  nixpkgs = {
     config.allowUnfree = true;
   };
 
@@ -25,6 +29,8 @@ in
     pkgs.gradle_9
     pkgs.jdk25
     pkgs.zed-editor
+    pkgs.nil
+    pkgs.nixd
 
     pkgs.idea
 
@@ -43,9 +49,6 @@ in
     pkgs.localsend
     pkgs.nautilus
 
-    # other
-    # pkgs.davinci-resolve
-
-    (pkgs.callPackage ./apps/helium.nix {})
+    (pkgs.callPackage ./apps/helium.nix { })
   ];
 }
