@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = [
@@ -32,7 +32,7 @@
     gtk4 = {
       theme = null;
       extraConfig = {
-      gtk-application-prefer-dark-theme = true;
+        gtk-application-prefer-dark-theme = true;
       };
     };
   };

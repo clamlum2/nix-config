@@ -1,8 +1,4 @@
-{
-  pkgs,
-  nixpkgs-stable,
-  ...
-}:
+{ pkgs, nixpkgs-stable, ... }:
 
 let
   stable = import nixpkgs-stable {
@@ -28,9 +24,6 @@ in
     pkgs.python3Packages.pyqt6
     pkgs.gradle_9
     pkgs.jdk25
-    pkgs.zed-editor
-    pkgs.nil
-    pkgs.nixd
 
     pkgs.idea
 

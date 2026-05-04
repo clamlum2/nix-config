@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs-stable, ... }:
+{ pkgs, nixpkgs-stable, ... }:
 
 let
   stable = import nixpkgs-stable {

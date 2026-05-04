@@ -1,4 +1,4 @@
-{ config, pkgs, repoRoot, ... }:
+{ pkgs, repoRoot, ... }:
 
 {
   home.packages = [

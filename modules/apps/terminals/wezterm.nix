@@ -1,4 +1,4 @@
-{ config, pkgs, repoRoot, ... }:
+{ repoRoot, ... }:
 
 {
   programs.wezterm.enable = true;

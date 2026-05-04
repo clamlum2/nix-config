@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = [
@@ -32,7 +32,7 @@
         blur_passes = 0;
       };
 
-      input-field ={
+      input-field = {
         monitor = "";
         size = "20%, 5%";
         outline_thickness = 1;

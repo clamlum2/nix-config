@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
-  environment.etc."docker/pterodactyl/docker-compose.yml".source = ../../resources/pterodactyl/pterodactyl-compose.yml;
-
+  environment.etc."docker/pterodactyl/docker-compose.yml".source =
+    ../../resources/pterodactyl/pterodactyl-compose.yml;
 
   # systemd.services."pterodactyl-docker-stack" = {
   #   description = "Pterodactyl Docker Compose Stack";

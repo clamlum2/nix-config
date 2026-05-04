@@ -7,182 +7,187 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@ {
-    self,
-    nixpkgs,
-    nixpkgs-stable,
-    home-manager,
-    ...
-  }:
-  {
-    nixosConfigurations = {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-stable,
+      home-manager,
+      ...
+    }:
+    {
+      nixosConfigurations = {
 
-      # Testing LXC configuration
+        # Testing LXC configuration
 
-      lxc = let
-        system = "x86_64-linux";
-        pkgs = import nixpkgs { inherit system; };
-      in nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./modules/configuration.nix
-          ./modules/pkgs.nix
+        lxc =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              ./modules/configuration.nix
+              ./modules/pkgs.nix
 
-          ./modules/docker.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              extraSpecialArgs = {
-                nixpkgs-stable = nixpkgs-stable;
-                self = self;
-                repoRoot = ./.;
-              };
-              users.root = { pkgs, ... }: {
-                imports = [
-                  ./modules/home.nix
+              ./modules/docker.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  backupFileExtension = "backup";
+                  extraSpecialArgs = {
+                    nixpkgs-stable = nixpkgs-stable;
+                    self = self;
+                    repoRoot = ./.;
+                  };
+                  users.root = {
+                    imports = [
+                      ./modules/home.nix
 
-                  ../modules/shell/zsh.nix
-                  ../modules/shell/themes/green.nix
-                  ../modules/apps/micro.nix
-                ];
-              };
+                      ../modules/shell/zsh.nix
+                      ../modules/shell/themes/green.nix
+                      ../modules/apps/micro.nix
+                    ];
+                  };
+                };
+              }
+            ];
+            specialArgs = {
+              inherit nixpkgs-stable;
+              inherit self;
             };
-          }
-        ];
-        specialArgs = {
-          inherit nixpkgs-stable;
-          inherit self;
-        };
-      };
+          };
 
-      # Pterodactyl LXC configuration
+        # Pterodactyl LXC configuration
 
-      pterodactyl = let
-        system = "x86_64-linux";
-        pkgs = import nixpkgs { inherit system; };
-      in nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./modules/configuration.nix
-          ./modules/pkgs.nix
+        pterodactyl =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              ./modules/configuration.nix
+              ./modules/pkgs.nix
 
-          ./modules/docker.nix
-          ./modules/pterodactyl/pterodactyl.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              extraSpecialArgs = {
-                nixpkgs-stable = nixpkgs-stable;
-                self = self;
-                repoRoot = ./.;
-              };
-              users.root = { pkgs, ... }: {
-                imports = [
-                  ./modules/home.nix
+              ./modules/docker.nix
+              ./modules/pterodactyl/pterodactyl.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  backupFileExtension = "backup";
+                  extraSpecialArgs = {
+                    nixpkgs-stable = nixpkgs-stable;
+                    self = self;
+                    repoRoot = ./.;
+                  };
+                  users.root = {
+                    imports = [
+                      ./modules/home.nix
 
-                  ../modules/shell/zsh.nix
-                  ../modules/shell/themes/green.nix
-                  ../modules/apps/micro.nix
-                ];
-              };
+                      ../modules/shell/zsh.nix
+                      ../modules/shell/themes/green.nix
+                      ../modules/apps/micro.nix
+                    ];
+                  };
+                };
+              }
+            ];
+            specialArgs = {
+              inherit nixpkgs-stable;
+              inherit self;
             };
-          }
-        ];
-        specialArgs = {
-          inherit nixpkgs-stable;
-          inherit self;
-        };
-      };
+          };
 
-      # Media Server LXC configuration
+        # Media Server LXC configuration
 
-      mediaserver = let
-        system = "x86_64-linux";
-        pkgs = import nixpkgs { inherit system; };
-      in nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./modules/configuration.nix
-          ./modules/pkgs.nix
+        mediaserver =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              ./modules/configuration.nix
+              ./modules/pkgs.nix
 
-          ./modules/docker.nix
-          ./modules/mediaserver/mediaserver.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              extraSpecialArgs = {
-                nixpkgs-stable = nixpkgs-stable;
-                self = self;
-                repoRoot = ./.;
-              };
-              users.root = { pkgs, ... }: {
-                imports = [
-                  ./modules/home.nix
+              ./modules/docker.nix
+              ./modules/mediaserver/mediaserver.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  backupFileExtension = "backup";
+                  extraSpecialArgs = {
+                    nixpkgs-stable = nixpkgs-stable;
+                    self = self;
+                    repoRoot = ./.;
+                  };
+                  users.root = {
+                    imports = [
+                      ./modules/home.nix
 
-                  ../modules/shell/zsh.nix
-                  ../modules/shell/themes/yellow.nix
-                  ../modules/apps/micro.nix
-                ];
-              };
+                      ../modules/shell/zsh.nix
+                      ../modules/shell/themes/yellow.nix
+                      ../modules/apps/micro.nix
+                    ];
+                  };
+                };
+              }
+            ];
+            specialArgs = {
+              inherit nixpkgs-stable;
+              inherit self;
             };
-          }
-        ];
-        specialArgs = {
-          inherit nixpkgs-stable;
-          inherit self;
-        };
-      };
+          };
 
-      # Vaultwarden LXC configuration
+        # Vaultwarden LXC configuration
 
-      vaultwarden = let
-        system = "x86_64-linux";
-        pkgs = import nixpkgs { inherit system; };
-      in nixpkgs.lib.nixosSystem {
-        inherit system;
-        modules = [
-          ./modules/configuration.nix
-          ./modules/pkgs.nix
+        vaultwarden =
+          let
+            system = "x86_64-linux";
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              ./modules/configuration.nix
+              ./modules/pkgs.nix
 
-          ./modules/docker.nix
-          ./modules/vaultwarden/vaultwarden.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              extraSpecialArgs = {
-                nixpkgs-stable = nixpkgs-stable;
-                self = self;
-                repoRoot = ./.;
-              };
-              users.root = { pkgs, ... }: {
-                imports = [
-                  ./modules/home.nix
+              ./modules/docker.nix
+              ./modules/vaultwarden/vaultwarden.nix
+              home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  backupFileExtension = "backup";
+                  extraSpecialArgs = {
+                    nixpkgs-stable = nixpkgs-stable;
+                    self = self;
+                    repoRoot = ./.;
+                  };
+                  users.root = {
+                    imports = [
+                      ./modules/home.nix
 
-                  ../modules/shell/zsh.nix
-                  ../modules/shell/themes/purple.nix
-                  ../modules/apps/micro.nix
-                ];
-              };
+                      ../modules/shell/zsh.nix
+                      ../modules/shell/themes/purple.nix
+                      ../modules/apps/micro.nix
+                    ];
+                  };
+                };
+              }
+            ];
+            specialArgs = {
+              inherit nixpkgs-stable;
+              inherit self;
             };
-          }
-        ];
-        specialArgs = {
-          inherit nixpkgs-stable;
-          inherit self;
-        };
+          };
       };
     };
-  };
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, self, ... }:
+{ pkgs, self, ... }:
 
 let
   calculator-script = "${self.outPath}/scripts/fuzzel-calc.sh";

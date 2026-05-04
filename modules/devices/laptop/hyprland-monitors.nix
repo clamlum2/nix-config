@@ -1,8 +1,8 @@
-{ config, ... }:
+{ ... }:
 
 {
   wayland.windowManager.hyprland.settings = {
-    monitor = [];
+    monitor = [ ];
 
     workspace = [
       "1, default:true"

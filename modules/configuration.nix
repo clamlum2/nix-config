@@ -1,20 +1,16 @@
-{ config, pkgs, nixpkgs-stable, ... }:
+{ pkgs, ... }:
 
-let
-  stable = import nixpkgs-stable {
-    system = pkgs.system or "x86_64-linux";
-    config.allowUnfree = true;
-  };
-in
 {
   system.stateVersion = "25.11";
 
-  nix.settings.trusted-users = [ "root" "@wheel" ];
+  nix.settings.trusted-users = [
+    "root"
+    "@wheel"
+  ];
 
   networking.networkmanager.enable = true;
 
   services.openssh.enable = true;
-
 
   time.timeZone = "Pacific/Auckland";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -32,7 +28,11 @@ in
 
   users.users.clamt = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "video "];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video "
+    ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH/sXIx+I7BCq6T4QfiEWqvh+E1d9+y4CrTijURf5Wsq clamt"
     ];
@@ -41,7 +41,10 @@ in
 
   programs.nix-ld.enable = true;
 
-  environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
+  environment.pathsToLink = [
+    "/share/applications"
+    "/share/xdg-desktop-portal"
+  ];
 
   services.cloudflare-warp.enable = true;
 }

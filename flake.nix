@@ -56,7 +56,7 @@
 
               ./modules/devices/pc/pc.nix
               ./modules/devices/pc/amd.nix
-              # ./modules/devices/pc/virtualisation.nix
+              ./modules/devices/pc/virtualisation.nix
 
               ./modules/configuration.nix
               ./modules/pkgs.nix
@@ -72,6 +72,7 @@
               ./modules/apps/gaming.nix
               ./modules/apps/obs.nix
               ./modules/apps/vesktop.nix
+              ./modules/apps/zed.nix
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
