@@ -29,10 +29,19 @@ in
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
 
+  boot.blacklistedKernelModules = [
+    "esp4"
+    "esp6"
+    "rxrpc"
+  ];
+
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 25565 ];
-    allowedUDPPorts = [ 25565 ];
+    allowedUDPPorts = [
+      8800
+      25565
+    ];
   };
 
   services.sunshine = {
