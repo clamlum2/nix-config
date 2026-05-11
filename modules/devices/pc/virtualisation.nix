@@ -1,12 +1,19 @@
 { pkgs, lib, ... }:
 
 {
-  virtualisation.libvirtd.enable = true;
 
-  virtualisation.libvirtd.qemu = {
-    package = pkgs.qemu_kvm;
-    runAsRoot = true;
+  virtualisation.libvirtd = {
+    enable = true;
+
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+    };
   };
+
+  systemd.tmpfiles.rules = [
+    "L+ /run/libvirt/nix-ovmf - - - - ${pkgs.qemu}/share/qemu"
+  ];
 
   programs.virt-manager.enable = true;
 
