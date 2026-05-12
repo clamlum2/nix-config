@@ -6,7 +6,7 @@
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    # nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.0.0";
@@ -16,6 +16,7 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     nixos-lxc.url = "path:./lxc-config";
+    cachyos-kernel.url = "./cachyos-kernel";
   };
 
   outputs =
@@ -28,6 +29,7 @@
       lanzaboote,
       nixos-wsl,
       nixos-lxc,
+      cachyos-kernel,
       ...
     }:
     {
@@ -130,7 +132,7 @@
               )
             ];
             specialArgs = {
-              inherit nixpkgs-stable;
+              inherit nixpkgs-stable cachyos-kernel;
               inherit self;
             };
           };
