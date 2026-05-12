@@ -1,4 +1,4 @@
-{ pkgs, nixpkgs-stable, ... }:
+{ lib, pkgs, nixpkgs-stable, cachyos-kernel, ... }:
 
 let
   stable = import nixpkgs-stable {
@@ -27,7 +27,20 @@ in
   };
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
+  # boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
+  boot.kernelPackages = pkgs.linuxKernel.packagesFor
+    cachyos-kernel.packages.x86_64-linux.kernel;
+
+  boot.initrd.availableKernelModules = lib.mkForce [
+    "nvme"
+    "xhci_pci"
+    "xhci_hcd"
+    "ahci"
+    "usbhid"
+    "sd_mod"
+    "ext4"
+    "tpm-crb"
+  ];
 
   boot.blacklistedKernelModules = [
     "esp4"
@@ -49,7 +62,7 @@ in
     autoStart = true;
     capSysAdmin = true;
     openFirewall = true;
-    package = stable.sunshine;
+    package = pkgs.sunshine;
   };
 
   # programs.hyprland = {
