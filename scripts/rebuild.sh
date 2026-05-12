@@ -2,50 +2,45 @@
 set -euo pipefail
 
 CONFIG_REPO="$HOME/nix-config"
+KERNEL_SCRIPT="$CONFIG_REPO/cachyos-kernel/scripts/update-kernel.sh"
 
 usage() {
     cat <<EOF
-Usage: $(basename "$0") [--upgrade] [--help]
-
+Usage: $(basename "$0") [-u] [-k] [-a <action>] [-h <hostname>] [--help]
 Options:
-  --upgrade    Run 'nix flake update' in $CONFIG_REPO and then upgrade the system
-  -h, --help   Show this help
+  -u             Run 'nix flake update' and git pull before rebuilding
+  -k             Run kernel update script before rebuilding
+  -a <action>    nixos-rebuild action (default: test)
+  -h <hostname>  Override hostname (default: current hostname)
+  --help             Show this help
 EOF
 }
 
+for arg in "$@"; do
+    if [[ "$arg" == "--help" ]]; then
+        usage
+        exit 0
+    fi
+done
+
 UPGRADE=0
+KERNEL=0
 ACTION="test"
 HOSTNAME=$(hostname)
-while [[ ${#} -gt 0 ]]; do
-    case "$1" in
-        -a|--action)
-            if [[ $# -lt 2 ]]; then
-                echo "Error: --action requires an argument"
-                usage
-                exit 2
-            fi
-            ACTION="$2"
-            shift 2
-            ;;
-        -u|--upgrade)
-            UPGRADE=1
-            shift
-            ;;
-        -h|--hostname)
-            if [[ $# -lt 2 ]]; then
-                echo "Error: --hostname requires an argument"
-                usage
-                exit 2
-            fi
-            HOSTNAME="$2"
-            shift 2
-            ;;
-        --help)
+
+while getopts ":uka:h:" opt; do
+    case "$opt" in
+        u) UPGRADE=1 ;;
+        k) KERNEL=1 ;;
+        a) ACTION="$OPTARG" ;;
+        h) HOSTNAME="$OPTARG" ;;
+        :)
+            echo "Error: -$OPTARG requires an argument"
             usage
-            exit 0
+            exit 2
             ;;
-        *)
-            echo "Unknown argument: $1"
+        \?)
+            echo "Unknown flag: -$OPTARG"
             usage
             exit 2
             ;;
@@ -64,6 +59,16 @@ if [[ "$UPGRADE" -eq 1 ]]; then
     git pull
     nix flake update
     echo "==> Flake update complete"
+fi
+
+if [[ "$KERNEL" -eq 1 ]]; then
+    if [[ ! -x "$KERNEL_SCRIPT" ]]; then
+        echo "Error: kernel update script not found at $KERNEL_SCRIPT"
+        exit 1
+    fi
+    echo "==> Running kernel update"
+    "$KERNEL_SCRIPT"
+    echo "==> Kernel update complete"
 fi
 
 echo "Using hostname: $HOSTNAME"
