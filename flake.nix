@@ -25,7 +25,7 @@
       nixpkgs,
       nixpkgs-stable,
       home-manager,
-      nix-cachyos-kernel,
+      # nix-cachyos-kernel,
       lanzaboote,
       nixos-wsl,
       nixos-lxc,
@@ -49,9 +49,9 @@
               (
                 { ... }:
                 {
-                  nixpkgs.overlays = [
-                    nix-cachyos-kernel.overlays.pinned
-                  ];
+                  # nixpkgs.overlays = [
+                  #   nix-cachyos-kernel.overlays.pinned
+                  # ];
                 }
               )
               ./modules/devices/pc/hardware-configuration.nix
