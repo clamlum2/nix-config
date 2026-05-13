@@ -11,7 +11,7 @@ Item {
     property var player: null
 
     // Ordered list of plays by preference.
-    property var preferredPlayers: ["feishin", "spotify", "helium"]
+    property var preferredPlayers: ["kopuz", "spotify", "helium"]
 
     // How much the mouse wheel changes volume.
     property real volumeStep: 0.05
