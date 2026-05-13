@@ -14,6 +14,7 @@ in
 
   nixpkgs.overlays = [
     (import apps/overlays/idea.nix)
+    (import apps/overlays/discord.nix)
   ];
 
   environment.systemPackages = [
@@ -26,6 +27,7 @@ in
     pkgs.jdk25
 
     pkgs.idea
+    pkgs.discord
 
     # media
     pkgs.easyeffects
