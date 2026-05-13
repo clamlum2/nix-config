@@ -34,7 +34,6 @@ in
     pkgs.mpv
     pkgs.ffmpeg
     stable.handbrake
-    stable.feishin
 
     # tools
     pkgs.wl-clipboard
