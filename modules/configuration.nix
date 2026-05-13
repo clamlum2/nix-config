@@ -45,6 +45,4 @@
     "/share/applications"
     "/share/xdg-desktop-portal"
   ];
-
-  services.cloudflare-warp.enable = true;
 }
