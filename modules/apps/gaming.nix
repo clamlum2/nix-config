@@ -15,6 +15,8 @@ in
     pkgs.jdk25
     pkgs.mangohud
     # pkgs.steamtinkerlaunch
+    stable.wineWowPackages.stable
+    pkgs.winetricks
   ];
 
   programs.steam = {
@@ -22,6 +24,6 @@ in
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
-    # protontricks.enable = true;
+    protontricks.enable = true;
   };
 }
