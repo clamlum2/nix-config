@@ -29,8 +29,10 @@ Item {
     // Icon to display next to the track text.
     property string icon: {
         const id = identity.toLowerCase();
-        if (id.includes("spotify")) return "";
-        if (id.includes("helium")) return "";
+        if (id.includes("spotify"))
+            return "";
+        if (id.includes("helium"))
+            return "";
         return "";
     }
 
@@ -46,7 +48,8 @@ Item {
     // 4) else fall back to the first available player
     function pickPlayer() {
         const list = players();
-        if (!list || list.length === 0) return null;
+        if (!list || list.length === 0)
+            return null;
 
         function matches(pref, p) {
             const id = ((p && p.identity) || "").toString().toLowerCase();
@@ -60,13 +63,15 @@ Item {
         // Preferred + playing
         for (const pref of preferredPlayers) {
             const p = list.find(pl => matches(pref, pl) && isPlaying(pl));
-            if (p) return p;
+            if (p)
+                return p;
         }
 
         // Preferred (present)
         for (const pref of preferredPlayers) {
             const p = list.find(pl => matches(pref, pl));
-            if (p) return p;
+            if (p)
+                return p;
         }
 
         // Anything playing
@@ -99,7 +104,8 @@ Item {
         onTriggered: {
             attempts++;
             refresh("startup#" + attempts);
-            if (player || attempts >= 10) running = false;
+            if (player || attempts >= 10)
+                running = false;
         }
     }
 
@@ -107,28 +113,40 @@ Item {
     Connections {
         target: Mpris
         ignoreUnknownSignals: true
-        function onPlayersChanged() { refresh("playersChanged"); }
+        function onPlayersChanged() {
+            refresh("playersChanged");
+        }
     }
 
     Connections {
         target: Mpris.players
         ignoreUnknownSignals: true
-        function onValuesChanged() { refresh("model.valuesChanged"); }
-        function onCountChanged() { refresh("model.countChanged"); }
-        function onModelReset() { refresh("model.reset"); }
+        function onValuesChanged() {
+            refresh("model.valuesChanged");
+        }
+        function onCountChanged() {
+            refresh("model.countChanged");
+        }
+        function onModelReset() {
+            refresh("model.reset");
+        }
     }
 
     // Basic controls.
     function playPause() {
-        if (!player) return;
-        if (player.isPlaying === true) player.pause();
-        else player.play();
+        if (!player)
+            return;
+        if (player.isPlaying === true)
+            player.pause();
+        else
+            player.play();
     }
 
     // Volume control via mouse wheel.
     // Note: not every player supports setting volume; this is best-effort.
     function wheelVolume(deltaY) {
-        if (!player) return;
+        if (!player)
+            return;
 
         // Prefer the direct MPRIS volume property if it exists.
         if (player.volume !== undefined && player.volume !== null) {
@@ -138,12 +156,14 @@ Item {
                 player.volume = next;
                 return;
             } catch (e) {
-                if (debug) console.log("[Mpris] direct volume set failed:", e);
+                if (debug)
+                    console.log("[Mpris] direct volume set failed:", e);
             }
         }
 
         // Fallback: call playerctl.
-        if (!playerctlName) return;
+        if (!playerctlName)
+            return;
         const sign = deltaY > 0 ? "+" : "-";
         playerctlProc.command = ["playerctl", "-p", playerctlName, "volume", volumeStep.toString() + sign];
         playerctlProc.running = true;
@@ -153,17 +173,20 @@ Item {
         id: playerctlProc
         command: ["true"]
         onExited: {
-            if (debug && exitCode !== 0) console.log("[Mpris] playerctl failed:", exitCode);
+            if (debug && exitCode !== 0)
+                console.log("[Mpris] playerctl failed:", exitCode);
         }
     }
 
     function next() {
-        if (!player) return;
+        if (!player)
+            return;
         player.next();
     }
 
     function previous() {
-        if (!player) return;
+        if (!player)
+            return;
         player.previous();
     }
 }
