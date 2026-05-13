@@ -6,7 +6,7 @@
     let
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       cachyVersion = "7.1-rc3";
-      cachyRelease = "1";
+      cachyRelease = "2";
       modDirVersion = "7.1.0-rc3-cachyos";
       version = "${cachyVersion}-${cachyRelease}";
     in
@@ -16,9 +16,9 @@
           inherit version modDirVersion;
           src = pkgs.fetchurl {
             url = "https://github.com/CachyOS/linux/releases/download/cachyos-${version}/cachyos-${version}.tar.gz";
-            hash = "sha256-MYhV5ujJDHsBMNpKhNkQt+7YwbQxw7cu/tFtyarxbTM=";
+            hash = "sha256-Jdo6HCgh/hNWr0bpwa7qKJpYusjFzif+o/2ZpgYsUlM=";
           };
-          configfile = ./config;
+          configfile = ./kernel_config;
           allowImportFromDerivation = true;
         }).overrideAttrs
           (old: {

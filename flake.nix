@@ -8,6 +8,8 @@
 
     # nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
+    kopuz.url = "github:temidaradev/kopuz";
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +28,7 @@
       nixpkgs-stable,
       home-manager,
       # nix-cachyos-kernel,
+      kopuz,
       lanzaboote,
       nixos-wsl,
       nixos-lxc,
@@ -75,6 +78,7 @@
               ./modules/apps/obs.nix
               ./modules/apps/vesktop.nix
               ./modules/apps/zed.nix
+              ./modules/apps/kopuz.nix
               home-manager.nixosModules.home-manager
               {
                 home-manager = {
@@ -132,8 +136,8 @@
               )
             ];
             specialArgs = {
-              inherit nixpkgs-stable cachyos-kernel;
-              inherit self;
+              inherit nixpkgs-stable cachyos-kernel kopuz;
+              inherit self system;
             };
           };
 
