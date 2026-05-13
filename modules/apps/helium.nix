@@ -1,12 +1,16 @@
-{ fetchurl, appimageTools, makeDesktopItem }:
+{
+  fetchurl,
+  appimageTools,
+  makeDesktopItem,
+}:
 
 let
   pname = "helium-browser";
-  version = "0.12.1.1";
+  version = "0.12.2.1";
 
   src = fetchurl {
     url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
-    sha256 = "sha256-+UE+JqQtxbA5szPvAohapXlES21VBOdNsV6Ej1dRRfs=";
+    sha256 = "sha256-6bQuymGyoyusl4t9/z9K2udXH6hL8XNaqvUSlb0XxV0=";
   };
 
   desktopItem = makeDesktopItem {
@@ -15,7 +19,10 @@ let
     comment = "Web browser";
     exec = "${pname} %U";
     terminal = false;
-    categories = [ "Network" "WebBrowser" ];
+    categories = [
+      "Network"
+      "WebBrowser"
+    ];
     icon = pname;
     startupWMClass = "helium-browser";
   };
@@ -24,12 +31,13 @@ in
 appimageTools.wrapType2 {
   inherit pname version src;
 
-  extraPkgs = pkgs: with pkgs; [
-    libva
-    mesa
-    libGL
-    vulkan-loader
-  ];
+  extraPkgs =
+    pkgs: with pkgs; [
+      libva
+      mesa
+      libGL
+      vulkan-loader
+    ];
 
   extraEnv = {
     LIBVA_DRIVER_NAME = "radeonsi";
