@@ -31,6 +31,7 @@
     alias ls="lsd --group-directories-first -A"
     alias cat="bat -p"
     alias cd="z"
+    alias zed="zeditor"
 
     alias nrs="sh ~/nix-config/scripts/rebuild.sh -a switch"
     alias nrt="sh ~/nix-config/scripts/rebuild.sh -a test"
