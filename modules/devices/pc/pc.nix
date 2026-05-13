@@ -1,11 +1,9 @@
-{ lib, pkgs, nixpkgs-stable, cachyos-kernel, ... }:
-
-let
-  stable = import nixpkgs-stable {
-    system = pkgs.system or "x86_64-linux";
-    config.allowUnfree = true;
-  };
-in
+{
+  lib,
+  pkgs,
+  cachyos-kernel,
+  ...
+}:
 
 {
   boot.loader.systemd-boot.enable = true;
@@ -21,15 +19,14 @@ in
   #   fsType = "ext4";
   # };
 
-  nix.settings = {
-    "extra-substituters" = [ "https://attic.xuyh0120.win/lantian" ];
-    "extra-trusted-public-keys" = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
-  };
+  # nix.settings = {
+  #   "extra-substituters" = [ "https://attic.xuyh0120.win/lantian" ];
+  #   "extra-trusted-public-keys" = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
+  # };
 
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
-  boot.kernelPackages = pkgs.linuxKernel.packagesFor
-    cachyos-kernel.packages.x86_64-linux.kernel;
+  boot.kernelPackages = pkgs.linuxKernel.packagesFor cachyos-kernel.packages.x86_64-linux.kernel;
 
   boot.initrd.availableKernelModules = lib.mkForce [
     "nvme"
