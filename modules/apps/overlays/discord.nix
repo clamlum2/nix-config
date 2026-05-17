@@ -59,24 +59,49 @@ final: prev: {
         libgbm
       ];
 
-      base =
-        (prev.discord.override {
-          binaryName = "discord";
-          disableUpdates = false;
-          commandLineArgs = "--enable-gpu-rasterization --enable-zero-copy --ignore-gpu-blocklist";
-        }).overrideAttrs
-          (old: {
-            version = version;
-            src = prev.fetchurl {
-              url = "https://stable.dl2.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-              sha256 = "sha256-PFwhTekHL6zwn8grAxhFrsAVunJ6EFgfeatpWm3/Eck=";
-            };
-          });
+      base = prev.stdenv.mkDerivation {
+        pname = "discord";
+        inherit version;
+
+        src = prev.fetchurl {
+          url = "https://stable.dl2.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
+          sha256 = "sha256-PFwhTekHL6zwn8grAxhFrsAVunJ6EFgfeatpWm3/Eck=";
+        };
+
+        nativeBuildInputs = [
+          prev.autoPatchelfHook
+          prev.makeShellWrapper
+        ];
+        buildInputs = libs;
+
+        dontConfigure = true;
+        dontBuild = true;
+        dontUnpack = true;
+
+        installPhase =
+          let
+            binaryName = "discord";
+          in
+          ''
+            runHook preInstall
+            mkdir -p $out/opt/${binaryName} $out/bin \
+                     $out/share/applications \
+                     $out/share/icons/hicolor/256x256/apps
+
+            tar xzf $src --strip-components=1 -C $out/opt/${binaryName}
+            chmod +x $out/opt/${binaryName}/${binaryName}
+
+            ln -s $out/opt/${binaryName}/${binaryName} $out/bin/${binaryName}
+            ln -s $out/opt/${binaryName}/${binaryName}.png \
+                  $out/share/icons/hicolor/256x256/apps/${binaryName}.png
+
+            runHook postInstall
+          '';
+      };
 
       fhs = prev.buildFHSEnv {
         name = "discord";
         targetPkgs = pkgs: libs;
-
         runScript = prev.writeShellScript "discord-run" ''
           export LIBVA_DRIVER_NAME=radeonsi
           export LIBVA_DRIVERS_PATH=/run/opengl-driver/lib/dri
@@ -95,6 +120,20 @@ final: prev: {
       postBuild = ''
         rm -f $out/bin/discord
         ln -s ${fhs}/bin/discord $out/bin/discord
+
+        rm -f $out/share/applications/discord.desktop
+        cat > $out/share/applications/discord.desktop << EOF
+        [Desktop Entry]
+        Name=Discord
+        Comment=All-in-one voice and text chat
+        Exec=${fhs}/bin/discord %U
+        Icon=discord
+        Terminal=false
+        Type=Application
+        Categories=Network;InstantMessaging;
+        MimeType=x-scheme-handler/discord;
+        StartupWMClass=discord
+        EOF
       '';
     };
 }
