@@ -2,22 +2,29 @@
   fetchurl,
   appimageTools,
   makeDesktopItem,
+  makeWrapper,
 }:
 
 let
   pname = "helium-browser";
-  version = "0.12.2.1";
+  version = "0.12.3.1";
+
+  extraFlags = "--password-store=basic";
 
   src = fetchurl {
     url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
-    sha256 = "sha256-6bQuymGyoyusl4t9/z9K2udXH6hL8XNaqvUSlb0XxV0=";
+    sha256 = "sha256-VnOhzhAulvFNBB/0AD1d+K/TzfFL9Zwtk/vcm5vWl+I=";
+  };
+
+  extracted = appimageTools.extract {
+    inherit pname version src;
   };
 
   desktopItem = makeDesktopItem {
     name = pname;
     desktopName = "Helium";
     comment = "Web browser";
-    exec = "${pname} %U";
+    exec = "${pname} ${extraFlags} %U";
     terminal = false;
     categories = [
       "Network"
@@ -30,6 +37,8 @@ in
 
 appimageTools.wrapType2 {
   inherit pname version src;
+
+  nativeBuildInputs = [ makeWrapper ];
 
   extraPkgs =
     pkgs: with pkgs; [
@@ -49,5 +58,11 @@ appimageTools.wrapType2 {
   extraInstallCommands = ''
     install -Dm444 ${desktopItem}/share/applications/${pname}.desktop \
       -t "$out/share/applications"
+
+    wrapProgram $out/bin/${pname} \
+      --add-flags "${extraFlags}"
+
+    install -Dm444 ${extracted}/.DirIcon \
+      $out/share/pixmaps/${pname}.png
   '';
 }
