@@ -2,7 +2,7 @@
 
 let
   stable = import nixpkgs-stable {
-    system = pkgs.system or "x86_64-linux";
+    system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
   };
 in
