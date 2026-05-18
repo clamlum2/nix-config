@@ -1,12 +1,12 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/10e7ad5bbcb421fe07e3a4ad53a634b0cd57ffac";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    # nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     kopuz.url = "github:temidaradev/kopuz";
 
@@ -19,246 +19,97 @@
 
     nixos-lxc.url = "path:./lxc-config";
     cachyos-kernel.url = "./cachyos-kernel";
+
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      nixpkgs-stable,
-      home-manager,
-      # nix-cachyos-kernel,
-      kopuz,
-      lanzaboote,
-      nixos-wsl,
-      nixos-lxc,
-      cachyos-kernel,
-      ...
-    }:
+    { self, nixpkgs, ... }@inputs:
+    let
+      mkSystem = nixpkgs.lib.nixosSystem;
+    in
     {
       nixosConfigurations = {
-
-        ##################
-        # PC Configuration
-        ##################
-
-        nixos =
-          let
-            system = "x86_64-linux";
-          in
-          nixpkgs.lib.nixosSystem {
-            system = system;
-            modules = [
-              (
-                { ... }:
-                {
-                  # nixpkgs.overlays = [
-                  #   nix-cachyos-kernel.overlays.pinned
-                  # ];
-                }
-              )
-              ./modules/devices/pc/hardware-configuration.nix
-
-              ./modules/devices/pc/pc.nix
-              ./modules/devices/pc/amd.nix
-              ./modules/devices/pc/virtualisation.nix
-
-              ./modules/configuration.nix
-              ./modules/pkgs.nix
-
-              ./modules/desktops/niri/niri.nix
-
-              ./modules/desktops/dm/greetd.nix
-
-              ./modules/desktops/services/fonts.nix
-              ./modules/desktops/services/audio.nix
-              ./modules/desktops/services/gtk.nix
-
-              ./modules/apps/gaming.nix
-              ./modules/apps/obs.nix
-              ./modules/apps/vesktop.nix
-              ./modules/apps/zed.nix
-              ./modules/apps/kopuz.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  backupFileExtension = "backup";
-                  extraSpecialArgs = {
-                    nixpkgs-stable = nixpkgs-stable;
-                    self = self;
-                    repoRoot = ./.;
-                  };
-                  users.clamt =
-                    { ... }:
-                    {
-                      imports = [
-                        ./modules/home.nix
-
-                        ./modules/desktops/niri/niri-config.nix
-
-                        ./modules/desktops/services/icons.nix
-                        ./modules/desktops/services/mako.nix
-
-                        ./modules/shell/zsh.nix
-                        ./modules/shell/themes/blue.nix
-
-                        ./modules/apps/bars/quickshell.nix
-
-                        ./modules/apps/terminals/ghostty.nix
-                        ./modules/apps/terminals/wezterm.nix
-                        ./modules/apps/terminals/kitty.nix
-
-                        ./modules/apps/fuzzel.nix
-                        ./modules/apps/yazi.nix
-                        ./modules/apps/micro.nix
-                      ];
-                    };
-                };
-              }
-              lanzaboote.nixosModules.lanzaboote
-              (
-                { pkgs, lib, ... }:
-                {
-
-                  environment.systemPackages = [
-                    pkgs.sbctl
-                  ];
-
-                  boot.loader.systemd-boot.enable = lib.mkForce false;
-
-                  boot.lanzaboote = {
-                    enable = true;
-                    pkiBundle = "/var/lib/sbctl";
-                  };
-                }
-              )
-            ];
-            specialArgs = {
-              inherit nixpkgs-stable cachyos-kernel kopuz;
-              inherit self system;
-            };
+        nixos = mkSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            device = "nixos";
+            inherit (inputs) nixpkgs-stable self;
+            inherit inputs;
           };
-
-        ######################
-        # Laptop Configuration
-        ######################
-
-        laptop =
-          let
-            system = "x86_64-linux";
-          in
-          nixpkgs.lib.nixosSystem {
-            system = system;
-            modules = [
-              ./modules/devices/laptop/hardware-configuration.nix
-
-              ./modules/devices/laptop/laptop.nix
-
-              ./modules/configuration.nix
-              ./modules/pkgs.nix
-
-              ./modules/desktops/niri/niri.nix
-
-              ./modules/desktops/greetd.nix
-
-              ./modules/desktops/services/fonts.nix
-              ./modules/desktops/services/audio.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  backupFileExtension = "backup";
-                  extraSpecialArgs = {
-                    nixpkgs-stable = nixpkgs-stable;
-                    self = self;
-                    repoRoot = ./.;
-                  };
-                  users.clamt = {
-                    imports = [
-                      ./modules/home.nix
-
-                      ./modules/desktops/niri/niri-config.nix
-
-                      ./modules/desktops/services/icons.nix
-                      ./modules/desktops/services/mako.nix
-
-                      ./modules/shell/zsh.nix
-                      ./modules/shell/themes/blue.nix
-
-                      ./modules/apps/bars/quickshell.nix
-
-                      ./modules/apps/terminals/ghostty.nix
-                      ./modules/apps/terminals/wezterm.nix
-                      ./modules/apps/terminals/kitty.nix
-
-                      ./modules/apps/fuzzel.nix
-                    ];
-                  };
+          modules = [
+            ./modules
+            ./modules/devices/pc
+            ./modules/apps
+            ./modules/shell
+            ./modules/desktops/niri
+            ./modules/desktops/kde
+            ./modules/desktops/services
+            ./modules/desktops/dm
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
+                extraSpecialArgs = {
+                  self = inputs.self;
                 };
-              }
-            ];
-            specialArgs = {
-              inherit nixpkgs-stable;
-              inherit self;
-            };
+              };
+            }
+          ];
+        };
+
+        wsl = mkSystem {
+          system = "aarch64-linux";
+          specialArgs = {
+            device = "wsl";
+            inherit (inputs) self;
           };
+          modules = [
+            ./modules
 
-        ###################
-        # WSL Configuration
-        ###################
+            ./modules/devices/wsl
 
-        wsl =
-          let
-            system = "aarch64-linux";
-          in
-          nixpkgs.lib.nixosSystem {
-            system = system;
-            modules = [
-              ./modules/devices/wsl/wsl.nix
+            ./modules/shell
+            ./modules/desktops/services
+            inputs.nixos-wsl.nixosModules.default
+            inputs.home-manager.nixosModules.home-manager
+          ];
+        };
 
-              ./modules/desktops/services/fonts.nix
-              home-manager.nixosModules.home-manager
-              {
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  backupFileExtension = "backup";
-                  extraSpecialArgs = {
-                    nixpkgs-stable = nixpkgs-stable;
-                    self = self;
-                    repoRoot = ./.;
-                  };
-                  users.clamt = {
-                    imports = [
-                      ./modules/devices/wsl/wsl-home.nix
-
-                      ./modules/shell/zsh.nix
-                      ./modules/shell/themes/blue.nix
-                    ];
-                  };
-                };
-              }
-              nixos-wsl.nixosModules.default
-              {
-                system.stateVersion = "25.11";
-                wsl.enable = true;
-              }
-            ];
-            specialArgs = {
-              inherit nixpkgs-stable;
-              inherit self;
-            };
+        laptop = mkSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            device = "laptop";
+            inherit (inputs) self;
           };
-
-      }
-      // {
-        lxc = nixos-lxc.nixosConfigurations.lxc;
-        pterodactyl = nixos-lxc.nixosConfigurations.pterodactyl;
-        mediaserver = nixos-lxc.nixosConfigurations.mediaserver;
-        vaultwarden = nixos-lxc.nixosConfigurations.vaultwarden;
+          modules = [
+            ./modules
+            ./modules/devices/laptop
+            ./modules/apps
+            ./modules/shell
+            ./modules/desktops/niri
+            ./modules/desktops/services
+            ./modules/desktops/dm
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = {
+                self = inputs.self;
+              };
+            }
+          ];
+        };
       };
     };
+
+  nixConfig = {
+    experimentalFeatures = [
+      "nix-command"
+      "flakes"
+      "pipe-operators"
+    ];
+  };
 }

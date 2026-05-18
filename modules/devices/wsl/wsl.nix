@@ -29,4 +29,6 @@
   environment.systemPackages = [
     pkgs.git
   ];
+
+  system.stateVersion = "25.11";
 }

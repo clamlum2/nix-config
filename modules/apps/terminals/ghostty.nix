@@ -1,4 +1,4 @@
-{ pkgs, repoRoot, ... }:
+{ pkgs, ... }:
 
 {
   programs.ghostty = {
@@ -38,5 +38,5 @@
     };
   };
 
-  home.file.".config/ghostty/cursor.glsl".source = "${repoRoot}/resources/ghostty/cursor.glsl";
+  home.file.".config/ghostty/cursor.glsl".source = "${./.}/resources/ghostty/cursor.glsl";
 }

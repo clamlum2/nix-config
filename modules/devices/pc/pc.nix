@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  cachyos-kernel,
+  inputs,
   ...
 }:
 
@@ -19,14 +19,7 @@
   #   fsType = "ext4";
   # };
 
-  # nix.settings = {
-  #   "extra-substituters" = [ "https://attic.xuyh0120.win/lantian" ];
-  #   "extra-trusted-public-keys" = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
-  # };
-
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-zen4;
-  boot.kernelPackages = pkgs.linuxKernel.packagesFor cachyos-kernel.packages.x86_64-linux.kernel;
+  boot.kernelPackages = pkgs.linuxKernel.packagesFor inputs.cachyos-kernel.packages.x86_64-linux.kernel;
 
   boot.initrd.availableKernelModules = lib.mkForce [
     "nvme"

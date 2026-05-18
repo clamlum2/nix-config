@@ -1,7 +1,7 @@
-{ repoRoot, ... }:
+{ ... }:
 
 {
   programs.wezterm.enable = true;
 
-  home.file.".wezterm.lua".source = "${repoRoot}/resources/wezterm/wezterm.lua";
+  home.file.".wezterm.lua".source = "${./.}/resources/wezterm/wezterm.lua";
 }

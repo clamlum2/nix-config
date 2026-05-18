@@ -1,6 +1,6 @@
 {
-  system,
-  kopuz,
+  pkgs,
+  inputs,
   ...
 }:
 
@@ -13,6 +13,6 @@
   };
 
   environment.systemPackages = [
-    kopuz.packages.${system}.default
+    inputs.kopuz.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

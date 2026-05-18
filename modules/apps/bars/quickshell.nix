@@ -1,4 +1,4 @@
-{ pkgs, repoRoot, ... }:
+{ pkgs, ... }:
 
 {
   home.packages = [
@@ -7,7 +7,7 @@
   ];
 
   home.file.".config/quickshell" = {
-    source = "${repoRoot}/resources/quickshell";
+    source = "${./.}/resources/quickshell";
     recursive = true;
   };
 }
