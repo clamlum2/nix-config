@@ -7,7 +7,7 @@
   ];
 
   home.file.".config/quickshell" = {
-    source = "${./.}/resources/quickshell";
+    source = ../../../resources/quickshell;
     recursive = true;
   };
 }

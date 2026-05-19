@@ -11,5 +11,5 @@
   ];
 
   home-manager.users.clamt.home.file.".config/niri/config.kdl".source =
-    "${./.}/resources/niri/niri.kdl";
+    ../../../resources/niri/niri.kdl;
 }
