@@ -19,7 +19,7 @@
   #   fsType = "ext4";
   # };
 
-  boot.kernelPackages = pkgs.linuxKernel.packagesFor inputs.cachyos-kernel.packages.x86_64-linux.kernel;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   boot.initrd.availableKernelModules = lib.mkForce [
     "nvme"
