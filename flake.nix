@@ -18,7 +18,6 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     nixos-lxc.url = "path:./lxc-config";
-    cachyos-kernel.url = "./cachyos-kernel";
 
     plasma-manager = {
       url = "github:pjones/plasma-manager";
@@ -28,7 +27,11 @@
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      ...
+    }@inputs:
     let
       mkSystem = nixpkgs.lib.nixosSystem;
     in
