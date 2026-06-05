@@ -3,6 +3,7 @@
   imports = [
     ./kopuz.nix
     ./vesktop.nix
+    ./vencord.nix
     ./zed.nix
 
     ./terminals
