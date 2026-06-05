@@ -30,21 +30,6 @@
         "type": "github"
       }
     },
-    "finix": {
-      "locked": {
-        "lastModified": 1780610265,
-        "narHash": "sha256-xOPzAZMetjJkz8i5rbI8eKQU0ZV3a/ddbqH69Z997bw=",
-        "owner": "finix-community",
-        "repo": "finix",
-        "rev": "f2acbfff1456122ac126542f5828393e988875d7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "finix-community",
-        "repo": "finix",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -253,16 +238,16 @@
     },
     "nixpkgs-stable_2": {
       "locked": {
-        "lastModified": 1779796641,
-        "narHash": "sha256-ZsIrKmhp4vbBXoXXmR/tBXA/UCsAQiJL9vsgZEduhVY=",
+        "lastModified": 1780453794,
+        "narHash": "sha256-bXMRa9VTsHSPXL4Cw8R6JJLQeY3Y/IP4+YJCYVmQ7FY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "25f538306313eae3927264466c70d7001dcea1df",
+        "rev": "6b316287bae2ee04c9b93c8c858d930fd07d7338",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-25.11",
+        "ref": "nixos-26.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -363,7 +348,6 @@
     },
     "root": {
       "inputs": {
-        "finix": "finix",
         "home-manager": "home-manager",
         "kopuz": "kopuz",
         "lanzaboote": "lanzaboote",
