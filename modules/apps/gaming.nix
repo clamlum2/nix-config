@@ -15,7 +15,7 @@ in
     pkgs.jdk25
     pkgs.mangohud
     # pkgs.steamtinkerlaunch
-    stable.wineWowPackages.stable
+    pkgs.wineWow64Packages.stable
     pkgs.winetricks
   ];
 
