@@ -1,8 +1,7 @@
 { device, ... }:
 {
   imports = [
-    ./kopuz.nix
-    ./vesktop.nix
+    # ./vesktop.nix
     ./vencord.nix
     ./zed.nix
 
@@ -11,6 +10,7 @@
   ++ (
     if device == "nixos" then
       [
+        ./kopuz.nix
         ./gaming.nix
         ./obs.nix
       ]
