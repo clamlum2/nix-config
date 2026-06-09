@@ -88,7 +88,8 @@
           system = "x86_64-linux";
           specialArgs = {
             device = "laptop";
-            inherit (inputs) self;
+            inherit (inputs) nixpkgs-stable self;
+            inherit inputs;
           };
           modules = [
             ./modules
