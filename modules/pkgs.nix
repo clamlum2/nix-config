@@ -1,4 +1,4 @@
-{ pkgs, nixpkgs-stable, ... }:
+{ pkgs, nixpkgs-stable, device, ... }:
 
 let
   stable = import nixpkgs-stable {
@@ -20,13 +20,9 @@ in
   environment.systemPackages = [
     #
     pkgs.git
-    pkgs.vscode
     pkgs.python3
     pkgs.python3Packages.pyqt6
-    pkgs.gradle_9
-    pkgs.jdk25
 
-    pkgs.idea
     pkgs.discord
 
     # media
@@ -44,5 +40,11 @@ in
     pkgs.nautilus
 
     (pkgs.callPackage ./apps/helium.nix { })
-  ];
+  ] ++ (
+    if device == "nixos" then [
+      pkgs.gradle_9
+      pkgs.jdk25
+      pkgs.idea
+    ] else []
+  );
 }
