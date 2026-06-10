@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  services.logind.lidSwitch = "suspend";
+  services.logind.settings.Login.HandleLidSwitch = "suspend";
 
   home-manager.users.clamt = {
     programs.swaylock = {
