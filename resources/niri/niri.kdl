@@ -237,6 +237,8 @@ binds {
     KP_Subtract { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
     Mod+Tab { spawn-sh "sh $HOME/.config/quickshell/position.sh"; }
+
+    Mod+L { spawn "swaylock"; }
 }
 
 environment {
