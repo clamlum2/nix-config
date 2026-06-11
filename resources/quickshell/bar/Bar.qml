@@ -202,7 +202,7 @@ PanelWindow {
             Item {}
 
             Item {
-                Layout.preferredWidth: volumeModule.level >= 100 ? 40 : 32
+                Layout.preferredWidth: volumeModule.level >= 100 ? 40 : volumeModule.level <= 9 ? 24 : 32
                 height: 32
 
                 Text {
@@ -223,7 +223,7 @@ PanelWindow {
 
                 Text {
                     id: volume_level
-                    width: volumeModule.level >= 100 ? 24 : 16
+                    width: volumeModule.level >= 100 ? 24 : volumeModule.level <= 9 ? 8 : 16
                     height: parent.height
                     text: volumeModule.level
                     color: textColor
