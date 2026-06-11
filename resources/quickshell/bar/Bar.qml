@@ -313,15 +313,27 @@ PanelWindow {
                 }
             }
 
-            Rectangle {
-                width: 1
-                height: 20
-                color: mutedColor
+            Item {
+                width: 16
+                height: 32
+
+                Text {
+                    id: network_status
+                    text: network.icon
+                    color: textColor
+                    font.family: root.fontFamily
+                    scale: 1.9
+                    width: parent.width
+                    height: parent.height
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
             }
 
             Item {
                 width: 32
                 height: 32
+                visible: batteryModule.available
 
                 Text {
                     id: battery_icon
@@ -364,23 +376,7 @@ PanelWindow {
                 width: 1
                 height: 20
                 color: mutedColor
-            }
-
-            Item {
-                width: 16
-                height: 32
-
-                Text {
-                    id: network_status
-                    text: network.icon
-                    color: textColor
-                    font.family: root.fontFamily
-                    scale: 1.9
-                    width: parent.width
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
+                visible: batteryModule.available
             }
 
             Rectangle {
