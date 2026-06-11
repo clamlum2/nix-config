@@ -1,14 +1,19 @@
-{ pkgs, ... }:
+{
+  config,
+  pkgs,
+  username,
+  ...
+}:
 
 {
   services.logind.settings.Login.HandleLidSwitch = "suspend";
 
-  home-manager.users.clamt = {
+  home-manager.users.${username} = {
     programs.swaylock = {
       enable = true;
       package = pkgs.swaylock-effects;
       settings = {
-        image = "/home/clamt/Pictures/wallpapers/353544.jpg";
+        image = config.vars.wallpaperPath;
         effect-blur = "5x1";
 
         indicator-radius = 40;
@@ -20,7 +25,7 @@
     services.swayidle = {
       enable = true;
       events = {
-        lock         = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+        lock = "${pkgs.swaylock-effects}/bin/swaylock -fF";
         before-sleep = "${pkgs.swaylock-effects}/bin/swaylock -fF";
       };
     };

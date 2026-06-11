@@ -1,3 +1,5 @@
+{ osConfig, ... }:
+
 {
   programs.plasma = {
     enable = true;
@@ -444,7 +446,7 @@
       kxkbrc.Layout.ResetOldOptions = true;
       plasma-localerc.Formats.LANG = "en_US.UTF-8";
       plasmarc.Theme.name = "breeze-dark";
-      plasmarc.Wallpapers.usersWallpapers = "/home/clamt/Pictures/wallpapers/353544.jpg";
+      plasmarc.Wallpapers.usersWallpapers = osConfig.vars.wallpaperPath;
       spectaclerc.General.clipboardGroup = "PostScreenshotCopyImage";
       spectaclerc.ImageSave.imageSaveLocation = "file:///dev/null";
       spectaclerc.ImageSave.lastImageSaveLocation = "file:///home/clamt/Pictures/Screenshots/Screenshot_20260517_212334.png";
