@@ -23,7 +23,10 @@ in
     pkgs.python3
     pkgs.python3Packages.pyqt6
 
-    pkgs.discord
+    (pkgs.discord.override {
+      withVencord = true;
+      withOpenASAR = true;
+    })
 
     # media
     pkgs.easyeffects
