@@ -22,7 +22,7 @@ Item {
     }
 
     Timer {
-        interval: 100
+        interval: 1000
         repeat: true
         running: true
         onTriggered: volumeProc.running = true

@@ -25,7 +25,7 @@ Item {
     }
 
     Timer {
-        interval: 100
+        interval: 5000
         repeat: true
         running: true
         onTriggered: batteryProc.running = true
