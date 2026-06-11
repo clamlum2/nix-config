@@ -1,4 +1,4 @@
-{ device, ... }:
+{ device, username, ... }:
 
 {
   imports =
@@ -8,12 +8,13 @@
         [
           ./configuration.nix
           ./pkgs.nix
+          ./variables.nix
         ]
       else
         [ ]
     );
 
-  home-manager.users.clamt.imports = [
+  home-manager.users.${username}.imports = [
     ./home.nix
   ];
 }

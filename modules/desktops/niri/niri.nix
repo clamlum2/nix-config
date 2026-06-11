@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   programs.niri = {
@@ -11,6 +11,6 @@
     pkgs.wtype
   ];
 
-  home-manager.users.clamt.home.file.".config/niri/config.kdl".source =
+  home-manager.users.${username}.home.file.".config/niri/config.kdl".source =
     ../../../resources/niri/niri.kdl;
 }

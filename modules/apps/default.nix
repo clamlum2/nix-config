@@ -1,8 +1,8 @@
-{ device, ... }:
+{ device, username, ... }:
 {
   imports = [
     # ./vesktop.nix
-    ./vencord.nix
+    # ./vencord.nix
     ./zed.nix
     ./kopuz.nix
 
@@ -18,7 +18,7 @@
       [ ]
   );
 
-  home-manager.users.clamt.imports = [
+  home-manager.users.${username}.imports = [
     ./fuzzel.nix
     ./micro.nix
     ./yazi.nix

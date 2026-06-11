@@ -1,4 +1,4 @@
-{ device, ... }:
+{ device, username, ... }:
 
 {
   imports = [
@@ -14,7 +14,7 @@
       [ ]
   );
 
-  home-manager.users.clamt.imports =
+  home-manager.users.${username}.imports =
     [ ]
     ++ (
       if device == "nixos" || device == "laptop" then

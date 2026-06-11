@@ -1,6 +1,6 @@
-{ device, ... }:
+{ device, username, ... }:
 {
-  home-manager.users.clamt.imports = [
+  home-manager.users.${username}.imports = [
     ./wezterm.nix
   ]
   ++ (

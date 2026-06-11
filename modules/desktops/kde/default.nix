@@ -1,9 +1,11 @@
+{ username, ... }:
+
 {
   imports = [
     ./kde.nix
   ];
 
-  home-manager.users.clamt.imports = [
+  home-manager.users.${username}.imports = [
     ./plasma-manager.nix
   ];
 }
