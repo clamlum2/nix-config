@@ -330,6 +330,13 @@ PanelWindow {
                 }
             }
 
+            Rectangle {
+                width: 1
+                height: 20
+                color: mutedColor
+                visible: batteryModule.available
+            }
+
             Item {
                 width: 32
                 height: 32
@@ -370,13 +377,6 @@ PanelWindow {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
-            }
-
-            Rectangle {
-                width: 1
-                height: 20
-                color: mutedColor
-                visible: batteryModule.available
             }
 
             Rectangle {
