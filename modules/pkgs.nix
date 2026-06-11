@@ -1,4 +1,9 @@
-{ pkgs, nixpkgs-stable, device, ... }:
+{
+  pkgs,
+  nixpkgs-stable,
+  device,
+  ...
+}:
 
 let
   stable = import nixpkgs-stable {
@@ -43,11 +48,15 @@ in
     pkgs.nautilus
 
     (pkgs.callPackage ./apps/helium.nix { })
-  ] ++ (
-    if device == "nixos" then [
-      pkgs.gradle_9
-      pkgs.jdk25
-      pkgs.idea
-    ] else []
+  ]
+  ++ (
+    if device == "nixos" then
+      [
+        pkgs.gradle_9
+        pkgs.jdk25
+        pkgs.idea
+      ]
+    else
+      [ ]
   );
 }
