@@ -1,5 +1,5 @@
 let
-  version = "1.0.138";
+  version = "1.0.142";
 in
 final: prev: {
   discord =
@@ -65,7 +65,7 @@ final: prev: {
 
         src = prev.fetchurl {
           url = "https://stable.dl2.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-          sha256 = "sha256-PFwhTekHL6zwn8grAxhFrsAVunJ6EFgfeatpWm3/Eck=";
+          sha256 = "sha256-BKM7YHophzeWkkRKxe1TR3jr9CrcmnLv+/9aWGgJCOE=";
         };
 
         nativeBuildInputs = [
@@ -92,6 +92,9 @@ final: prev: {
             chmod +x $out/opt/${binaryName}/${binaryName}
 
             ln -s $out/opt/${binaryName}/${binaryName} $out/bin/${binaryName}
+
+            ln -s $out/opt/${binaryName}/updater_bootstrap $out/bin/updater_bootstrap
+
             ln -s $out/opt/${binaryName}/${binaryName}.png \
                   $out/share/icons/hicolor/256x256/apps/${binaryName}.png
 
