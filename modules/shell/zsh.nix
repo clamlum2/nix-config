@@ -47,6 +47,14 @@
       fi
     }
 
+    f () {
+      if [[ $# -eq 0 ]]; then
+        nix shell
+      else
+        nix shell nixpkgs#"$@"
+      fi
+    }
+
     function sshkey() {
         if [[ -n $SSH_CONNECTION ]]; then
             echo "Not running copy command over SSH."
