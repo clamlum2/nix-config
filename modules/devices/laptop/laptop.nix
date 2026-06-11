@@ -37,4 +37,8 @@
   nixpkgs.config.allowInsecurePredicate = pkg: builtins.match "broadcom-sta-.*" pkg.name != null;
 
   services.upower.enable = true;
+
+  hardware.bluetooth.enable = true;
+
+  services.blueman.enable = true;
 }
