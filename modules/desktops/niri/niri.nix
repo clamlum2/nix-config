@@ -8,6 +8,7 @@
   environment.systemPackages = [
     pkgs.xwayland-satellite
     pkgs.swaybg
+    pkgs.wtype
   ];
 
   home-manager.users.clamt.home.file.".config/niri/config.kdl".source =

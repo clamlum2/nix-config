@@ -235,9 +235,12 @@ binds {
 
     KP_Subtract { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    Mod+Tab { spawn-sh "sh $HOME/.config/quickshell/position.sh"; }
+    Mod+Shift+Grave { spawn-sh "sh $HOME/.config/quickshell/position.sh"; }
 
     Mod+L { spawn "swaylock"; }
+
+    Mod+C { spawn "wtype" "-M" "ctrl" "-k" "Insert" "-m" "ctrl"; }
+    Mod+V { spawn "wtype" "-M" "shift" "-k" "Insert" "-m" "shift"; }
 }
 
 environment {
@@ -248,5 +251,15 @@ environment {
 gestures {
     hot-corners {
         off
+    }
+}
+
+recent-windows {
+    binds {
+        Alt+Tab { next-window; }
+        Alt+Shift+Tab { previous-window; }
+
+        Mod+Tab { next-window; }
+        Mod+Shift+Tab { previous-window; }
     }
 }
