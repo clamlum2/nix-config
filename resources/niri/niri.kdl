@@ -241,6 +241,10 @@ binds {
 
     Mod+C { spawn "wtype" "-M" "ctrl" "-k" "Insert" "-m" "ctrl"; }
     Mod+V { spawn "wtype" "-M" "shift" "-k" "Insert" "-m" "shift"; }
+
+    XF86AudioPlay { spawn "playerctl" "play-pause"; }
+    XF86AudioNext { spawn "playerctl" "next"; }
+    XF86AudioPrev { spawn "playerctl" "previous"; }
 }
 
 environment {
