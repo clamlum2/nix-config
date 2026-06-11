@@ -14,6 +14,8 @@ Options:
   -h <hostname>  Override hostname (default: current hostname)
   --help             Show this help
 EOF
+# -k             Run kernel update script before rebuilding
+# -s             Use stable kernel releases only (requires -k)
 }
 
 for arg in "$@"; do
@@ -56,21 +58,21 @@ if [[ ! -d "$CONFIG_REPO" ]]; then
     exit 1
 fi
 
-if [[ "$KERNEL" -eq 1 ]]; then
-    if [[ ! -x "$KERNEL_SCRIPT" ]]; then
-        echo "Error: kernel update script not found at $KERNEL_SCRIPT"
-        exit 1
-    fi
-    echo "==> Running kernel update"
-    if [[ "$STABLE" -eq 1 ]]; then
-        "$KERNEL_SCRIPT" -s
-    else
-        "$KERNEL_SCRIPT"
-    fi
-    echo "==> Kernel update complete"
-elif [[ "$STABLE" -eq 1 ]]; then
-    echo "Warning: -s has no effect without -k"
-fi
+# if [[ "$KERNEL" -eq 1 ]]; then
+#     if [[ ! -x "$KERNEL_SCRIPT" ]]; then
+#         echo "Error: kernel update script not found at $KERNEL_SCRIPT"
+#         exit 1
+#     fi
+#     echo "==> Running kernel update"
+#     if [[ "$STABLE" -eq 1 ]]; then
+#         "$KERNEL_SCRIPT" -s
+#     else
+#         "$KERNEL_SCRIPT"
+#     fi
+#     echo "==> Kernel update complete"
+# elif [[ "$STABLE" -eq 1 ]]; then
+#     echo "Warning: -s has no effect without -k"
+# fi
 
 if [[ "$UPGRADE" -eq 1 ]]; then
     echo "==> Updating flake in $CONFIG_REPO"
