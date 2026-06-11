@@ -34,6 +34,7 @@
     }@inputs:
     let
       mkSystem = nixpkgs.lib.nixosSystem;
+      username = "clamt";
     in
     {
       nixosConfigurations = {
@@ -41,6 +42,7 @@
           system = "x86_64-linux";
           specialArgs = {
             device = "nixos";
+            inherit username;
             inherit (inputs) nixpkgs-stable self;
             inherit inputs;
           };
@@ -70,7 +72,9 @@
           system = "aarch64-linux";
           specialArgs = {
             device = "wsl";
+            inherit username;
             inherit (inputs) self;
+            inherit inputs;
           };
           modules = [
             ./modules
@@ -88,6 +92,7 @@
           system = "x86_64-linux";
           specialArgs = {
             device = "laptop";
+            inherit username;
             inherit (inputs) nixpkgs-stable self;
             inherit inputs;
           };
