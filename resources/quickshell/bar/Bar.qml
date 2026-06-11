@@ -32,11 +32,24 @@ PanelWindow {
         id: windowModule
     }
 
-    Volume { id: volumeModule }
-    Microphone { id: microphoneModule }
-    Network { id: network }
-    Bluetooth { id: bluetoothModule }
-    TimeDisplay { id: timeDisplay }
+    Volume {
+        id: volumeModule
+    }
+    Microphone {
+        id: microphoneModule
+    }
+    Network {
+        id: network
+    }
+    Bluetooth {
+        id: bluetoothModule
+    }
+    TimeDisplay {
+        id: timeDisplay
+    }
+    Battery {
+        id: batteryModule
+    }
 
     Item {
         id: barContent
@@ -76,7 +89,11 @@ PanelWindow {
                 id: windowTitle
                 text: windowModule.displayName
                 color: textColor
-                font { family: root.fontFamily; pixelSize: fontSize; bold: true }
+                font {
+                    family: root.fontFamily
+                    pixelSize: fontSize
+                    bold: true
+                }
                 elide: Text.ElideRight
                 Layout.alignment: Qt.AlignVCenter
                 Layout.fillHeight: true
@@ -116,7 +133,11 @@ PanelWindow {
                     Text {
                         text: mprisModule.icon
                         color: textColor
-                        font { family: root.fontFamily; pixelSize: fontSize; bold: true }
+                        font {
+                            family: root.fontFamily
+                            pixelSize: fontSize
+                            bold: true
+                        }
                         scale: 1.4
                         verticalAlignment: Text.AlignVCenter
                     }
@@ -125,7 +146,11 @@ PanelWindow {
                         id: mprisTrack
                         text: mprisModule.trackText
                         color: textColor
-                        font { family: root.fontFamily; pixelSize: fontSize; bold: true }
+                        font {
+                            family: root.fontFamily
+                            pixelSize: fontSize
+                            bold: true
+                        }
                         elide: Text.ElideRight
                         verticalAlignment: Text.AlignVCenter
                         // Size to content, but cap to available space so eliding works.
@@ -145,13 +170,16 @@ PanelWindow {
                     acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
 
                     onClicked: event => {
-                        if (event.button === Qt.LeftButton) mprisModule.playPause();
-                        else if (event.button === Qt.MiddleButton) mprisModule.previous();
-                        else if (event.button === Qt.RightButton) mprisModule.next();
+                        if (event.button === Qt.LeftButton)
+                            mprisModule.playPause();
+                        else if (event.button === Qt.MiddleButton)
+                            mprisModule.previous();
+                        else if (event.button === Qt.RightButton)
+                            mprisModule.next();
                     }
 
                     onWheel: {
-                        mprisModule.wheelVolume(wheel.angleDelta.y)
+                        mprisModule.wheelVolume(wheel.angleDelta.y);
                     }
                 }
             }
@@ -166,16 +194,20 @@ PanelWindow {
 
             SystemTray {}
 
-            Rectangle { width: 1; height: 20; color: mutedColor }
+            Rectangle {
+                width: 1
+                height: 20
+                color: mutedColor
+            }
             Item {}
 
             Item {
-                width: 32
+                Layout.preferredWidth: volumeModule.level >= 100 ? 40 : 32
                 height: 32
 
                 Text {
                     id: volume_icon
-                    width: 16
+                    width: 12
                     height: parent.height
                     text: volumeModule.icon
                     color: textColor
@@ -191,14 +223,18 @@ PanelWindow {
 
                 Text {
                     id: volume_level
-                    width: 16
+                    width: volumeModule.level >= 100 ? 24 : 16
                     height: parent.height
                     text: volumeModule.level
                     color: textColor
-                    font { family: root.fontFamily; pixelSize: fontSize; bold: true }
+                    font {
+                        family: root.fontFamily
+                        pixelSize: fontSize
+                        bold: true
+                    }
                     transformOrigin: Item.Center
                     anchors.left: volume_icon.right
-                    anchors.leftMargin: 2
+                    anchors.leftMargin: 6
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.verticalCenterOffset: 1
                     horizontalAlignment: Text.AlignHCenter
@@ -210,14 +246,20 @@ PanelWindow {
                     cursorShape: Qt.PointingHandCursor
                     onClicked: volumeModule.muteUnmute()
                     onWheel: {
-                        if (wheel.angleDelta.y > 0) volumeModule.volumeMod("up")
-                        else volumeModule.volumeMod("down")
+                        if (wheel.angleDelta.y > 0)
+                            volumeModule.volumeMod("up");
+                        else
+                            volumeModule.volumeMod("down");
                     }
                 }
             }
 
             Item {}
-            Rectangle { width: 1; height: 20; color: mutedColor }
+            Rectangle {
+                width: 1
+                height: 20
+                color: mutedColor
+            }
 
             Item {
                 width: 16
@@ -242,7 +284,11 @@ PanelWindow {
                 }
             }
 
-            Rectangle { width: 1; height: 20; color: mutedColor }
+            Rectangle {
+                width: 1
+                height: 20
+                color: mutedColor
+            }
 
             Item {
                 width: 16
@@ -267,7 +313,58 @@ PanelWindow {
                 }
             }
 
-            Rectangle { width: 1; height: 20; color: mutedColor }
+            Rectangle {
+                width: 1
+                height: 20
+                color: mutedColor
+            }
+
+            Item {
+                width: 32
+                height: 32
+
+                Text {
+                    id: battery_icon
+                    width: 14
+                    height: parent.height
+                    text: batteryModule.icon
+                    color: textColor
+                    font.family: root.fontFamily
+                    scale: 1.5
+                    transformOrigin: Item.Center
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset: 0
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+
+                Text {
+                    id: battery_level
+                    width: 16
+                    height: parent.height
+                    text: batteryModule.level
+                    color: textColor
+                    font {
+                        family: root.fontFamily
+                        pixelSize: fontSize
+                        bold: true
+                    }
+                    transformOrigin: Item.Center
+                    anchors.left: battery_icon.right
+                    anchors.leftMargin: 2
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.verticalCenterOffset: 1
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+            }
+
+            Rectangle {
+                width: 1
+                height: 20
+                color: mutedColor
+            }
 
             Item {
                 width: 16
@@ -286,14 +383,22 @@ PanelWindow {
                 }
             }
 
-            Rectangle { width: 1; height: 20; color: mutedColor }
+            Rectangle {
+                width: 1
+                height: 20
+                color: mutedColor
+            }
             Item {}
 
             Text {
                 id: clock
                 text: timeDisplay.text
                 color: textColor
-                font { family: root.fontFamily; pixelSize: fontSize; bold: true }
+                font {
+                    family: root.fontFamily
+                    pixelSize: fontSize
+                    bold: true
+                }
             }
 
             Item {}
