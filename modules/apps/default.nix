@@ -4,13 +4,13 @@
     # ./vesktop.nix
     ./vencord.nix
     ./zed.nix
+    ./kopuz.nix
 
     ./terminals
   ]
   ++ (
     if device == "nixos" then
       [
-        ./kopuz.nix
         ./gaming.nix
         ./obs.nix
       ]
