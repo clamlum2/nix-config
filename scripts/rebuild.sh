@@ -9,8 +9,7 @@ usage() {
 Usage: $(basename "$0") [-u] [-k] [-a <action>] [-h <hostname>] [--help]
 Options:
   -u             Run 'nix flake update' and git pull before rebuilding
-  -k             Run kernel update script before rebuilding
-  -s             Use stable kernel releases only (requires -k)
+  -g             Run garbage collection after rebuilding
   -a <action>    nixos-rebuild action (default: test)
   -h <hostname>  Override hostname (default: current hostname)
   --help             Show this help
@@ -25,16 +24,18 @@ for arg in "$@"; do
 done
 
 UPGRADE=0
-KERNEL=0
-STABLE=0
+# KERNEL=0
+# STABLE=0
+GC=0
 ACTION="test"
 HOSTNAME=$(hostname)
 
-while getopts ":uksa:h:" opt; do
+while getopts ":uksga:h:" opt; do
     case "$opt" in
         u) UPGRADE=1 ;;
         k) KERNEL=1 ;;
         s) STABLE=1 ;;
+        g) GC=1 ;;
         a) ACTION="$OPTARG" ;;
         h) HOSTNAME="$OPTARG" ;;
         :)
@@ -88,4 +89,10 @@ if sudo nixos-rebuild $ACTION --flake "$CONFIG_REPO#$HOSTNAME"; then
 else
     echo "Error: nixos-rebuild failed"
     exit 1
+fi
+
+if [[ "$GC" -eq 1 ]]; then
+    echo "==> Running garbage collection"
+    sudo nix-collect-garbage -d 2>/dev/null | tail -n 1
+    echo "==> Garbage collection complete"
 fi
