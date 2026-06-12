@@ -129,6 +129,7 @@ binds {
 
     Mod+T { spawn "wezterm"; }
     Mod+Space { spawn "fuzzel"; }
+    Mod+Shift+Space { spawn-sh "sh ~/nix-config/scripts/fuzzel/fuzzel-edit.sh"; }
     Mod+D { spawn-sh "helium-browser > /dev/null 2>&1"; }
     Mod+E { spawn-sh "wezterm -e yazi"; }
     Mod+Shift+E { spawn "nautilus"; }
