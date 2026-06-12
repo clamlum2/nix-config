@@ -9,6 +9,6 @@ Item {
         interval: 1000
         repeat: true
         running: true
-        onTriggered: text = Qt.formatDateTime(new Date(), "ddd MMM dd - hh:mm AP")
+        onTriggered: timeDisplay.text = Qt.formatDateTime(new Date(), "ddd MMM dd - hh:mm AP")
     }
 }

@@ -1,4 +1,3 @@
-import Quickshell
 import QtQuick
 import Quickshell.Io
 
@@ -15,8 +14,8 @@ Item {
         command: ["sh", "-c", "wpctl get-volume @DEFAULT_SINK@"]
         stdout: SplitParser {
             onRead: data => {
-                muted = data.includes("MUTED");
-                level = parseInt(parseFloat(data.split(" ")[1]) * 100);
+                volumeModule.muted = data.includes("MUTED");
+                volumeModule.level = parseInt(parseFloat(data.split(" ")[1]) * 100);
             }
         }
     }

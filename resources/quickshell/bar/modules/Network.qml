@@ -1,4 +1,3 @@
-import Quickshell
 import QtQuick
 import Quickshell.Io
 
@@ -15,15 +14,15 @@ Item {
         stdout: SplitParser {
             onRead: data => {
                 if (data.includes("ethernet:connected")) {
-                    ethernetStatus = true
+                    networkModule.ethernetStatus = true;
                 } else if (data.includes("ethernet:disconnected")) {
-                    ethernetStatus = false
+                    networkModule.ethernetStatus = false;
                 }
 
                 if (data.includes("wifi:connected")) {
-                    wifiStatus = true
+                    networkModule.wifiStatus = true;
                 } else if (data.includes("wifi:disconnected")) {
-                    wifiStatus = false
+                    networkModule.wifiStatus = false;
                 }
             }
         }
@@ -37,6 +36,6 @@ Item {
     }
 
     Component.onCompleted: {
-        networkStatusProc.running = true
+        networkStatusProc.running = true;
     }
 }

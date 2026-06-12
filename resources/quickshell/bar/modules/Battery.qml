@@ -1,4 +1,3 @@
-import Quickshell
 import QtQuick
 import Quickshell.Io
 
@@ -17,9 +16,9 @@ Item {
             onRead: data => {
                 const parts = data.trim().split(/\s+/);
                 const parsedLevel = parseInt(parts[0]);
-                available = !isNaN(parsedLevel);
-                level = available ? parsedLevel : "0";
-                charging = available && parts[1] === "charging";
+                batteryModule.available = !isNaN(parsedLevel);
+                batteryModule.level = batteryModule.available ? parsedLevel : "0";
+                batteryModule.charging = batteryModule.available && parts[1] === "charging";
             }
         }
     }

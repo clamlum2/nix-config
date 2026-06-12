@@ -1,4 +1,3 @@
-import Quickshell
 import QtQuick
 import Quickshell.Io
 
@@ -13,7 +12,7 @@ Item {
         command: ["sh", "-c", "wpctl get-volume @DEFAULT_SOURCE@"]
         stdout: SplitParser {
             onRead: data => {
-                muted = data.includes("MUTED")
+                microphoneModule.muted = data.includes("MUTED");
             }
         }
     }
@@ -26,14 +25,14 @@ Item {
     }
 
     function toggle() {
-        toggleMicProc.running = true
+        toggleMicProc.running = true;
     }
 
     Process {
         id: toggleMicProc
         command: ["sh", "-c", "wpctl set-mute @DEFAULT_SOURCE@ toggle"]
         onExited: {
-            micStatusProc.running = true
+            micStatusProc.running = true;
         }
     }
 }

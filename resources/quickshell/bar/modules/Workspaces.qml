@@ -1,78 +1,91 @@
-import Quickshell.Hyprland
+import Quickshell.Io
 import QtQuick
 
 Item {
-    id: workspaces
+    id: root
+    height: 32
+    width: row.width
 
-    implicitHeight: childrenRect.height
-    implicitWidth: childrenRect.width
+    implicitWidth: row.width
+    implicitHeight: 32
 
-    property color primaryColor: "#4ea1ff"
-    property color secondaryColor: "#6c8aff"
-    property color inactiveColor: "#595959"
-    property real fontSize: 14.5
-    property int spacing: 0
+    property string outputName: ""
+    property var workspaceData: []
 
-    property int itemWidth: 20
-    property int itemHeight: 24
-    property int underlineHeight: 3
+    function refresh() {
+        workspacesProc.running = true;
+    }
 
-    property int hitboxHeight: 32
-    readonly property real effectiveHeight: (workspaces.parent && workspaces.parent.height > 0)
-        ? workspaces.parent.height
-        : workspaces.hitboxHeight
+    Process {
+        id: workspacesProc
+        command: ["sh", "-c", "niri msg -j workspaces | jq -c ."]
+        running: true
+        stdout: SplitParser {
+            onRead: data => {
+                try {
+                    const p = JSON.parse(data.trim());
+                    if (Array.isArray(p))
+                        root.workspaceData = p;
+                } catch (e) {}
+            }
+        }
+    }
 
-    height: effectiveHeight
+    Process {
+        id: eventStream
+        command: ["niri", "msg", "-j", "event-stream"]
+        running: true
+        stdout: SplitParser {
+            onRead: root.refresh()
+        }
+    }
 
-    property color underlineActiveColor: primaryColor
-    property color underlineInactiveColor: "transparent"
+    Process {
+        id: focusProc
+        command: ["niri", "msg", "action", "focus-workspace", "1"]
+    }
 
-    property real textYOffset: -2
-    property real visualYOffset: 0
+    function focusWorkspace(idx) {
+        focusProc.command = ["niri", "msg", "action", "focus-workspace", String(idx)];
+        focusProc.running = true;
+    }
 
     Row {
         id: row
-        spacing: workspaces.spacing
-        height: workspaces.effectiveHeight
+        height: parent.height
+        spacing: 0
 
         Repeater {
-            model: 9
+            model: root.workspaceData.filter(w => w.output === root.outputName).filter(w => w.is_focused || w.active_window_id !== null).sort((a, b) => a.idx - b.idx)
 
             Item {
-                width: workspaces.itemWidth
-                height: workspaces.effectiveHeight
-
-                property int workspaceId: index + 1
-                property var workspace: Hyprland.workspaces.values.find(ws => ws.id === workspaceId) || null
-                property bool isActive: (Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === workspaceId)
-                property bool hasWindows: workspace !== null
+                required property var modelData
+                width: 20
+                height: row.height
 
                 Rectangle {
                     id: visual
                     width: parent.width
-                    height: workspaces.itemHeight
+                    height: 24
                     color: "transparent"
                     anchors.top: parent.top
-                    anchors.topMargin: workspaces.visualYOffset
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
 
                 Text {
-                    text: parent.workspaceId
-                    color: parent.isActive
-                        ? workspaces.secondaryColor
-                        : (parent.hasWindows ? workspaces.secondaryColor : workspaces.inactiveColor)
-                    font.pixelSize: workspaces.fontSize
+                    text: modelData.idx
+                    color: (modelData.is_focused && modelData.active_window_id === null) ? "#595959" : "#6c8aff"
+                    font.pixelSize: 16
                     font.bold: true
                     anchors.horizontalCenter: visual.horizontalCenter
                     anchors.verticalCenter: visual.verticalCenter
-                    anchors.verticalCenterOffset: workspaces.textYOffset - (workspaces.underlineHeight * 0.5)
+                    anchors.verticalCenterOffset: -2 - (3 * 0.5)  // textYOffset - underlineHeight * 0.5
                 }
 
                 Rectangle {
                     width: visual.width
-                    height: workspaces.underlineHeight
-                    color: parent.isActive ? workspaces.underlineActiveColor : workspaces.underlineInactiveColor
+                    height: 3
+                    color: modelData.is_focused ? "#4ea1ff" : "transparent"
                     anchors.horizontalCenter: visual.horizontalCenter
                     anchors.bottom: visual.bottom
                 }
@@ -80,7 +93,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: Hyprland.dispatch("workspace " + parent.workspaceId)
+                    onClicked: root.focusWorkspace(modelData.idx)
                 }
             }
         }

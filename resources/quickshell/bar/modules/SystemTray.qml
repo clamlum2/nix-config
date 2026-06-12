@@ -12,8 +12,7 @@ RowLayout {
 
     Repeater {
         model: ScriptModel {
-            values: [...SystemTray.items.values]
-                .filter(item => item.id !== "spotify-client")
+            values: [...SystemTray.items.values].filter(item => item.id !== "spotify-client")
         }
 
         MouseArea {
@@ -61,18 +60,15 @@ RowLayout {
 
                 anchor.onAnchoring: {
                     const window = delegate.QsWindow.window;
-                    const widgetRect = window.contentItem.mapFromItem(
-                        delegate,
-                        0,
-                        delegate.height,
-                        delegate.width,
-                        delegate.height
-                    );
+                    const widgetRect = window.contentItem.mapFromItem(delegate, 0, delegate.height, delegate.width, delegate.height);
 
-                    menuAnchor.anchor.rect = widgetRect;
+                    if (root.bottom === true) {
+                        menuAnchor.anchor.rect = Qt.rect(widgetRect.x, -delegate.height, delegate.width, widgetRect.height);
+                    } else {
+                        menuAnchor.anchor.rect = Qt.rect(widgetRect.x, delegate.height, delegate.width, widgetRect.height);
+                    }
                 }
             }
-
         }
     }
 }

@@ -1,9 +1,6 @@
 import Quickshell
-import Quickshell.Wayland
-import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Io
 import "modules"
 
 PanelWindow {
@@ -27,10 +24,6 @@ PanelWindow {
 
     implicitHeight: 32
     color: backgroundColor
-
-    WindowModule {
-        id: windowModule
-    }
 
     Volume {
         id: volumeModule
@@ -64,41 +57,17 @@ PanelWindow {
         RowLayout {
             id: leftSection
             anchors.left: parent.left
-            anchors.bottom: parent.bottom
+            anchors.verticalCenter: parent.verticalCenter
             height: parent.height
-            spacing: 10
+            spacing: 8
 
-            WorkspacesAuto {
-                Layout.alignment: Qt.AlignBottom
-                Layout.bottomMargin: 0
+            Workspaces {
+                Layout.alignment: Qt.AlignVCenter
+                outputName: root.screen.name
             }
 
-            Text {
-                id: windowIcon
-                text: windowModule.displayIcon
-                color: textColor
-                font.pixelSize: root.fontSize
-                scale: 1.1
+            Windows {
                 Layout.alignment: Qt.AlignVCenter
-                Layout.fillHeight: true
-                verticalAlignment: Text.AlignVCenter
-                Layout.bottomMargin: 17
-            }
-
-            Text {
-                id: windowTitle
-                text: windowModule.displayName
-                color: textColor
-                font {
-                    family: root.fontFamily
-                    pixelSize: fontSize
-                    bold: true
-                }
-                elide: Text.ElideRight
-                Layout.alignment: Qt.AlignVCenter
-                Layout.fillHeight: true
-                verticalAlignment: Text.AlignVCenter
-                Layout.bottomMargin: 15
             }
         }
 
@@ -132,10 +101,10 @@ PanelWindow {
 
                     Text {
                         text: mprisModule.icon
-                        color: textColor
+                        color: root.textColor
                         font {
                             family: root.fontFamily
-                            pixelSize: fontSize
+                            pixelSize: root.fontSize
                             bold: true
                         }
                         scale: 1.4
@@ -145,16 +114,16 @@ PanelWindow {
                     Text {
                         id: mprisTrack
                         text: mprisModule.trackText
-                        color: textColor
+                        color: root.textColor
                         font {
                             family: root.fontFamily
-                            pixelSize: fontSize
+                            pixelSize: root.fontSize
                             bold: true
                         }
                         elide: Text.ElideRight
                         verticalAlignment: Text.AlignVCenter
                         // Size to content, but cap to available space so eliding works.
-                        width: Math.min(implicitWidth, Math.max(0, mprisDisplay.width - 32))
+                        // width: Math.min(implicitWidth, Math.max(0, mprisDisplay.width - 32))
                     }
                 }
 
@@ -195,22 +164,23 @@ PanelWindow {
             SystemTray {}
 
             Rectangle {
-                width: 1
-                height: 20
-                color: mutedColor
+                Layout.preferredWidth: 1
+                Layout.preferredHeight: 20
+                color: root.mutedColor
             }
+
             Item {}
 
             Item {
                 Layout.preferredWidth: volumeModule.level >= 100 ? 40 : volumeModule.level <= 9 ? 24 : 32
-                height: 32
+                Layout.preferredHeight: 32
 
                 Text {
                     id: volume_icon
                     width: 12
                     height: parent.height
                     text: volumeModule.icon
-                    color: textColor
+                    color: root.textColor
                     font.family: root.fontFamily
                     scale: 2.25
                     transformOrigin: Item.Center
@@ -226,10 +196,10 @@ PanelWindow {
                     width: volumeModule.level >= 100 ? 24 : volumeModule.level <= 9 ? 8 : 16
                     height: parent.height
                     text: volumeModule.level
-                    color: textColor
+                    color: root.textColor
                     font {
                         family: root.fontFamily
-                        pixelSize: fontSize
+                        pixelSize: root.fontSize
                         bold: true
                     }
                     transformOrigin: Item.Center
@@ -256,21 +226,21 @@ PanelWindow {
 
             Item {}
             Rectangle {
-                width: 1
-                height: 20
-                color: mutedColor
+                Layout.preferredWidth: 1
+                Layout.preferredHeight: 20
+                color: root.mutedColor
             }
 
             Item {
-                width: 16
-                height: 32
+                Layout.preferredWidth: 16
+                Layout.preferredHeight: 32
 
                 Text {
                     id: microphone
                     width: parent.width
                     height: parent.height
                     text: microphoneModule.icon
-                    color: textColor
+                    color: root.textColor
                     font.family: root.fontFamily
                     scale: 2.5
                     horizontalAlignment: Text.AlignHCenter
@@ -285,19 +255,19 @@ PanelWindow {
             }
 
             Rectangle {
-                width: 1
-                height: 20
-                color: mutedColor
+                Layout.preferredWidth: 1
+                Layout.preferredHeight: 20
+                color: root.mutedColor
             }
 
             Item {
-                width: 16
-                height: 32
+                Layout.preferredWidth: 16
+                Layout.preferredHeight: 32
 
                 Text {
                     id: bluetooth_status
                     text: bluetoothModule.icon
-                    color: textColor
+                    color: root.textColor
                     font.family: root.fontFamily
                     scale: 1.5
                     width: parent.width
@@ -314,13 +284,13 @@ PanelWindow {
             }
 
             Item {
-                width: 16
-                height: 32
+                Layout.preferredWidth: 16
+                Layout.preferredHeight: 32
 
                 Text {
                     id: network_status
                     text: network.icon
-                    color: textColor
+                    color: root.textColor
                     font.family: root.fontFamily
                     scale: 1.9
                     width: parent.width
@@ -331,15 +301,15 @@ PanelWindow {
             }
 
             Rectangle {
-                width: 1
-                height: 20
-                color: mutedColor
+                Layout.preferredWidth: 1
+                Layout.preferredHeight: 20
+                color: root.mutedColor
                 visible: batteryModule.available
             }
 
             Item {
-                width: 32
-                height: 32
+                Layout.preferredWidth: 32
+                Layout.preferredHeight: 32
                 visible: batteryModule.available
 
                 Text {
@@ -347,7 +317,7 @@ PanelWindow {
                     width: 14
                     height: parent.height
                     text: batteryModule.icon
-                    color: textColor
+                    color: root.textColor
                     font.family: root.fontFamily
                     scale: 1.5
                     transformOrigin: Item.Center
@@ -363,10 +333,10 @@ PanelWindow {
                     width: 16
                     height: parent.height
                     text: batteryModule.level
-                    color: textColor
+                    color: root.textColor
                     font {
                         family: root.fontFamily
-                        pixelSize: fontSize
+                        pixelSize: root.fontSize
                         bold: true
                     }
                     transformOrigin: Item.Center
@@ -380,19 +350,19 @@ PanelWindow {
             }
 
             Rectangle {
-                width: 1
-                height: 20
-                color: mutedColor
+                Layout.preferredWidth: 1
+                Layout.preferredHeight: 20
+                color: root.mutedColor
             }
             Item {}
 
             Text {
                 id: clock
                 text: timeDisplay.text
-                color: textColor
+                color: root.textColor
                 font {
                     family: root.fontFamily
-                    pixelSize: fontSize
+                    pixelSize: root.fontSize
                     bold: true
                 }
             }

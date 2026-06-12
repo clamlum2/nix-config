@@ -1,4 +1,3 @@
-import Quickshell
 import Quickshell.Io
 import QtQuick
 
@@ -10,10 +9,10 @@ Item {
 
     Process {
         id: bluetoothStatusProc
-        command: ["sh", "-c", "bluetoothctl show | grep 'Powered:' | awk '{print $2}'" ]
+        command: ["sh", "-c", "bluetoothctl show | grep 'Powered:' | awk '{print $2}'"]
         stdout: SplitParser {
             onRead: data => {
-                bluetoothStatus = data.trim() === "yes"
+                bluetoothModule.bluetoothStatus = data.trim() === "yes";
             }
         }
     }
@@ -26,18 +25,18 @@ Item {
     }
 
     Component.onCompleted: {
-        bluetoothStatusProc.running = true
+        bluetoothStatusProc.running = true;
     }
 
     function toggle() {
-        toggleBluetoothProc.running = true
+        toggleBluetoothProc.running = true;
     }
 
     Process {
         id: toggleBluetoothProc
-        command: ["sh", "-c", "bluetoothctl power " + (bluetoothStatus ? "off" : "on")]
+        command: ["sh", "-c", "bluetoothctl power " + (bluetoothModule.bluetoothStatus ? "off" : "on")]
         onExited: {
-            bluetoothStatusProc.running = true
+            bluetoothStatusProc.running = true;
         }
     }
 }
