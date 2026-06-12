@@ -1,7 +1,8 @@
 { pkgs, self, ... }:
 
 let
-  calculator-script = "${self.outPath}/scripts/fuzzel-calc.sh";
+  calculator-script = "${self.outPath}/scripts/fuzzel/fuzzel-calc.sh";
+  edit-script = "${self.outPath}/scripts/fuzzel/fuzzel-edit.sh";
 in
 
 {
@@ -15,6 +16,14 @@ in
     name = "=";
     comment = "Fuzzel Calculator";
     exec = "sh ${calculator-script}";
+    terminal = false;
+    categories = [ "Utility" ];
+  };
+
+  xdg.desktopEntries.edit = {
+    name = "/";
+    comment = "Fuzzel Editor";
+    exec = "sh ${edit-script}";
     terminal = false;
     categories = [ "Utility" ];
   };
@@ -79,6 +88,11 @@ in
       dmenu = {
         mode = "text";
         exit-immediately-if-empty = "no";
+      };
+
+      key-bindings = {
+        execute = "Return Tab";
+        execute-or-next = "none";
       };
     };
   };
