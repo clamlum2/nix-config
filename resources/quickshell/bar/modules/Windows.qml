@@ -134,7 +134,7 @@ Item {
             font.bold: true
             anchors.verticalCenter: parent.verticalCenter
             verticalAlignment: Text.AlignVCenter
-            anchors.verticalCenterOffset: -2
+            anchors.verticalCenterOffset: -2.5
         }
     }
 }
