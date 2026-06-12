@@ -59,6 +59,20 @@ in
   discord = prev.discord.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.makeShellWrapper ];
 
+    desktopItem = prev.makeDesktopItem {
+      name = "discord";
+      exec = "discord";
+      icon = "discord";
+      desktopName = "Discord";
+      genericName = "All-in-one cross-platform voice and text chat for gamers";
+      categories = [
+        "Network"
+        "InstantMessaging"
+      ];
+      mimeTypes = [ "x-scheme-handler/discord" ];
+      startupWMClass = "discord";
+    };
+
     postInstall = (old.postInstall or "") + ''
       wrapProgram $out/bin/discord \
         --prefix LD_LIBRARY_PATH : ${prev.lib.makeLibraryPath libs}:/run/opengl-driver/lib:${prev.libva.out}/lib \
