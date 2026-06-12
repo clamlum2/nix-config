@@ -63,4 +63,10 @@
   services.hardware.openrgb.enable = true;
 
   powerManagement.cpuFreqGovernor = "performance";
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-rocm;
+    rocmOverrideGfx = "12.0.1";
+  };
 }
