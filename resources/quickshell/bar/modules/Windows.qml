@@ -1,6 +1,6 @@
-import Quickshell
 import Quickshell.Io
 import QtQuick
+import "."
 
 Item {
     id: root
@@ -74,10 +74,6 @@ Item {
     property string displayIcon: activeOverride ? activeOverride.icon : ""
     property string displayName: activeOverride ? activeOverride.name : windowClass
 
-    function refresh() {
-        focusedProc.running = true;
-    }
-
     Process {
         id: focusedProc
         command: ["sh", "-c", "niri msg -j focused-window 2>/dev/null | jq -r '.app_id // empty'"]
@@ -95,22 +91,8 @@ Item {
         command: ["niri", "msg", "-j", "event-stream"]
         running: true
         stdout: SplitParser {
-            onRead: _ => debounce.restart()
+            onRead: focusedProc.running = true
         }
-        onExited: poll.running = true
-    }
-
-    Timer {
-        id: debounce
-        interval: 50
-        onTriggered: root.refresh()
-    }
-    Timer {
-        id: poll
-        interval: 500
-        repeat: true
-        running: false
-        onTriggered: root.refresh()
     }
 
     Row {
