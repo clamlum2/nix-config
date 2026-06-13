@@ -6,7 +6,7 @@ Item {
     id: root
 
     implicitWidth: row.width
-    implicitHeight: 32
+    implicitHeight: Theme.barHeight
 
     property int maxTitleChars: 40
 
@@ -120,7 +120,7 @@ Item {
         Text {
             visible: root.displayIcon !== ""
             text: root.displayIcon
-            color: "#c8c8e6"
+            color: Theme.text
             font.pixelSize: 16
             anchors.verticalCenter: parent.verticalCenter
             verticalAlignment: Text.AlignVCenter
@@ -129,8 +129,8 @@ Item {
 
         Text {
             text: root.displayName
-            color: "#c8c8e6"
-            font.pixelSize: 14
+            color: Theme.text
+            font.pixelSize: Theme.fontSize
             font.bold: true
             anchors.verticalCenter: parent.verticalCenter
             verticalAlignment: Text.AlignVCenter
