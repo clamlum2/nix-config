@@ -70,7 +70,7 @@ Item {
 
                 Text {
                     text: modelData.idx
-                    color: (modelData.is_focused && modelData.active_window_id === null) ? "#595959" : "#6c8aff"
+                    color: (modelData.is_focused && modelData.active_window_id === null) ? Theme.inactive : Theme.secondary
                     font.pixelSize: 16
                     font.bold: true
                     anchors.horizontalCenter: visual.horizontalCenter
@@ -81,7 +81,7 @@ Item {
                 Rectangle {
                     width: visual.width
                     height: 3
-                    color: modelData.is_focused ? "#4ea1ff" : "transparent"
+                    color: modelData.is_focused ? Theme.primary : "transparent"
                     anchors.horizontalCenter: visual.horizontalCenter
                     anchors.bottom: visual.bottom
                 }
