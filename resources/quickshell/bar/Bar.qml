@@ -348,15 +348,10 @@ PanelWindow {
             }
             Item {}
 
-            Text {
-                id: clock
-                text: timeDisplay.text
-                color: Theme.text
-                font {
-                    family: Theme.font
-                    pixelSize: Theme.fontSize
-                    bold: true
-                }
+            TimeDisplay {
+                id: timeDisplay
+                Layout.fillWidth: false
+                Layout.alignment: Qt.AlignVCenter
             }
 
             Item {}
