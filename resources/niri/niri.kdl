@@ -136,7 +136,8 @@ binds {
 
     // Navigation
 
-    Mod+O repeat=false { toggle-overview; }
+    Mod+M repeat=false { toggle-overview; }
+    Mod+MouseForward repeat=false { toggle-overview; }
 
     Mod+Q repeat=false { close-window; }
 
@@ -260,6 +261,18 @@ gestures {
 }
 
 recent-windows {
+    highlight {
+        active-color "#6c8affff"
+        urgent-color "#ff9999ff"
+        padding 1
+        corner-radius 0
+    }
+
+    previews {
+        max-height 480
+        max-scale 0.25
+    }
+
     binds {
         Alt+Tab { next-window; }
         Alt+Shift+Tab { previous-window; }
