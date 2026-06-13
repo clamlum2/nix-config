@@ -17,15 +17,15 @@ Item {
         }
     }
 
-    Timer {
-        interval: 5000
-        repeat: true
+    Process {
+        id: monitor
+        command: ["sh", "-c", "bluetoothctl monitor"]
         running: true
-        onTriggered: bluetoothStatusProc.running = true
-    }
-
-    Component.onCompleted: {
-        bluetoothStatusProc.running = true;
+        stdout: SplitParser {
+            onRead: data => {
+                bluetoothStatusProc.running = true;
+            }
+        }
     }
 
     function toggle() {
