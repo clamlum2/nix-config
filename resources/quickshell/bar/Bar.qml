@@ -29,9 +29,6 @@ PanelWindow {
     Bluetooth {
         id: bluetoothModule
     }
-    TimeDisplay {
-        id: timeDisplay
-    }
     Battery {
         id: batteryModule
     }
@@ -76,73 +73,8 @@ PanelWindow {
 
             Mpris {
                 id: mprisModule
-                debug: false
-            }
-
-            Item {
-                id: mprisDisplay
                 anchors.fill: parent
-                anchors.leftMargin: 8
-                anchors.rightMargin: 8
-                visible: mprisModule.active
-
-                RowLayout {
-                    id: mprisRow
-                    anchors.centerIn: parent
-                    spacing: 6
-
-                    Text {
-                        text: mprisModule.icon
-                        color: root.textColor
-                        font {
-                            family: root.fontFamily
-                            pixelSize: root.fontSize
-                            bold: true
-                        }
-                        scale: 1.4
-                        verticalAlignment: Text.AlignVCenter
-                    }
-
-                    Text {
-                        id: mprisTrack
-                        text: mprisModule.trackText
-                        color: root.textColor
-                        font {
-                            family: root.fontFamily
-                            pixelSize: root.fontSize
-                            bold: true
-                        }
-                        elide: Text.ElideRight
-                        verticalAlignment: Text.AlignVCenter
-                        // Size to content, but cap to available space so eliding works.
-                        // width: Math.min(implicitWidth, Math.max(0, mprisDisplay.width - 32))
-                    }
-                }
-
-                MouseArea {
-                    // Extend into barContent's top/bottom padding so the MPRIS area
-                    // is clickable across the full bar height (even at screen edges).
-                    anchors.horizontalCenter: mprisRow.horizontalCenter
-                    width: mprisRow.width
-                    y: -barContent.anchors.topMargin
-                    height: parent.height + barContent.anchors.topMargin + barContent.anchors.bottomMargin
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
-
-                    onClicked: event => {
-                        if (event.button === Qt.LeftButton)
-                            mprisModule.playPause();
-                        else if (event.button === Qt.MiddleButton)
-                            mprisModule.previous();
-                        else if (event.button === Qt.RightButton)
-                            mprisModule.next();
-                    }
-
-                    onWheel: {
-                        mprisModule.wheelVolume(wheel.angleDelta.y);
-                    }
-                }
+                anchors.horizontalCenter: parent.horizontalCenter
             }
         }
 

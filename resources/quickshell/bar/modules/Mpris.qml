@@ -1,138 +1,53 @@
 import QtQuick
 import Quickshell.Services.Mpris
-import Quickshell.Io
 
 Item {
-    id: mpris
+    id: root
+    implicitHeight: Theme.barHeight
 
-    property bool debug: true
-
-    // Fall back to null if no player is found.
-    property var player: null
-
-    // Ordered list of plays by preference.
     property var preferredPlayers: ["kopuz", "spotify", "helium"]
+    property var playerList: Mpris.players ? Mpris.players.values : []
 
-    // How much the mouse wheel changes volume.
-    property real volumeStep: 0.05
-
-    // Convenience properties for UI code.
-    property string title: player && player.metadata && player.metadata["xesam:title"] || ""
-    property string artist: player && player.metadata && player.metadata["xesam:artist"]?.join(", ") || ""
-    property string trackText: title && artist ? (title + " - " + artist) : (title || artist || "")
-    property bool active: !!player && player.playbackStatus !== "Stopped"
-    property string identity: (player && player.identity || "").toString()
-
-    // Best-effort name for playerctl; works for common players like Spotify.
-    property string playerctlName: identity.toLowerCase().replace(/\s+/g, "")
-
-    // Icon to display next to the track text.
-    property string icon: {
-        const id = identity.toLowerCase();
-        if (id.includes("spotify"))
-            return "";
-        if (id.includes("helium"))
-            return "";
-        return "";
-    }
-
-    // Small helper so we don’t repeat the defensive checks.
-    function players() {
-        return (Mpris.players && Mpris.players.values) ? Mpris.players.values : [];
-    }
-
-    // Pick a “best” player:
-    // 1) if a preferred player is currently playing, pick the highest priority one
-    // 2) else if a preferred player exists, pick the highest priority one
-    // 3) else if anything is playing, pick that
-    // 4) else fall back to the first available player
-    function pickPlayer() {
-        const list = players();
+    property var player: {
+        const list = playerList;
         if (!list || list.length === 0)
             return null;
-
         function matches(pref, p) {
-            const id = ((p && p.identity) || "").toString().toLowerCase();
-            return id.includes(pref);
+            return ((p?.identity) || "").toString().toLowerCase().includes(pref);
         }
-
         function isPlaying(p) {
-            return p && (p.playbackStatus === "Playing" || p.isPlaying === true);
+            return p?.playbackStatus === "Playing" || p?.isPlaying === true;
         }
-
-        // Preferred + playing
         for (const pref of preferredPlayers) {
             const p = list.find(pl => matches(pref, pl) && isPlaying(pl));
             if (p)
                 return p;
         }
-
-        // Preferred (present)
         for (const pref of preferredPlayers) {
             const p = list.find(pl => matches(pref, pl));
             if (p)
                 return p;
         }
-
-        // Anything playing
-        const playing = list.find(pl => isPlaying(pl));
-        return playing || list[0] || null;
+        return list.find(pl => isPlaying(pl)) || list[0] || null;
     }
 
-    function refresh(reason) {
-        player = pickPlayer();
+    property string title: player?.metadata?.["xesam:title"] || ""
+    property string artist: player?.metadata?.["xesam:artist"]?.join(", ") || ""
+    property string trackText: title && artist ? (title + " - " + artist) : (title || artist || "")
+    property bool active: !!player && player.playbackStatus !== "Stopped"
+    property string identity: (player?.identity || "").toString()
 
-        if (debug) {
-            const ids = players().map(p => (p.identity || "<unknown>").toString());
-            console.log("[Mpris]", reason || "refresh", "players:", ids, "picked:", player ? player.identity : null);
-        }
+    property string icon: {
+        const id = identity.toLowerCase();
+        if (id.includes("spotify"))
+            return "";
+        else if (id.includes("helium"))
+            return "";
+        else if (player !== null)
+            return "";
+        return "";
     }
 
-    // Players can appear shortly after the bar starts.
-    // Poll briefly at startup so it reliably picks up Spotify/etc.
-    Component.onCompleted: {
-        refresh("startup");
-        startupPoll.running = true;
-    }
-
-    Timer {
-        id: startupPoll
-        interval: 200
-        repeat: true
-        running: false
-        property int attempts: 0
-        onTriggered: {
-            attempts++;
-            refresh("startup#" + attempts);
-            if (player || attempts >= 10)
-                running = false;
-        }
-    }
-
-    // Refresh when Quickshell tells us the player list/model changed.
-    Connections {
-        target: Mpris
-        ignoreUnknownSignals: true
-        function onPlayersChanged() {
-            refresh("playersChanged");
-        }
-    }
-
-    Connections {
-        target: Mpris.players
-        ignoreUnknownSignals: true
-        function onValuesChanged() {
-            refresh("model.valuesChanged");
-        }
-        function onCountChanged() {
-            refresh("model.countChanged");
-        }
-        function onModelReset() {
-            refresh("model.reset");
-        }
-    }
-
-    // Basic controls.
     function playPause() {
         if (!player)
             return;
@@ -142,40 +57,10 @@ Item {
             player.play();
     }
 
-    // Volume control via mouse wheel.
-    // Note: not every player supports setting volume; this is best-effort.
-    function wheelVolume(deltaY) {
+    function previous() {
         if (!player)
             return;
-
-        // Prefer the direct MPRIS volume property if it exists.
-        if (player.volume !== undefined && player.volume !== null) {
-            const dir = deltaY > 0 ? 1 : -1;
-            const next = Math.max(0, Math.min(1, (player.volume + dir * volumeStep)));
-            try {
-                player.volume = next;
-                return;
-            } catch (e) {
-                if (debug)
-                    console.log("[Mpris] direct volume set failed:", e);
-            }
-        }
-
-        // Fallback: call playerctl.
-        if (!playerctlName)
-            return;
-        const sign = deltaY > 0 ? "+" : "-";
-        playerctlProc.command = ["playerctl", "-p", playerctlName, "volume", volumeStep.toString() + sign];
-        playerctlProc.running = true;
-    }
-
-    Process {
-        id: playerctlProc
-        command: ["true"]
-        onExited: {
-            if (debug && exitCode !== 0)
-                console.log("[Mpris] playerctl failed:", exitCode);
-        }
+        player.previous();
     }
 
     function next() {
@@ -184,9 +69,64 @@ Item {
         player.next();
     }
 
-    function previous() {
+    function wheelVolume(up) {
         if (!player)
             return;
-        player.previous();
+        if (up)
+            player.volume = Math.min(1.0, player.volume + 0.05);
+        else
+            player.volume = Math.max(0.0, player.volume - 0.05);
+    }
+
+    Row {
+        id: row
+        spacing: 6
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        Text {
+            visible: root.icon !== ""
+            text: root.icon
+            color: Theme.text
+            font.pixelSize: 16
+            anchors.verticalCenter: parent.verticalCenter
+            verticalAlignment: Text.AlignVCenter
+            anchors.verticalCenterOffset: -2
+        }
+
+        Text {
+            text: root.trackText
+            color: Theme.text
+            font {
+                pixelSize: 14
+                family: Theme.font
+                bold: true
+            }
+            anchors.verticalCenter: parent.verticalCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+
+    MouseArea {
+        anchors.horizontalCenter: row.horizontalCenter
+        width: row.width
+        y: -8
+        height: parent.height + 16
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
+        acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
+
+        onClicked: event => {
+            if (event.button === Qt.LeftButton)
+                playPause();
+            else if (event.button === Qt.MiddleButton)
+                previous();
+            else if (event.button === Qt.RightButton)
+                next();
+        }
+
+        onWheel: {
+            wheelVolume(wheel.angleDelta.y > 0);
+        }
     }
 }
