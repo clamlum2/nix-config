@@ -2,20 +2,22 @@ import QtQuick
 import Quickshell.Io
 
 Item {
-    id: volumeModule
+    id: root
+
+    implicitWidth: level >= 100 ? 40 : level <= 9 ? 24 : 32
+    implicitHeight: parent.height
 
     property int level: 0
     property string icon: muted ? "" : level >= 66 ? "" : level >= 33 ? "" : level > 0 ? "" : ""
     property bool muted: false
-    property string change: "0%"
 
     Process {
         id: volumeProc
         command: ["sh", "-c", "wpctl get-volume @DEFAULT_SINK@"]
         stdout: SplitParser {
             onRead: data => {
-                volumeModule.muted = data.includes("MUTED");
-                volumeModule.level = parseInt(parseFloat(data.split(" ")[1]) * 100);
+                root.muted = data.includes("MUTED");
+                root.level = parseInt(parseFloat(data.split(" ")[1]) * 100);
             }
         }
     }
@@ -34,22 +36,59 @@ Item {
     Process {
         id: toggleMuteProc
         command: ["wpctl", "set-mute", "@DEFAULT_SINK@", "toggle"]
-        onExited: {
-            volumeProc.running = true;
-        }
+        onExited: volumeProc.running = true
     }
 
     function volumeMod(direction) {
-        let change = direction === "up" ? "1%+" : direction === "down" ? "1%-" : "0%";
-        changeVolumeProc.command = ["wpctl", "set-volume", "@DEFAULT_SINK@", change];
+        changeVolumeProc.command = ["wpctl", "set-volume", "@DEFAULT_SINK@", direction === "up" ? "1%+" : direction === "down" ? "1%-" : "0%"];
         changeVolumeProc.running = true;
     }
 
     Process {
         id: changeVolumeProc
-        command: ["sh", "-c", "wpctl set-volume @DEFAULT_SINK@ " + change]
-        onExited: {
-            volumeProc.running = true;
+        command: []
+        onExited: volumeProc.running = true
+    }
+
+    Text {
+        id: iconText
+        width: 12
+        height: parent.height
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: 1
+        text: root.icon
+        color: Theme.text
+        font.family: Theme.font
+        scale: 2.25
+        transformOrigin: Item.Center
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+    }
+
+    Text {
+        id: levelText
+        width: root.level >= 100 ? 24 : root.level <= 9 ? 8 : 16
+        height: parent.height
+        anchors.left: iconText.right
+        anchors.leftMargin: 6
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: 1
+        text: root.level
+        color: Theme.text
+        font {
+            family: Theme.font
+            pixelSize: Theme.fontSize
+            bold: true
         }
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        onClicked: root.muteUnmute()
+        onWheel: wheel.angleDelta.y > 0 ? root.volumeMod("up") : root.volumeMod("down")
     }
 }

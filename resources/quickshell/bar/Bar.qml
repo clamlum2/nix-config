@@ -17,9 +17,6 @@ PanelWindow {
     implicitHeight: Theme.barHeight
     color: Theme.background
 
-    Volume {
-        id: volumeModule
-    }
     Microphone {
         id: microphoneModule
     }
@@ -95,57 +92,10 @@ PanelWindow {
 
             Item {}
 
-            Item {
-                Layout.preferredWidth: volumeModule.level >= 100 ? 40 : volumeModule.level <= 9 ? 24 : 32
-                Layout.preferredHeight: 32
-
-                Text {
-                    id: volume_icon
-                    width: 12
-                    height: parent.height
-                    text: volumeModule.icon
-                    color: Theme.text
-                    font.family: Theme.font
-                    scale: 2.25
-                    transformOrigin: Item.Center
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.verticalCenterOffset: 1
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                Text {
-                    id: volume_level
-                    width: volumeModule.level >= 100 ? 24 : volumeModule.level <= 9 ? 8 : 16
-                    height: parent.height
-                    text: volumeModule.level
-                    color: Theme.text
-                    font {
-                        family: Theme.font
-                        pixelSize: Theme.fontSize
-                        bold: true
-                    }
-                    transformOrigin: Item.Center
-                    anchors.left: volume_icon.right
-                    anchors.leftMargin: 6
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.verticalCenterOffset: 1
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: volumeModule.muteUnmute()
-                    onWheel: {
-                        if (wheel.angleDelta.y > 0)
-                            volumeModule.volumeMod("up");
-                        else
-                            volumeModule.volumeMod("down");
-                    }
-                }
+            Volume {
+                id: volumeModule
+                Layout.preferredWidth: implicitWidth
+                Layout.alignment: Qt.AlignVCenter
             }
 
             Item {}
@@ -278,6 +228,7 @@ PanelWindow {
                 Layout.preferredHeight: 20
                 color: Theme.muted
             }
+
             Item {}
 
             TimeDisplay {
