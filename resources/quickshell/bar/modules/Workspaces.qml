@@ -12,10 +12,6 @@ Item {
     property string outputName: ""
     property var workspaceData: []
 
-    function refresh() {
-        workspacesProc.running = true;
-    }
-
     Process {
         id: workspacesProc
         command: ["sh", "-c", "niri msg -j workspaces | jq -c ."]
@@ -36,7 +32,7 @@ Item {
         command: ["niri", "msg", "-j", "event-stream"]
         running: true
         stdout: SplitParser {
-            onRead: root.refresh()
+            onRead: workspacesProc.running = true
         }
     }
 
