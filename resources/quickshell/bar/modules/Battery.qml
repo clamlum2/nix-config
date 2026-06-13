@@ -23,10 +23,12 @@ Item {
         }
     }
 
-    Timer {
-        interval: 5000
-        repeat: true
+    Process {
+        id: monitor
+        command: ["sh", "-c", "upower -m"]
         running: true
-        onTriggered: batteryProc.running = true
+        stdout: SplitParser {
+            onRead: batteryProc.running = true
+        }
     }
 }
