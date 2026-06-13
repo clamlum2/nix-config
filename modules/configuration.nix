@@ -62,4 +62,6 @@
     "/share/applications"
     "/share/xdg-desktop-portal"
   ];
+
+  programs.direnv.enable = true;
 }
