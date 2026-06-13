@@ -9,7 +9,7 @@ Item {
 
     Process {
         id: micStatusProc
-        command: ["sh", "-c", "wpctl get-volume @DEFAULT_SOURCE@"]
+        command: ["sh", "-c", "wpctl get-volume @DEFAULT_AUDIO_SOURCE@"]
         stdout: SplitParser {
             onRead: data => {
                 microphoneModule.muted = data.includes("MUTED");
@@ -17,20 +17,29 @@ Item {
         }
     }
 
-    Timer {
-        interval: 200
-        repeat: true
+    Process {
+        id: micWatcher
+        command: ["inotifywait", "-m", "-e", "close_write", "/tmp/mic-changed"]
         running: true
-        onTriggered: micStatusProc.running = true
+        stdout: SplitParser {
+            onRead: micStatusProc.running = true
+        }
     }
 
     function toggle() {
         toggleMicProc.running = true;
     }
 
+    Timer {
+        interval: 5000
+        repeat: true
+        running: true
+        onTriggered: micStatusProc.running = true
+    }
+
     Process {
         id: toggleMicProc
-        command: ["sh", "-c", "wpctl set-mute @DEFAULT_SOURCE@ toggle"]
+        command: ["sh", "-c", "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"]
         onExited: {
             micStatusProc.running = true;
         }
