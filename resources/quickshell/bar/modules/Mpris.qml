@@ -8,29 +8,27 @@ Item {
     property var preferredPlayers: ["kopuz", "spotify", "helium"]
     property var playerList: Mpris.players ? Mpris.players.values : []
 
+    function matches(pref, p) {
+        return ((p?.identity) || "").toString().toLowerCase().includes(pref);
+    }
+    function isPlaying(p) {
+        return p?.playbackStatus === "Playing" || p?.isPlaying === true;
+    }
+
     property var player: {
         const list = playerList;
         if (!list || list.length === 0)
             return null;
-        function matches(pref, p) {
-            return ((p?.identity) || "").toString().toLowerCase().includes(pref);
-        }
-        function isPlaying(p) {
-            return p?.playbackStatus === "Playing" || p?.isPlaying === true;
-        }
         for (const pref of preferredPlayers) {
             const p = list.find(pl => matches(pref, pl) && isPlaying(pl));
-            if (p)
-                return p;
+            if (p) return p;
         }
         for (const pref of preferredPlayers) {
             const p = list.find(pl => matches(pref, pl));
-            if (p)
-                return p;
+            if (p) return p;
         }
         return list.find(pl => isPlaying(pl)) || list[0] || null;
     }
-
     property string title: player?.metadata?.["xesam:title"] || ""
     property string artist: player?.metadata?.["xesam:artist"]?.join(", ") || ""
     property string trackText: title && artist ? (title + " - " + artist) : (title || artist || "")
