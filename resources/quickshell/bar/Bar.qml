@@ -2,6 +2,7 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import "modules"
+import "."
 
 PanelWindow {
     id: root
@@ -13,17 +14,8 @@ PanelWindow {
     anchors.left: true
     anchors.right: true
 
-    property color backgroundColor: "#0C0F1B"
-    property color textColor: "#c8c8e6"
-    property color primaryColor: "#4ea1ff"
-    property color secondaryColor: "#6c8aff"
-    property color inactiveColor: "#595959"
-    property color mutedColor: "#44475a"
-    property string fontFamily: "DejaVuSansM Nerd Font Mono"
-    property int fontSize: 14
-
-    implicitHeight: 32
-    color: backgroundColor
+    implicitHeight: Theme.barHeight
+    color: Theme.background
 
     Volume {
         id: volumeModule
@@ -166,7 +158,7 @@ PanelWindow {
             Rectangle {
                 Layout.preferredWidth: 1
                 Layout.preferredHeight: 20
-                color: root.mutedColor
+                color: Theme.muted
             }
 
             Item {}
@@ -180,8 +172,8 @@ PanelWindow {
                     width: 12
                     height: parent.height
                     text: volumeModule.icon
-                    color: root.textColor
-                    font.family: root.fontFamily
+                    color: Theme.text
+                    font.family: Theme.font
                     scale: 2.25
                     transformOrigin: Item.Center
                     anchors.left: parent.left
@@ -196,10 +188,10 @@ PanelWindow {
                     width: volumeModule.level >= 100 ? 24 : volumeModule.level <= 9 ? 8 : 16
                     height: parent.height
                     text: volumeModule.level
-                    color: root.textColor
+                    color: Theme.text
                     font {
-                        family: root.fontFamily
-                        pixelSize: root.fontSize
+                        family: Theme.font
+                        pixelSize: Theme.fontSize
                         bold: true
                     }
                     transformOrigin: Item.Center
@@ -228,7 +220,7 @@ PanelWindow {
             Rectangle {
                 Layout.preferredWidth: 1
                 Layout.preferredHeight: 20
-                color: root.mutedColor
+                color: Theme.muted
             }
 
             Item {
@@ -240,8 +232,8 @@ PanelWindow {
                     width: parent.width
                     height: parent.height
                     text: microphoneModule.icon
-                    color: root.textColor
-                    font.family: root.fontFamily
+                    color: Theme.text
+                    font.family: Theme.font
                     scale: 2.5
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -257,7 +249,7 @@ PanelWindow {
             Rectangle {
                 Layout.preferredWidth: 1
                 Layout.preferredHeight: 20
-                color: root.mutedColor
+                color: Theme.muted
             }
 
             Item {
@@ -267,8 +259,8 @@ PanelWindow {
                 Text {
                     id: bluetooth_status
                     text: bluetoothModule.icon
-                    color: root.textColor
-                    font.family: root.fontFamily
+                    color: Theme.text
+                    font.family: Theme.font
                     scale: 1.5
                     width: parent.width
                     height: parent.height
@@ -290,8 +282,8 @@ PanelWindow {
                 Text {
                     id: network_status
                     text: network.icon
-                    color: root.textColor
-                    font.family: root.fontFamily
+                    color: Theme.text
+                    font.family: Theme.font
                     scale: 1.9
                     width: parent.width
                     height: parent.height
@@ -303,7 +295,7 @@ PanelWindow {
             Rectangle {
                 Layout.preferredWidth: 1
                 Layout.preferredHeight: 20
-                color: root.mutedColor
+                color: Theme.muted
                 visible: batteryModule.available
             }
 
@@ -317,8 +309,8 @@ PanelWindow {
                     width: 14
                     height: parent.height
                     text: batteryModule.icon
-                    color: root.textColor
-                    font.family: root.fontFamily
+                    color: Theme.text
+                    font.family: Theme.font
                     scale: 1.5
                     transformOrigin: Item.Center
                     anchors.left: parent.left
@@ -333,10 +325,10 @@ PanelWindow {
                     width: 16
                     height: parent.height
                     text: batteryModule.level
-                    color: root.textColor
+                    color: Theme.text
                     font {
-                        family: root.fontFamily
-                        pixelSize: root.fontSize
+                        family: Theme.font
+                        pixelSize: Theme.fontSize
                         bold: true
                     }
                     transformOrigin: Item.Center
@@ -352,17 +344,17 @@ PanelWindow {
             Rectangle {
                 Layout.preferredWidth: 1
                 Layout.preferredHeight: 20
-                color: root.mutedColor
+                color: Theme.muted
             }
             Item {}
 
             Text {
                 id: clock
                 text: timeDisplay.text
-                color: root.textColor
+                color: Theme.text
                 font {
-                    family: root.fontFamily
-                    pixelSize: root.fontSize
+                    family: Theme.font
+                    pixelSize: Theme.fontSize
                     bold: true
                 }
             }
