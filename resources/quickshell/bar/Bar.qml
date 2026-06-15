@@ -2,12 +2,13 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import "modules"
-import "."
+import "../"
 
+// qmllint disable uncreatable-type
 PanelWindow {
     id: root
 
-    property bool bottom: false
+    property bool bottom: Config.barPosition === "bottom"
 
     anchors.top: !bottom
     anchors.bottom: bottom
@@ -243,3 +244,4 @@ PanelWindow {
         }
     }
 }
+// qmllint enable uncreatable-type

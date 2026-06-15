@@ -1,37 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG_DIR="$HOME/.config/quickshell"
-LINK="$CONFIG_DIR/shell.qml"
-TOP="$CONFIG_DIR/shell_top.qml"
-BOTTOM="$CONFIG_DIR/shell_bottom.qml"
-
-if [ ! -f "$TOP" ] || [ ! -f "$BOTTOM" ]; then
-  exit 2
+if ! pgrep -x .quickshell-wra >/dev/null 2>&1; then
+    nohup qs >/dev/null 2>&1 &
+    disown
+else
+    STATE_FILE="$HOME/.config/quickshell/bar-state.json"
+    current=$(jq -r '.barPosition // "top"' "$STATE_FILE" 2>/dev/null || echo "top")
+    new="bottom"
+    [ "$current" = "bottom" ] && new="top"
+    printf '{"barPosition": "%s"}\n' "$new" > "$STATE_FILE"
 fi
-
-curr=""
-if [ -L "$LINK" ]; then
-  curr="$(readlink -f "$LINK")"
-elif [ -e "$LINK" ]; then
-  backup="$LINK.bak"
-  mv -- "$LINK" "$backup"
-fi
-
-target="$TOP"
-if [ -n "$curr" ]; then
-  if [ "$(readlink -f "$TOP")" = "$curr" ]; then
-    target="$BOTTOM"
-  else
-    target="$TOP"
-  fi
-fi
-
-ln -sfn -- "$target" "$LINK"
-
-pkill .quickshell-wra || true
-qs &
-sleep 0.5
-touch ~/.config/quickshell/shell.qml
-
-exit 0
