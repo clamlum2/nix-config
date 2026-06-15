@@ -21,11 +21,13 @@ Item {
             return null;
         for (const pref of preferredPlayers) {
             const p = list.find(pl => matches(pref, pl) && isPlaying(pl));
-            if (p) return p;
+            if (p)
+                return p;
         }
         for (const pref of preferredPlayers) {
             const p = list.find(pl => matches(pref, pl));
-            if (p) return p;
+            if (p)
+                return p;
         }
         return list.find(pl => isPlaying(pl)) || list[0] || null;
     }
@@ -116,15 +118,15 @@ Item {
 
         onClicked: event => {
             if (event.button === Qt.LeftButton)
-                playPause();
+                root.playPause();
             else if (event.button === Qt.MiddleButton)
-                previous();
+                root.previous();
             else if (event.button === Qt.RightButton)
-                next();
+                root.next();
         }
 
         onWheel: {
-            wheelVolume(wheel.angleDelta.y > 0);
+            root.wheelVolume(wheel.angleDelta.y > 0);
         }
     }
 }

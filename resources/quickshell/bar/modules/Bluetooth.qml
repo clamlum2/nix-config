@@ -35,8 +35,10 @@ Item {
     Process {
         id: toggleBluetoothProc
         command: ["sh", "-c", "bluetoothctl power " + (bluetoothModule.bluetoothStatus ? "off" : "on")]
+        // qmllint disable signal-handler-parameters
         onExited: {
             bluetoothStatusProc.running = true;
         }
+        // qmllint enable signal-handler-parameters
     }
 }

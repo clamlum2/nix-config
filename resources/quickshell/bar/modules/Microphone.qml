@@ -40,8 +40,10 @@ Item {
     Process {
         id: toggleMicProc
         command: ["sh", "-c", "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"]
+        // qmllint disable signal-handler-parameters
         onExited: {
             micStatusProc.running = true;
         }
+        // qmllint enable signal-handler-parameters
     }
 }

@@ -1,5 +1,5 @@
+pragma ComponentBehavior: Bound
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
@@ -7,6 +7,7 @@ import Quickshell.Services.SystemTray
 
 RowLayout {
     id: systemTray
+    property bool isBottom: false
 
     spacing: 5
 
@@ -47,22 +48,25 @@ RowLayout {
             IconImage {
                 id: icon
                 anchors.centerIn: parent
-                source: item.icon
+                source: delegate.item.icon
                 implicitSize: 16
             }
 
             QsMenuAnchor {
                 id: menuAnchor
-                menu: item.menu
+                // qmllint disable unresolved-type
+                menu: delegate.item.menu
+                // qmllint enable unresolved-type
 
                 anchor.window: delegate.QsWindow.window
-                anchor.adjustment: PopupAdjustment.Flip
 
                 anchor.onAnchoring: {
                     const window = delegate.QsWindow.window;
+                    // qmllint disable missing-property
                     const widgetRect = window.contentItem.mapFromItem(delegate, 0, delegate.height, delegate.width, delegate.height);
+                    // qmllint enable missing-property
 
-                    if (root.bottom === true) {
+                    if (systemTray.isBottom === true) {
                         menuAnchor.anchor.rect = Qt.rect(widgetRect.x, -delegate.height, delegate.width, widgetRect.height);
                     } else {
                         menuAnchor.anchor.rect = Qt.rect(widgetRect.x, delegate.height, delegate.width, widgetRect.height);

@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import Quickshell.Io
 import QtQuick
 
@@ -55,6 +56,8 @@ Item {
             model: root.workspaceData.filter(w => w.output === root.outputName).filter(w => w.is_focused || w.active_window_id !== null).sort((a, b) => a.idx - b.idx)
 
             Item {
+                id: item
+
                 required property var modelData
                 width: 20
                 height: row.height
@@ -69,8 +72,8 @@ Item {
                 }
 
                 Text {
-                    text: modelData.idx
-                    color: (modelData.is_focused && modelData.active_window_id === null) ? Theme.inactive : Theme.secondary
+                    text: item.modelData.idx
+                    color: (item.modelData.is_focused && item.modelData.active_window_id === null) ? Theme.inactive : Theme.secondary
                     font.pixelSize: 16
                     font.bold: true
                     anchors.horizontalCenter: visual.horizontalCenter
@@ -81,7 +84,7 @@ Item {
                 Rectangle {
                     width: visual.width
                     height: 3
-                    color: modelData.is_focused ? Theme.primary : "transparent"
+                    color: item.modelData.is_focused ? Theme.primary : "transparent"
                     anchors.horizontalCenter: visual.horizontalCenter
                     anchors.bottom: visual.bottom
                 }
@@ -89,7 +92,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: root.focusWorkspace(modelData.idx)
+                    onClicked: root.focusWorkspace(item.modelData.idx)
                 }
             }
         }

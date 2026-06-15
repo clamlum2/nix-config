@@ -14,6 +14,7 @@ Item {
     Process {
         id: volumeProc
         command: ["sh", "-c", "wpctl get-volume @DEFAULT_SINK@"]
+        running: true
         stdout: SplitParser {
             onRead: data => {
                 root.muted = data.includes("MUTED");
@@ -36,7 +37,9 @@ Item {
     Process {
         id: toggleMuteProc
         command: ["wpctl", "set-mute", "@DEFAULT_SINK@", "toggle"]
+        // qmllint disable signal-handler-parameters
         onExited: volumeProc.running = true
+        // qmllint enable signal-handler-parameters
     }
 
     function volumeMod(direction) {
@@ -47,7 +50,9 @@ Item {
     Process {
         id: changeVolumeProc
         command: []
+        // qmllint disable signal-handler-parameters
         onExited: volumeProc.running = true
+        // qmllint enable signal-handler-parameters
     }
 
     Text {
@@ -56,7 +61,7 @@ Item {
         height: parent.height
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: 1
+        anchors.verticalCenterOffset: 0
         text: root.icon
         color: Theme.text
         font.family: Theme.font

@@ -82,7 +82,9 @@ PanelWindow {
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
 
-            SystemTray {}
+            SystemTray {
+                isBottom: root.bottom
+            }
 
             Rectangle {
                 Layout.preferredWidth: 1
