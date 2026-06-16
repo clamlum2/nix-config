@@ -2,3 +2,4 @@ result
 result-*
 kernel-config/
 resources/quickshell/bar-state.json
+resources/quickshell/.qmlls.ini

@@ -4,10 +4,10 @@ import Quickshell.Io
 Item {
     id: root
 
-    implicitWidth: level >= 100 ? 42 : level <= 9 ? 26 : 34
+    implicitWidth: available ? (level >= 100 ? 42 : level <= 9 ? 26 : 34) : 0
     implicitHeight: parent.height
 
-    property bool available: true
+    property bool available: false
     property bool charging: false
     property string level: "0"
     property string icon: charging ? "󰂄" : level >= 90 ? "󰁹" : level >= 80 ? "󰂀" : level >= 70 ? "󰁿" : level >= 60 ? "󰁾" : level >= 50 ? "󰁽" : level >= 40 ? "󰁼" : level >= 30 ? "󰁻" : level >= 20 ? "󰁺" : level >= 10 ? "󰂃" : "󰂎"
@@ -38,6 +38,7 @@ Item {
 
     Text {
         id: battery_icon
+        visible: root.available
         text: root.icon
         width: 12
         height: parent.height
@@ -54,6 +55,7 @@ Item {
 
     Text {
         id: battery_level
+        visible: root.available
         text: root.level
         width: root.level >= 100 ? 24 : root.level <= 9 ? 8 : 16
         height: parent.height

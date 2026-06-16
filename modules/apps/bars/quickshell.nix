@@ -8,7 +8,9 @@
   ];
 
   home.file.".config/quickshell" = {
-    source = ../../../resources/quickshell;
+    source = builtins.filterSource (
+      path: type: builtins.baseNameOf path != ".qmlls.ini"
+    ) ../../../resources/quickshell;
     recursive = true;
   };
 }

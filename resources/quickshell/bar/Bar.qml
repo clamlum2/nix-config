@@ -122,7 +122,6 @@ PanelWindow {
                 Layout.preferredWidth: 1
                 Layout.preferredHeight: 20
                 color: Theme.muted
-                visible: batteryModule.available
             }
 
             Battery {
@@ -135,6 +134,7 @@ PanelWindow {
                 Layout.preferredWidth: 1
                 Layout.preferredHeight: 20
                 color: Theme.muted
+                visible: batteryModule.available
             }
 
             TimeDisplay {
