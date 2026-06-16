@@ -94,14 +94,13 @@ PanelWindow {
             }
 
             Item {}
-
             Volume {
                 id: volumeModule
                 Layout.preferredWidth: implicitWidth
                 Layout.alignment: Qt.AlignVCenter
             }
-
             Item {}
+
             Rectangle {
                 Layout.preferredWidth: 1
                 Layout.preferredHeight: 20
@@ -231,8 +230,6 @@ PanelWindow {
                 Layout.preferredHeight: 20
                 color: Theme.muted
             }
-
-            Item {}
 
             TimeDisplay {
                 id: timeDisplay
