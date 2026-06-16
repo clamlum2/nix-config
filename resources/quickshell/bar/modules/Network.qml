@@ -2,7 +2,10 @@ import QtQuick
 import Quickshell.Io
 
 Item {
-    id: networkModule
+    id: root
+
+    implicitWidth: 16
+    implicitHeight: parent.height
 
     property bool ethernetStatus: false
     property bool wifiStatus: false
@@ -17,15 +20,15 @@ Item {
         stdout: SplitParser {
             onRead: data => {
                 if (data.includes("ethernet:connected")) {
-                    networkModule.ethernetStatus = true;
+                    root.ethernetStatus = true;
                 } else if (data.includes("ethernet:disconnected")) {
-                    networkModule.ethernetStatus = false;
+                    root.ethernetStatus = false;
                 }
 
                 if (data.includes("wifi:connected")) {
-                    networkModule.wifiStatus = true;
+                    root.wifiStatus = true;
                 } else if (data.includes("wifi:disconnected")) {
-                    networkModule.wifiStatus = false;
+                    root.wifiStatus = false;
                 }
             }
         }
@@ -37,7 +40,7 @@ Item {
         running: true
         stdout: SplitParser {
             onRead: data => {
-                networkModule.wifiStrength = data;
+                root.wifiStrength = data;
             }
         }
     }
@@ -57,5 +60,17 @@ Item {
         repeat: true
         running: true
         onTriggered: wifiStrengthProc.running = true
+    }
+
+    Text {
+        id: network_status
+        text: root.icon
+        color: Theme.text
+        font.family: Theme.font
+        scale: 1.9
+        width: parent.width
+        height: parent.height
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
     }
 }

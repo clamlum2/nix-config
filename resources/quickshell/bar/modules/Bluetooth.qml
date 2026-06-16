@@ -2,7 +2,10 @@ import Quickshell.Io
 import QtQuick
 
 Item {
-    id: bluetoothModule
+    id: root
+
+    implicitWidth: 16
+    implicitHeight: parent.height
 
     property bool bluetoothStatus: false
     property string icon: bluetoothStatus ? "" : "󰂲"
@@ -10,9 +13,10 @@ Item {
     Process {
         id: bluetoothStatusProc
         command: ["sh", "-c", "bluetoothctl show | grep 'Powered:' | awk '{print $2}'"]
+        running: true
         stdout: SplitParser {
             onRead: data => {
-                bluetoothModule.bluetoothStatus = data.trim() === "yes";
+                root.bluetoothStatus = data.trim() === "yes";
             }
         }
     }
@@ -34,11 +38,29 @@ Item {
 
     Process {
         id: toggleBluetoothProc
-        command: ["sh", "-c", "bluetoothctl power " + (bluetoothModule.bluetoothStatus ? "off" : "on")]
+        command: ["sh", "-c", "bluetoothctl power " + (root.bluetoothStatus ? "off" : "on")]
         // qmllint disable signal-handler-parameters
         onExited: {
             bluetoothStatusProc.running = true;
         }
         // qmllint enable signal-handler-parameters
+    }
+
+    Text {
+        id: bluetooth_status
+        text: root.icon
+        color: Theme.text
+        font.family: Theme.font
+        scale: 1.5
+        width: parent.width
+        height: parent.height
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        onClicked: root.toggle()
     }
 }

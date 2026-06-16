@@ -2,7 +2,10 @@ import QtQuick
 import Quickshell.Io
 
 Item {
-    id: microphoneModule
+    id: root
+
+    implicitWidth: 16
+    implicitHeight: parent.height
 
     property bool muted: false
     property string icon: muted ? "" : ""
@@ -12,7 +15,7 @@ Item {
         command: ["sh", "-c", "wpctl get-volume @DEFAULT_AUDIO_SOURCE@"]
         stdout: SplitParser {
             onRead: data => {
-                microphoneModule.muted = data.includes("MUTED");
+                root.muted = data.includes("MUTED");
             }
         }
     }
@@ -45,5 +48,23 @@ Item {
             micStatusProc.running = true;
         }
         // qmllint enable signal-handler-parameters
+    }
+
+    Text {
+        id: microphone
+        width: parent.width
+        height: parent.height
+        text: root.icon
+        color: Theme.text
+        font.family: Theme.font
+        font.pixelSize: 32
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        onClicked: root.toggle()
     }
 }

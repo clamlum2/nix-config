@@ -18,19 +18,6 @@ PanelWindow {
     implicitHeight: Theme.barHeight
     color: Theme.background
 
-    Microphone {
-        id: microphoneModule
-    }
-    Network {
-        id: network
-    }
-    Bluetooth {
-        id: bluetoothModule
-    }
-    Battery {
-        id: batteryModule
-    }
-
     Item {
         id: barContent
 
@@ -107,27 +94,10 @@ PanelWindow {
                 color: Theme.muted
             }
 
-            Item {
-                Layout.preferredWidth: 16
-                Layout.preferredHeight: 32
-
-                Text {
-                    id: microphone
-                    width: parent.width
-                    height: parent.height
-                    text: microphoneModule.icon
-                    color: Theme.text
-                    font.family: Theme.font
-                    scale: 2.5
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: microphoneModule.toggle()
-                }
+            Microphone {
+                id: microphoneModule
+                Layout.preferredWidth: implicitWidth
+                Layout.alignment: Qt.AlignVCenter
             }
 
             Rectangle {
@@ -136,44 +106,16 @@ PanelWindow {
                 color: Theme.muted
             }
 
-            Item {
-                Layout.preferredWidth: 16
-                Layout.preferredHeight: 32
-
-                Text {
-                    id: bluetooth_status
-                    text: bluetoothModule.icon
-                    color: Theme.text
-                    font.family: Theme.font
-                    scale: 1.5
-                    width: parent.width
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: bluetoothModule.toggle()
-                }
+            Bluetooth {
+                id: bluetoothModule
+                Layout.preferredWidth: implicitWidth
+                Layout.alignment: Qt.AlignVCenter
             }
 
-            Item {
-                Layout.preferredWidth: 16
-                Layout.preferredHeight: 32
-
-                Text {
-                    id: network_status
-                    text: network.icon
-                    color: Theme.text
-                    font.family: Theme.font
-                    scale: 1.9
-                    width: parent.width
-                    height: parent.height
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
+            Network {
+                id: network
+                Layout.preferredWidth: implicitWidth
+                Layout.alignment: Qt.AlignVCenter
             }
 
             Rectangle {
@@ -183,46 +125,10 @@ PanelWindow {
                 visible: batteryModule.available
             }
 
-            Item {
-                Layout.preferredWidth: 32
-                Layout.preferredHeight: 32
-                visible: batteryModule.available
-
-                Text {
-                    id: battery_icon
-                    width: 14
-                    height: parent.height
-                    text: batteryModule.icon
-                    color: Theme.text
-                    font.family: Theme.font
-                    scale: 1.5
-                    transformOrigin: Item.Center
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.verticalCenterOffset: 0
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                Text {
-                    id: battery_level
-                    width: 16
-                    height: parent.height
-                    text: batteryModule.level
-                    color: Theme.text
-                    font {
-                        family: Theme.font
-                        pixelSize: Theme.fontSize
-                        bold: true
-                    }
-                    transformOrigin: Item.Center
-                    anchors.left: battery_icon.right
-                    anchors.leftMargin: 2
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.verticalCenterOffset: 1
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
+            Battery {
+                id: batteryModule
+                Layout.preferredWidth: implicitWidth
+                Layout.alignment: Qt.AlignVCenter
             }
 
             Rectangle {
