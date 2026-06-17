@@ -1,8 +1,6 @@
 { device, username, ... }:
 {
   imports = [
-    # ./vesktop.nix
-    # ./vencord.nix
     ./zed.nix
     ./kopuz.nix
 
