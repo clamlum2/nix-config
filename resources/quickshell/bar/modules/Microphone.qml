@@ -57,7 +57,7 @@ Item {
         text: root.icon
         color: Theme.text
         font.family: Theme.font
-        font.pixelSize: 32
+        font.pixelSize: 30
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }

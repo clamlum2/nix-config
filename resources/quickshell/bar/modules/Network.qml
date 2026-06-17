@@ -4,7 +4,7 @@ import Quickshell.Io
 Item {
     id: root
 
-    implicitWidth: 16
+    implicitWidth: 20
     implicitHeight: parent.height
 
     property bool ethernetStatus: false

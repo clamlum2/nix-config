@@ -110,7 +110,7 @@ Item {
     MouseArea {
         anchors.horizontalCenter: row.horizontalCenter
         width: row.width
-        y: -8
+        y: -7
         height: parent.height + 16
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor

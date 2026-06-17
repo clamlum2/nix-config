@@ -4,7 +4,7 @@ import Quickshell.Io
 Item {
     id: root
 
-    implicitWidth: level >= 100 ? 40 : level <= 9 ? 24 : 32
+    implicitWidth: level >= 100 ? 40 : level <= 9 ? 24 : 31
     implicitHeight: parent.height
 
     property int level: 0
