@@ -14,6 +14,4 @@
       allowUnfree = true;
     }
   '';
-
-  gtk.gtk2.force = true;
 }
