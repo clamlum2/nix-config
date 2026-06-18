@@ -2,6 +2,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -30,6 +32,7 @@
     {
       self,
       nixpkgs,
+      nix-darwin,
       ...
     }@inputs:
     let
@@ -113,6 +116,36 @@
           ];
         };
       };
+
+      darwinConfigurations.macbook =
+        let
+          device = "macbook";
+        in
+        nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = {
+            inherit device;
+            inherit username;
+            inherit (inputs) nixpkgs-stable self;
+            inherit inputs;
+          };
+          modules = [
+            ./modules
+            ./modules/devices/macbook
+            ./modules/apps
+            ./modules/shell
+            ./modules/desktops/services/fonts.nix
+            inputs.home-manager.darwinModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = {
+                  self = inputs.self;
+                  inherit device;
+                };
+              };
+            }
+          ];
+        };
     };
 
   nixConfig = {

@@ -31,6 +31,7 @@ UPGRADE=0
 GC=0
 ACTION="test"
 HOSTNAME=$(hostname)
+OS="$(uname -s)"
 
 while getopts ":uksga:h:" opt; do
     case "$opt" in
@@ -82,14 +83,31 @@ if [[ "$UPGRADE" -eq 1 ]]; then
     echo "==> Flake update complete"
 fi
 
+case "$OS" in
+    Darwin)
+        echo "==> Running on macOS"
+        HOSTNAME="macbook"
+        COMMAND="darwin-rebuild"
+        ;;
+    Linux)
+        echo "==> Running on Linux"
+        COMMAND="nixos-rebuild"
+        ;;
+    *)
+        echo "Unknown OS: $OS"
+        exit 1
+        ;;
+esac
+
 echo "Using hostname: $HOSTNAME"
 
+
 rebuild_start=$(date +%s)
-if sudo nixos-rebuild $ACTION --flake "$CONFIG_REPO#$HOSTNAME"; then
+if sudo $COMMAND $ACTION --flake "$CONFIG_REPO#$HOSTNAME"; then
     rebuild_elapsed=$(( $(date +%s) - rebuild_start ))
     echo "==> Rebuild/$ACTION complete in $(( rebuild_elapsed / 60 ))m $(( rebuild_elapsed % 60 ))s"
 else
-    echo "Error: nixos-rebuild failed"
+    echo "Error: $COMMAND failed"
     exit 1
 fi
 

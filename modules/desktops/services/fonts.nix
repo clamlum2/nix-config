@@ -1,10 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, device, ... }:
 
-{
-  fonts = {
-    enableDefaultPackages = true;
-
-    packages = with pkgs; [
+lib.mkMerge [
+  {
+    fonts.packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
@@ -14,29 +12,35 @@
       nerd-fonts.dejavu-sans-mono
       nerd-fonts.jetbrains-mono
     ];
+  }
 
-    fontconfig = {
-      enable = true;
+  (lib.optionalAttrs (device != "macbook") {
+    fonts = {
+      enableDefaultPackages = true;
 
-      defaultFonts = {
-        sansSerif = [
-          "Noto Sans CJK SC"
-          "Noto Sans"
-        ];
+      fontconfig = {
+        enable = true;
 
-        serif = [
-          "Noto Serif CJK SC"
-          "Noto Serif"
-        ];
+        defaultFonts = {
+          sansSerif = [
+            "Noto Sans CJK SC"
+            "Noto Sans"
+          ];
 
-        monospace = [
-          "Noto Sans Mono"
-        ];
+          serif = [
+            "Noto Serif CJK SC"
+            "Noto Serif"
+          ];
 
-        emoji = [
-          "Noto Color Emoji"
-        ];
+          monospace = [
+            "Noto Sans Mono"
+          ];
+
+          emoji = [
+            "Noto Color Emoji"
+          ];
+        };
       };
     };
-  };
-}
+  })
+]

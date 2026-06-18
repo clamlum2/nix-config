@@ -10,11 +10,14 @@
           ./pkgs.nix
           ./variables.nix
         ]
+      else if device == "macbook" then
+        [
+          ./pkgs.nix
+        ]
       else
         [ ]
     );
 
-  home-manager.users.${username}.imports = [
-    ./home.nix
-  ];
+  home-manager.users.${username}.imports =
+    [ ] ++ (if device != "macbook" then [ ./home.nix ] else [ ]);
 }

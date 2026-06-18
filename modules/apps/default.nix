@@ -2,7 +2,6 @@
 {
   imports = [
     ./zed.nix
-    ./kopuz.nix
 
     ./terminals
   ]
@@ -11,16 +10,24 @@
       [
         ./gaming.nix
         ./obs.nix
+        ./kopuz.nix
       ]
     else
       [ ]
   );
 
-  home-manager.users.${username}.imports = [
-    ./fuzzel.nix
-    ./micro.nix
-    ./yazi.nix
+  home-manager.users.${username}.imports =
+    [ ]
+    ++ (
+      if device == "nixos" || device == "laptop" then
+        [
+          ./fuzzel.nix
+          ./micro.nix
+          ./yazi.nix
 
-    ./bars/quickshell.nix
-  ];
+          ./bars/quickshell.nix
+        ]
+      else
+        [ ]
+    );
 }

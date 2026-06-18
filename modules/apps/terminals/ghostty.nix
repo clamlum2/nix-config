@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, device, ... }:
 
 {
   programs.ghostty = {
     enable = true;
-    package = pkgs.ghostty;
+    package = if device == "macbook" then pkgs.ghostty-bin else pkgs.ghostty;
     settings = {
       background = "#161828";
       background-opacity = 1;
@@ -11,7 +11,7 @@
       font-size = 12;
       theme = "Kitty Default";
       custom-shader-animation = "always";
-      custom-shader = "cursor.glsl";
+      # custom-shader = "cursor.glsl";
       selection-foreground = "cell-background";
       selection-background = "cell-foreground";
       selection-clear-on-typing = true;
@@ -38,5 +38,5 @@
     };
   };
 
-  home.file.".config/ghostty/cursor.glsl".source = ../../../resources/ghostty/cursor.glsl;
+  # home.file.".config/ghostty/cursor.glsl".source = ../../../resources/ghostty/cursor.glsl;
 }
