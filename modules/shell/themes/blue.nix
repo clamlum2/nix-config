@@ -3,7 +3,7 @@
 {
   home.file.".oh-my-zsh/custom/themes/custom.zsh-theme".text = ''
     PROMPT="%F{#4EA1FF}%n@%f"
-    PROMPT+="%F{#6C8AFF}%M%f "
+    PROMPT+="%F{#6C8AFF}%m%f "
     PROMPT+="%F{#B4D7FF}%4~%f  "
     PROMPT+="%(?:%F{#4EA1FF}%1{➜%} :%F{#E06C75}%1{➜%} )%{$reset_color%}"
 

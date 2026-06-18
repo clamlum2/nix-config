@@ -3,7 +3,7 @@
 {
   home.file.".oh-my-zsh/custom/themes/nix-shell.zsh-theme".text = ''
     PROMPT="%F{cyan}%n@%f"
-    PROMPT+="%{$fg[blue]%}%M "
+    PROMPT+="%{$fg[blue]%}%m "
     PROMPT+="%{$fg[cyan]%}%~%  "
     PROMPT+="%{$fg[cyan]%}󱄅 "
     PROMPT+="%(?:%{$fg[green]%}%1{➜%} :%{$fg[red]%}%1{➜%} )%{$reset_color%}"
