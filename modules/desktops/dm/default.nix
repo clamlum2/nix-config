@@ -1,5 +1,3 @@
 {
-  imports = [
-    ./greetd.nix
-  ];
+  imports = [ ./greetd.nix ];
 }

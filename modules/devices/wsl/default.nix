@@ -1,5 +1,3 @@
 {
-  imports = [
-    ./wsl.nix
-  ];
+  imports = [ ./wsl.nix ];
 }

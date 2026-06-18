@@ -1,11 +1,7 @@
 { username, ... }:
 
 {
-  imports = [
-    ./kde.nix
-  ];
+  imports = [ ./kde.nix ];
 
-  home-manager.users.${username}.imports = [
-    ./plasma-manager.nix
-  ];
+  home-manager.users.${username}.imports = [ ./plasma-manager.nix ];
 }
