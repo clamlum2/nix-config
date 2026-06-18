@@ -51,7 +51,7 @@
       if [[ $# -eq 0 ]]; then
         nix shell
       else
-        nix shell nixpkgs#"$@"
+        nix shell "''${@/#/nixpkgs#}"
       fi
     }
 
