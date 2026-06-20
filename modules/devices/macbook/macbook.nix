@@ -1,4 +1,10 @@
-{ self, username, ... }:
+{
+  pkgs,
+  self,
+  username,
+  inputs,
+  ...
+}:
 
 {
   system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -12,6 +18,20 @@
   };
 
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  environment.systemPackages = [
+    pkgs.moonlight-qt
+    inputs.zed-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
+
+  system.primaryUser = username;
+
+  services.skhd.enable = true;
+  services.skhd.skhdConfig = ''
+    cmd + shift - space : ${
+      inputs.zed-launcher.packages.${pkgs.stdenv.hostPlatform.system}.default
+    }/bin/zed-launcher
+  '';
 
   home-manager.users.${username} = {
     home.stateVersion = "26.05";
