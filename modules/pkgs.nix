@@ -39,6 +39,7 @@ in
 
     # tools
     pkgs.localsend
+    pkgs.obsidian
   ]
   ++ (
     if device != "macbook" then
