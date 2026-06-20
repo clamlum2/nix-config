@@ -30,6 +30,7 @@ in
     #
     pkgs.git
     pkgs.python3
+    pkgs.cargo
 
     # media
     pkgs.spotify
