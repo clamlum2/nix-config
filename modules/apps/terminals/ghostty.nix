@@ -8,7 +8,7 @@
       background = "#161828";
       background-opacity = 1;
       # font-family = "DejaVuSansM Nerd Font Mono";
-      font-size = 12;
+      font-size = 16;
       theme = "Kitty Default";
       custom-shader-animation = "always";
       # custom-shader = "cursor.glsl";
@@ -19,6 +19,7 @@
       foreground = "#ffffff";
       cursor-click-to-move = true;
       focus-follows-mouse = true;
+      quit-after-last-window-closed = true;
 
       shell-integration-features = [
         "ssh-env"
