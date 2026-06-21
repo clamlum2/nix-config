@@ -68,6 +68,10 @@
         devShells.default = craneLib.devShell {
           inputsFrom = [ zedLauncher ];
           buildInputs = pkgs.lib.optionals (!isDarwin) linuxRuntimeLibs;
+          shellHook = ''
+            export RUST_SRC_PATH=${pkgs.rustPlatform.rustLibSrc}
+            exec zsh
+          '';
         };
       }
     );

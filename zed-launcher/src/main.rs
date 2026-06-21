@@ -1,21 +1,20 @@
-use eframe::egui;
+use egui::Key;
+use egui::Modifiers;
 use fuzzy_matcher::FuzzyMatcher;
 use fuzzy_matcher::skim::SkimMatcherV2;
-use std::env::var;
 use std::fs;
+use std::io::{Read, Write};
+use std::os::unix::net::{UnixListener, UnixStream};
 use std::path::{Path, PathBuf};
 use std::process::Command;
-use std::os::unix::net::{UnixListener, UnixStream};
-use std::io::{Read, Write};
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
+use std::sync::atomic::{AtomicBool, Ordering};
+use which::which;
 
-fn socket_path() -> PathBuf {
-    std::env::temp_dir().join("zed-launcher.sock")
-}
+use eframe::egui;
 
-fn try_notify_existing_instance() -> bool {
-    let path = socket_path();
+fn open_existing_instance() -> bool {
+    let path = std::env::temp_dir().join("zed-launcher.sock");
     match UnixStream::connect(&path) {
         Ok(mut stream) => {
             let _ = stream.write_all(b"show");
@@ -25,50 +24,10 @@ fn try_notify_existing_instance() -> bool {
     }
 }
 
-fn spawn_listener(show_requested: Arc<AtomicBool>, ctx: egui::Context) {
-    let path = socket_path();
-    let _ = fs::remove_file(&path);
-
-    let listener = match UnixListener::bind(&path) {
-        Ok(l) => l,
-        Err(e) => {
-            eprintln!("failed to bind socket: {e}");
-            return;
-        }
-    };
-
-    std::thread::spawn(move || {
-        for stream in listener.incoming().flatten() {
-            handle_connection(stream);
-            show_requested.store(true, Ordering::SeqCst);
-            ctx.request_repaint();
-        }
-    });
-}
-
-fn handle_connection(mut stream: UnixStream) {
-    let mut buf = [0u8; 4];
-    let _ = stream.read(&mut buf);
-}
-
 struct Entry {
     name: String,
     path: PathBuf,
     is_dir: bool,
-}
-
-fn resolve_login_path() -> Option<String> {
-    let shell = var("SHELL").unwrap_or_else(|_| "/bin/zsh".to_string());
-
-    let output = Command::new(shell).args(["-l", "-c", "echo $PATH"]).output().ok()?;
-
-    if output.status.success() {
-        let path = String::from_utf8_lossy(&output.stdout).trim().to_string();
-        if !path.is_empty() {
-            return Some(path)
-        }
-    }
-    None
 }
 
 struct App {
@@ -77,191 +36,7 @@ struct App {
     selected: usize,
     page: usize,
     input: String,
-    login_path: Option<String>,
     show_requested: Arc<AtomicBool>,
-}
-
-const PAGE_SIZE: usize = 10;
-
-impl App {
-    fn new(show_requested: Arc<AtomicBool>) -> Self {
-        let current_dir: PathBuf = var("HOME").unwrap().into();
-        Self {
-            entries: list_contents(&current_dir),
-            current_dir,
-            selected: 0,
-            page: 0,
-            input: String::new(),
-            login_path: resolve_login_path(),
-            show_requested,
-        }
-    }
-
-    fn reset(&mut self) {
-        self.current_dir = var("HOME").unwrap().into();
-        self.entries = list_contents(&self.current_dir);
-        self.selected = 0;
-        self.page = 0;
-        self.input.clear();
-    }
-}
-
-impl eframe::App for App {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-
-        if self.show_requested.swap(false, Ordering::SeqCst) {
-                log("show requested, making visible");
-            self.reset();
-            ctx.send_viewport_cmd(egui::ViewportCommand::Visible(true));
-            ctx.send_viewport_cmd(egui::ViewportCommand::Focus);
-        }
-
-        if ctx.input(|i| i.viewport().close_requested()) {
-            ctx.send_viewport_cmd(egui::ViewportCommand::CancelClose);
-            ctx.send_viewport_cmd(egui::ViewportCommand::Visible(false));
-        }
-
-        egui::CentralPanel::default().show(ctx, |ui| {
-            ctx.set_pixels_per_point(3.0);
-
-            let matcher = SkimMatcherV2::default();
-
-            let mut matches: Vec<(&Entry, i64)> = self
-                .entries
-                .iter()
-                .filter_map(|entry| {
-                    matcher
-                        .fuzzy_match(&entry.name, &self.input)
-                        .map(|score| (entry, score))
-                })
-                .collect();
-
-            matches.sort_by(|a, b| b.1.cmp(&a.1));
-
-            let mut open_path: Option<PathBuf> = None;
-            let mut change_dir: Option<PathBuf> = None;
-
-            let mut should_close = false;
-
-            ctx.input_mut(|i| {
-                if i.consume_key(egui::Modifiers::NONE, egui::Key::Escape) {
-                    should_close = true;
-                }
-
-                if i.consume_key(egui::Modifiers::NONE, egui::Key::ArrowDown) {
-                    if self.selected + 1 < matches.len() {
-                        self.selected += 1;
-
-                        if self.selected >= (self.page + 1) * PAGE_SIZE {
-                            self.page += 1;
-                        }
-                    }
-                }
-
-                if i.consume_key(egui::Modifiers::NONE, egui::Key::ArrowUp) {
-                    if self.selected > 0 {
-                        self.selected -= 1;
-
-                        if self.selected < self.page * PAGE_SIZE {
-                            self.page -= 1;
-                        }
-                    }
-                }
-
-                if i.consume_key(egui::Modifiers::NONE, egui::Key::Enter)
-                || i.consume_key(egui::Modifiers::NONE, egui::Key::Tab) {
-                    if let Some((entry, _score)) = matches.get(self.selected) {
-                        if entry.name == "." || !entry.is_dir {
-                            open_path = Some(entry.path.clone());
-                        } else {
-                            change_dir = Some(entry.path.clone());
-                        }
-                    }
-                }
-            });
-
-            if should_close {
-                ctx.send_viewport_cmd(egui::ViewportCommand::Visible(false));
-            }
-
-            let prompt = format!("{} > ", display_path(&self.current_dir));
-
-            ui.horizontal(|ui| {
-                ui.label(prompt);
-                let response = ui.text_edit_singleline(&mut self.input);
-
-                response.request_focus();
-
-                if response.changed() {
-                    self.selected = 0;
-                    self.page = 0
-                }
-            });
-
-            let total_pages = matches.len().div_ceil(PAGE_SIZE);
-
-            if self.page >= total_pages {
-                self.page = total_pages.saturating_sub(1);
-            }
-
-            let start = self.page * PAGE_SIZE;
-            let end = (start + PAGE_SIZE).min(matches.len());
-
-            let page_matches = &matches[start..end];
-
-            let local_selected = self.selected.saturating_sub(start);
-            let local_selected = local_selected.min(page_matches.len().saturating_sub(1));
-
-            for (i, (entry, _score)) in page_matches.iter().enumerate() {
-                let label = if entry.is_dir {
-                    format!("{}/", entry.name)
-                } else {
-                    entry.name.clone()
-                };
-
-                let is_selected = i == local_selected;
-
-                let response = ui.selectable_label(is_selected, label);
-
-                if response.clicked() {
-                    self.selected = start + i;
-                }
-            }
-
-            if let Some(path) = open_path {
-                let mut cmd = Command::new("zeditor");
-                cmd.arg(&path);
-                if let Some(login_path) = &self.login_path {
-                    cmd.env("PATH", login_path);
-                }
-
-                match cmd.spawn() {
-                    Ok(_) => ctx.send_viewport_cmd(egui::ViewportCommand::Visible(false)),
-                    Err(e) => eprintln!("failed to launch zed: {e}"),
-                }
-            }
-
-            if let Some(path) = change_dir {
-                self.current_dir = path;
-                self.entries = list_contents(&self.current_dir);
-                self.selected = 0;
-                self.page = 0;
-                self.input.clear();
-            }
-        });
-    }
-}
-
-fn display_path(path: &Path) -> String {
-    let home = var("HOME").ok();
-
-    if let Some(home) = home {
-        if let Ok(stripped) = path.strip_prefix(&home) {
-            return format!("~/{}", stripped.display());
-        }
-    }
-
-    path.display().to_string()
 }
 
 fn list_contents(path: &Path) -> Vec<Entry> {
@@ -278,6 +53,10 @@ fn list_contents(path: &Path) -> Vec<Entry> {
 
     for entry in entries.flatten() {
         let path = entry.path();
+
+        if path.file_name().unwrap().to_string_lossy().into_owned() == ".DS_Store" {
+            continue;
+        }
 
         if path.is_dir() {
             dirs.push(Entry {
@@ -316,30 +95,217 @@ fn list_contents(path: &Path) -> Vec<Entry> {
     result
 }
 
+impl App {
+    fn new(show_requested: Arc<AtomicBool>) -> Self {
+        let current_dir: PathBuf = std::env::var("HOME").unwrap().into();
+        Self {
+            entries: list_contents(&current_dir),
+            current_dir,
+            selected: 0,
+            page: 0,
+            input: String::new(),
+            show_requested,
+        }
+    }
+
+    fn reset(&mut self) {
+        self.current_dir = std::env::var("HOME").unwrap().into();
+        self.entries = list_contents(&self.current_dir);
+        self.selected = 0;
+        self.page = 0;
+        self.input.clear();
+    }
+}
+
+fn display_path(path: &Path) -> String {
+    let home = std::env::var("HOME").ok();
+
+    if let Some(home) = home {
+        if let Ok(stripped) = path.strip_prefix(&home) {
+            return format!("~/{}", stripped.display());
+        }
+    }
+
+    path.display().to_string()
+}
+
+fn resolve_binary_path(binary_name: &str) -> Option<String> {
+    match which(binary_name) {
+        Ok(binary_path) => Some(binary_path.to_string_lossy().to_string()),
+        Err(e) => {
+            eprintln!("Failed to find binary: {}", e);
+            None
+        }
+    }
+}
+
+impl eframe::App for App {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        if self.show_requested.swap(false, Ordering::SeqCst) {
+            println!("making window visible");
+            self.reset();
+            ctx.send_viewport_cmd(egui::ViewportCommand::Visible(true));
+            ctx.send_viewport_cmd(egui::ViewportCommand::Focus);
+        }
+
+        if ctx.input(|i| i.viewport().close_requested()) {
+            ctx.send_viewport_cmd(egui::ViewportCommand::CancelClose);
+            ctx.send_viewport_cmd(egui::ViewportCommand::Visible(false));
+        }
+
+        egui::CentralPanel::default().show(ctx, |ui| {
+            ctx.set_pixels_per_point(3.0);
+
+            let mut matches: Vec<(&Entry, i64)> = self
+                .entries
+                .iter()
+                .filter_map(|entry| {
+                    SkimMatcherV2::default()
+                        .fuzzy_match(&entry.name, &self.input)
+                        .map(|score| (entry, score))
+                })
+                .collect();
+
+            matches.sort_by(|a, b| b.1.cmp(&a.1));
+
+            let mut should_close = false;
+
+            let mut open_path: Option<PathBuf> = None;
+            let mut change_dir: Option<PathBuf> = None;
+
+            ctx.input_mut(|i| {
+                if i.consume_key(Modifiers::NONE, Key::Escape) {
+                    should_close = true;
+                }
+
+                if i.consume_key(Modifiers::NONE, Key::ArrowDown) {
+                    if self.selected < 9 {
+                        self.selected += 1;
+                    }
+                }
+
+                if i.consume_key(Modifiers::NONE, Key::ArrowUp) {
+                    if self.selected > 0 {
+                        self.selected -= 1;
+                    }
+                }
+
+                if i.consume_key(Modifiers::NONE, Key::Enter)
+                    || i.consume_key(Modifiers::NONE, Key::Tab)
+                {
+                    if let Some((entry, _score)) = matches.get(self.selected) {
+                        if entry.name == "." || !entry.is_dir {
+                            open_path = Some(entry.path.clone());
+                        } else {
+                            change_dir = Some(entry.path.clone());
+                        }
+                    }
+                }
+            });
+
+            if should_close {
+                ctx.send_viewport_cmd(egui::ViewportCommand::Visible(false));
+            }
+
+            let prompt = format!("{} > ", display_path(&self.current_dir));
+
+            ui.horizontal(|ui| {
+                ui.label(prompt);
+
+                let response = ui.text_edit_singleline(&mut self.input);
+
+                response.request_focus();
+
+                if response.changed() {
+                    self.selected = 0;
+                    self.page = 0;
+                }
+            });
+
+            for (i, (entry, _score)) in matches.iter().take(10).enumerate() {
+                let label = if entry.is_dir {
+                    format!("{}/", entry.name)
+                } else {
+                    entry.name.clone()
+                };
+
+                let is_selected = i == self.selected;
+
+                let response = ui.selectable_label(is_selected, label);
+
+                if response.clicked() {
+                    self.selected = 1;
+                }
+            }
+
+            if let Some(path) = open_path {
+                let binary_path = match resolve_binary_path("zeditor") {
+                    Some(path) => path,
+                    _ => {
+                        eprintln!("Could not find 'zeditor' binary");
+                        return;
+                    }
+                };
+
+                match Command::new(&binary_path).arg(&path).spawn() {
+                    Ok(_) => ctx.send_viewport_cmd(egui::ViewportCommand::Visible(false)),
+                    Err(e) => eprintln!("failed to launch {binary_path}: {e}"),
+                }
+            }
+
+            if let Some(path) = change_dir {
+                self.current_dir = path;
+                self.entries = list_contents(&self.current_dir);
+                self.selected = 0;
+                self.page = 0;
+                self.input.clear();
+            }
+        });
+    }
+}
+
+fn handle_connection(mut stream: UnixStream) {
+    let mut buf = [0u8; 4];
+    let _ = stream.read(&mut buf);
+}
+
+fn spawn_listener(show_requested: Arc<AtomicBool>, ctx: egui::Context) {
+    let path = std::env::temp_dir().join("zed-launcher.sock");
+    let _ = fs::remove_file(&path);
+
+    let listener = match UnixListener::bind(&path) {
+        Ok(l) => l,
+        Err(e) => {
+            eprintln!("failed to bind socket: {e}");
+            return;
+        }
+    };
+
+    std::thread::spawn(move || {
+        for stream in listener.incoming().flatten() {
+            handle_connection(stream);
+            show_requested.store(true, Ordering::SeqCst);
+            ctx.request_repaint();
+        }
+    });
+}
+
 fn main() -> eframe::Result<()> {
-    log("main start");
-    if try_notify_existing_instance() {
-        log("notified existing instance, exiting");
+    if open_existing_instance() {
+        println!("connected to existing instance");
         return Ok(());
     }
-    log("no existing instance, becoming server");
+
+    println!("no existing instance");
 
     let show_requested = Arc::new(AtomicBool::new(false));
 
-    let mut options = eframe::NativeOptions {
+    let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_inner_size([300.0, 375.0])
             .with_resizable(false),
-       ..Default::default()
+        ..Default::default()
     };
-
-    #[cfg(target_os = "macos")]
-    {
-        use winit::platform::macos::{ActivationPolicy, EventLoopBuilderExtMacOS};
-        options.event_loop_builder = Some(Box::new(|builder| {
-            builder.with_activation_policy(ActivationPolicy::Accessory);
-        }));
-    }
 
     eframe::run_native(
         "Zed Launcher",
@@ -349,15 +315,4 @@ fn main() -> eframe::Result<()> {
             Ok(Box::new(App::new(show_requested)))
         }),
     )
-}
-
-fn log(msg: &str) {
-    use std::io::Write;
-    if let Ok(mut f) = std::fs::OpenOptions::new()
-        .create(true)
-        .append(true)
-        .open("/tmp/zed-launcher.log")
-    {
-        let _ = writeln!(f, "{msg}");
-    }
 }
