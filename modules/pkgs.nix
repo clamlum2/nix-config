@@ -30,6 +30,8 @@ in
     #
     pkgs.git
     pkgs.python3
+    pkgs.rustc
+    pkgs.rustPlatform.rustLibSrc
     pkgs.cargo
 
     # media
