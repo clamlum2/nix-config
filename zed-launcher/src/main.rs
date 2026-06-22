@@ -161,6 +161,7 @@ impl eframe::App for App {
                 .iter()
                 .filter_map(|entry| {
                     SkimMatcherV2::default()
+                        .ignore_case()
                         .fuzzy_match(&entry.name, &self.input)
                         .map(|score| (entry, score))
                 })
