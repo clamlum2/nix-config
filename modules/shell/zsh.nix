@@ -49,7 +49,11 @@
 
     f () {
       if [[ $# -eq 0 ]]; then
-        nix shell
+        if [[ -f flake.nix ]]; then
+          nix develop
+        else
+          nix shell
+        fi
       else
         nix shell "''${@/#/nixpkgs#}"
       fi
