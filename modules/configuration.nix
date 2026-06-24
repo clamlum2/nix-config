@@ -8,23 +8,9 @@
     "@wheel"
   ];
 
-  networking.networkmanager = {
-    enable = true;
-    dns = "systemd-resolved";
-  };
+  networking.networkmanager.enable = true;
 
-  services.resolved = {
-    enable = true;
-    settings = {
-      Resolve = {
-        DNS = "1.1.1.1#cloudflare-dns.com";
-        FallbackDNS = "1.0.0.1#cloudflare-dns.com";
-        DNSOverTLS = "yes";
-        DNSSEC = "true";
-        Domains = "~.";
-      };
-    };
-  };
+  security.pki.certificateFiles = [ ../resources/certs/ca.crt ];
 
   services.openssh.enable = true;
 
