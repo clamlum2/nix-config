@@ -115,5 +115,6 @@ fi
 if [[ "$GC" -eq 1 ]]; then
     echo "==> Running garbage collection"
     sudo nix-collect-garbage -d 2>/dev/null | tail -n 1
+    nix collect-garbage -d 2>/dev/null | tail -n 1
     echo "==> Garbage collection complete"
 fi
