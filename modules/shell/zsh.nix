@@ -38,7 +38,7 @@
     alias nrt="sh ~/nix-config/scripts/rebuild.sh -a test"
     alias nrbu="sh ~/nix-config/scripts/rebuild.sh -a build"
     alias nrbo="sh ~/nix-config/scripts/rebuild.sh -a boot"
-    alias ncg="sudo nix-collect-garbage -d 2>/dev/null | tail -n 1"
+    alias ncg="sudo nix-collect-garbage -d 2>/dev/null | tail -n 1 && nix-collect-garbage -d 2>/dev/null | tail -n 1"
 
     i () {
       if [[ $# -eq 0 ]]; then
