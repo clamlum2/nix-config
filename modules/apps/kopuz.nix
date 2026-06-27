@@ -1,9 +1,8 @@
-{
-  pkgs,
-  inputs,
-  ...
-}:
+{ pkgs, inputs, ... }:
 
+let
+  kopuz = inputs.kopuz.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in
 {
   nix.settings = {
     substituters = [ "https://kopuz.cachix.org" ];
@@ -13,6 +12,6 @@
   };
 
   environment.systemPackages = [
-    inputs.kopuz.packages.${pkgs.stdenv.hostPlatform.system}.default
+    kopuz
   ];
 }
