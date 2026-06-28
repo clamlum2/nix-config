@@ -7,7 +7,7 @@
 
 let
   pname = "helium-browser";
-  version = "0.13.4.1";
+  version = "0.13.6.1";
 
   extraFlags = "--password-store=basic";
 
