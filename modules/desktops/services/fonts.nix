@@ -1,4 +1,9 @@
-{ pkgs, lib, device, ... }:
+{
+  pkgs,
+  lib,
+  device,
+  ...
+}:
 
 lib.mkMerge [
   {
