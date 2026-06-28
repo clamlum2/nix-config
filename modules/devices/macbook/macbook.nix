@@ -37,4 +37,12 @@
     home.stateVersion = "26.05";
     home.file.".hushlogin".text = "";
   };
+
+  homebrew = {
+    enable = true;
+
+    casks = [
+      "wine@staging"
+    ];
+  };
 }
