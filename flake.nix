@@ -19,8 +19,6 @@
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
-    nixos-lxc.url = "path:./lxc-config";
-
     plasma-manager = {
       url = "github:pjones/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
