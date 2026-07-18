@@ -18,7 +18,6 @@ let
     pkgs.rustPlatform.rustLibSrc
     pkgs.cargo
 
-    pkgs.spotify
     pkgs.mpv
     pkgs.ffmpeg
 
