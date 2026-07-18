@@ -27,7 +27,7 @@
 
     zed-launcher = {
       url = "path:./zed-launcher";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
   };
 
