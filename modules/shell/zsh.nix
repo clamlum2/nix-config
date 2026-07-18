@@ -78,6 +78,17 @@
         fi
     }
 
+    function reencode() {
+        local input="$1"
+        local output="''${input:r}.mp4"
+
+        ffmpeg -i "$input" \
+            -vf scale=1920:1080 \
+            -c:v libsvtav1 -crf 28 -preset 6 \
+            -c:a aac -b:a 128k \
+            "$output"
+    }
+
     eval "$(zoxide init zsh)"
 
     if [[ -n "$IN_NIX_SHELL" || "''${PATH%%:*}" == /nix/store/* ]]; then
