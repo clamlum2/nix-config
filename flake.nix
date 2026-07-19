@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    kopuz.url = "github:temidaradev/kopuz";
+    kopuz.url = "github:clamlum/kopuz";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
