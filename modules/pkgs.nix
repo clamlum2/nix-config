@@ -54,6 +54,7 @@ let
     pkgs.jdk25
     pkgs.jetbrains.idea
     pkgs.prismlauncher
+    stable.yt-dlp
   ];
 in
 
