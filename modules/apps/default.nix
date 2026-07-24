@@ -1,6 +1,7 @@
 { device, username, ... }:
 {
   imports = [
+    ./android.nix
     ./zed.nix
 
     ./terminals
