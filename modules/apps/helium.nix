@@ -7,13 +7,13 @@
 
 let
   pname = "helium-browser";
-  version = "0.14.6.1";
+  version = "0.14.8.2";
 
   extraFlags = "--password-store=basic";
 
   src = fetchurl {
     url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
-    sha256 = "sha256-qdM1Qysx5OOBwzr6A6tyPIfZcHxn2YkIPedGelvbk7I=";
+    sha256 = "sha256-7Kde6Crsr6LdKnfER+6yE7JkU6+10xXtJ1GQEHhBtqg=";
   };
 
   extracted = appimageTools.extract {
