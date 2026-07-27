@@ -12,6 +12,7 @@
         ./gaming.nix
         ./obs.nix
         ./kopuz.nix
+        ./resolve.nix
       ]
     else
       [ ]
