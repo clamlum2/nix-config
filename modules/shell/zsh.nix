@@ -18,7 +18,6 @@
 
   home.file.".zshrc".text = ''
     export ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"
-    export JAVA_HOME="${pkgs.jdk25}"
     export RUST_SRC_PATH=${pkgs.rustPlatform.rustLibSrc}
 
     source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
