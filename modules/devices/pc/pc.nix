@@ -72,4 +72,16 @@
     port = 11434;
     openFirewall = true;
   };
+
+  fileSystems."/mnt/music" = {
+    device = "//host.media.local/music";
+    fsType = "cifs";
+    options = [
+      "credentials=/etc/secrets/smb"
+      "nofail"
+      "x-systemd.automount"
+      "x-systemd.mount-timeout=5"
+      "soft"
+    ];
+  };
 }
