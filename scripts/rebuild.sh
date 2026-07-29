@@ -6,7 +6,7 @@ KERNEL_SCRIPT="$CONFIG_REPO/cachyos-kernel/scripts/update-kernel.sh"
 
 usage() {
     cat <<EOF
-Usage: $(basename "$0") [-u] [-k] [-a <action>] [-h <hostname>] [--help]
+Usage: $(basename "$0") [-u] [-a <action>] [-h <hostname>] [--help]
 Options:
   -u             Run 'nix flake update' and git pull before rebuilding
   -g             Run garbage collection after rebuilding
@@ -14,8 +14,6 @@ Options:
   -h <hostname>  Override hostname (default: current hostname)
   --help             Show this help
 EOF
-# -k             Run kernel update script before rebuilding
-# -s             Use stable kernel releases only (requires -k)
 }
 
 for arg in "$@"; do
@@ -26,8 +24,6 @@ for arg in "$@"; do
 done
 
 UPGRADE=0
-# KERNEL=0
-# STABLE=0
 GC=0
 ACTION="test"
 HOSTNAME=$(hostname)
@@ -58,22 +54,6 @@ if [[ ! -d "$CONFIG_REPO" ]]; then
     echo "Error: config repo '$CONFIG_REPO' not found"
     exit 1
 fi
-
-# if [[ "$KERNEL" -eq 1 ]]; then
-#     if [[ ! -x "$KERNEL_SCRIPT" ]]; then
-#         echo "Error: kernel update script not found at $KERNEL_SCRIPT"
-#         exit 1
-#     fi
-#     echo "==> Running kernel update"
-#     if [[ "$STABLE" -eq 1 ]]; then
-#         "$KERNEL_SCRIPT" -s
-#     else
-#         "$KERNEL_SCRIPT"
-#     fi
-#     echo "==> Kernel update complete"
-# elif [[ "$STABLE" -eq 1 ]]; then
-#     echo "Warning: -s has no effect without -k"
-# fi
 
 if [[ "$UPGRADE" -eq 1 ]]; then
     echo "==> Updating $CONFIG_REPO"

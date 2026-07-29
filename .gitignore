@@ -1,6 +1,4 @@
 result
 result-*
-kernel-config/
-resources/quickshell/bar-state.json
 resources/quickshell/.qmllls.ini
 .DS_Store
