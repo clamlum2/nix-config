@@ -25,6 +25,8 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    niri.url = "github:niri-wm/niri";
+
     zed-launcher = {
       url = "path:./zed-launcher";
       inputs.nixpkgs.follows = "nixpkgs-stable";
