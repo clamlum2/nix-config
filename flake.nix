@@ -61,7 +61,7 @@
               ./modules/apps
               ./modules/shell
               ./modules/desktops/niri
-              ./modules/desktops/kde
+              # ./modules/desktops/kde
               ./modules/desktops/services
               ./modules/desktops/dm
               inputs.lanzaboote.nixosModules.lanzaboote
