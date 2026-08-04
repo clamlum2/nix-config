@@ -73,6 +73,7 @@
     openFirewall = true;
   };
 
+  environment.systemPackages = [ pkgs.cifs-utils ];
   fileSystems."/mnt/music" = {
     device = "//host.media.local/music";
     fsType = "cifs";
@@ -82,6 +83,10 @@
       "x-systemd.automount"
       "x-systemd.mount-timeout=5"
       "soft"
+      "uid=1000"
+      "gid=100"
+      "file_mode=0644"
+      "dir_mode=0755"
     ];
   };
 }
