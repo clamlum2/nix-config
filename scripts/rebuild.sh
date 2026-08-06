@@ -32,7 +32,6 @@ OS="$(uname -s)"
 while getopts ":uksga:h:" opt; do
     case "$opt" in
         u) UPGRADE=1 ;;
-        k) KERNEL=1 ;;
         s) STABLE=1 ;;
         g) GC=1 ;;
         a) ACTION="$OPTARG" ;;
