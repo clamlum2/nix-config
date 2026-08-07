@@ -1,7 +1,7 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 let
-  niri-pkg = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  niri-pkg = pkgs.niri;
 in
 
 {
