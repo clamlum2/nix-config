@@ -55,6 +55,7 @@ let
     pkgs.jetbrains.idea
     pkgs.prismlauncher
     pkgs.libreoffice-bin
+    pkgs.virt-manager
     stable.yt-dlp
   ];
 in
