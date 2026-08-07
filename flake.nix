@@ -63,7 +63,7 @@
               ./modules/shell
               ./modules/desktops/niri
               # ./modules/desktops/kde
-              ./modules/desktops/services
+              ./modules/services
               ./modules/desktops/dm
               inputs.lanzaboote.nixosModules.lanzaboote
               inputs.home-manager.nixosModules.home-manager
@@ -96,7 +96,7 @@
               ./modules/devices/wsl
 
               ./modules/shell
-              ./modules/desktops/services
+              ./modules/services
               inputs.nixos-wsl.nixosModules.default
               inputs.home-manager.nixosModules.home-manager
             ];
@@ -120,7 +120,7 @@
               ./modules/apps
               ./modules/shell
               ./modules/desktops/niri
-              ./modules/desktops/services
+              ./modules/services
               ./modules/desktops/dm
               inputs.home-manager.nixosModules.home-manager
               {
@@ -149,7 +149,7 @@
             ./modules/devices/macbook
             ./modules/apps
             ./modules/shell
-            ./modules/desktops/services/fonts.nix
+            ./modules/services/fonts.nix
             inputs.home-manager.darwinModules.home-manager
             {
               home-manager = {
