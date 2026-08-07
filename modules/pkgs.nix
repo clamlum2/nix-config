@@ -2,6 +2,7 @@
   pkgs,
   nixpkgs-stable,
   device,
+  inputs,
   ...
 }:
 
@@ -34,7 +35,7 @@ let
     pkgs.p7zip
     pkgs.nautilus
 
-    (pkgs.callPackage ./apps/helium.nix { })
+    inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     (pkgs.discord.override {
       withVencord = true;

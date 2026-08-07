@@ -11,6 +11,7 @@
     };
 
     kopuz.url = "github:clamlum/kopuz";
+    helium.url = "github:clamlum/helium-flake";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
