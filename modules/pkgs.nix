@@ -36,11 +36,6 @@ let
     pkgs.nautilus
 
     inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
-
-    (pkgs.discord.override {
-      withVencord = true;
-      withOpenASAR = true;
-    })
   ];
 
   nixosPkgs = [
@@ -81,7 +76,6 @@ in
     if device != "macbook" then
       [
         (import apps/overlays/idea.nix)
-        (import apps/overlays/discord.nix)
       ]
     else
       [ ];
