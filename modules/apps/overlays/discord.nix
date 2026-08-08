@@ -56,7 +56,7 @@ let
   ];
 in
 {
-  discord = prev.discord.overrideAttrs (old: {
+  patchedDiscord = prev.discord.overrideAttrs (old: {
     nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.makeShellWrapper ];
 
     desktopItem = prev.makeDesktopItem {
