@@ -13,6 +13,7 @@
         ./obs.nix
         ./kopuz.nix
         ./resolve.nix
+        ./openrgb.nix
         ./discord.nix
       ]
     else

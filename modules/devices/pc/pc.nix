@@ -60,8 +60,6 @@
   #   xwayland.enable = true;
   # };
 
-  services.hardware.openrgb.enable = true;
-
   powerManagement.cpuFreqGovernor = "performance";
 
   services.ollama = {
