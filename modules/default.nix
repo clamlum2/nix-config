@@ -21,10 +21,10 @@
   home-manager.users.${username}.imports =
     [ ] ++ (if device != "macbook" then [ ./home.nix ] else [ ]);
 
-    nix.settings = {
-      auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
-    };
+  nix.settings = {
+    auto-optimise-store = true;
+    experimental-features = [ "nix-command" "flakes" ];
+  };
 
-    nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
 }
