@@ -49,8 +49,6 @@
     package = pkgs.sunshine;
   };
 
-  services.hardware.openrgb.enable = true;
-
   powerManagement.cpuFreqGovernor = "performance";
 
   services.ollama = {
