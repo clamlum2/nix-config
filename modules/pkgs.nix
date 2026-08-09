@@ -30,6 +30,8 @@ let
     pkgs.easyeffects
     pkgs.playerctl
     stable.handbrake
+    pkgs.picard
+    pkgs.libsForQt5.qt5ct
 
     pkgs.wl-clipboard
     pkgs.p7zip
