@@ -119,11 +119,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1786012642,
-        "narHash": "sha256-ahyOYsBEgRNzQm2UvZvdWTJFjW+0wmfckzxivgPqMso=",
+        "lastModified": 1786268177,
+        "narHash": "sha256-27rZ6asIGgtyKTB3qhK18drJk68T3Y+1yodU6sUffJ4=",
         "owner": "clamlum",
         "repo": "helium-flake",
-        "rev": "90d3b4f513fee8b7a4f167350a2b5410b571cc71",
+        "rev": "88001222d79623531167763bff06cf229896fb7d",
         "type": "github"
       },
       "original": {
