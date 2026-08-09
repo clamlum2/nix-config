@@ -252,6 +252,7 @@ binds {
 environment {
 	ELECTRON_OZONE_PLATFORM_HINT "auto"
     EDITOR "micro"
+    QT_QPA_PLATFORMTHEME "qt5ct"
 }
 
 gestures {
