@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ pkgs, lib, username, ... }:
 
 let
   openrgbPlugin = pkgs.stdenv.mkDerivation {
@@ -48,6 +48,9 @@ let
 in
 
 {
+  services.hardware.openrgb.enable = true;
+  # systemd.services.openrgb.enable = lib.mkForce false;
+
   environment.systemPackages = [ pkgs.openrgb ];
 
   boot.kernelModules = [ "i2c-dev" ];
@@ -62,4 +65,10 @@ in
 
   home-manager.users.${username}.home.file.".config/OpenRGB/plugins/libOpenRGBASRockRX9070XTPlugin.so".source =
     "${openrgbPlugin}/lib/libOpenRGBASRockRX9070XTPlugin.so";
-  }
+
+  system.activationScripts.openrgbRootPlugin = ''
+    mkdir -p /root/.config/OpenRGB/plugins
+    ln -sf ${openrgbPlugin}/lib/libOpenRGBASRockRX9070XTPlugin.so \
+      /root/.config/OpenRGB/plugins/libOpenRGBASRockRX9070XTPlugin.so
+  '';
+}
