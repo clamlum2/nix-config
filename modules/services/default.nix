@@ -9,6 +9,7 @@
       [
         ./audio.nix
         ./gtk.nix
+        ./qt.nix
       ]
     else
       [ ]
