@@ -49,7 +49,7 @@ in
 
 {
   services.hardware.openrgb.enable = true;
-  # systemd.services.openrgb.enable = lib.mkForce false;
+  systemd.services.openrgb.enable = lib.mkForce false;
 
   environment.systemPackages = [ pkgs.openrgb ];
 
