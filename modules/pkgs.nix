@@ -24,6 +24,8 @@ let
 
     pkgs.localsend
     pkgs.obsidian
+
+    inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   linuxPkgs = [
@@ -36,8 +38,6 @@ let
     pkgs.wl-clipboard
     pkgs.p7zip
     pkgs.nautilus
-
-    inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   nixosPkgs = [
