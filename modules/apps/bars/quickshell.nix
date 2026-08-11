@@ -1,8 +1,20 @@
 { pkgs, ... }:
 
+let
+  quickshell-wrapped = pkgs.symlinkJoin {
+    name = "quickshell-wrapped";
+    paths = [ pkgs.quickshell ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/qs --unset QT_QPA_PLATFORMTHEME
+      wrapProgram $out/bin/quickshell --unset QT_QPA_PLATFORMTHEME
+    '';
+  };
+in
+
 {
   home.packages = [
-    pkgs.quickshell
+    quickshell-wrapped
     pkgs.jq
     pkgs.inotify-tools
   ];
