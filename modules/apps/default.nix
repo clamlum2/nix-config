@@ -3,6 +3,7 @@
   imports = [
     ./android.nix
     ./zed.nix
+    ./kopuz.nix
 
     ./terminals
   ]
@@ -11,7 +12,6 @@
       [
         ./gaming.nix
         ./obs.nix
-        ./kopuz.nix
         ./resolve.nix
         ./openrgb.nix
         ./discord.nix
