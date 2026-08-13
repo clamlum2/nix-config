@@ -7,6 +7,7 @@ while true; do
     entries=$(
         printf '.\n'
         printf '..\n'
+        printf '/\n'
 
         find "$dir" -maxdepth 1 -mindepth 1 -type d -printf '%f/\n' 2>/dev/null | sort
 
@@ -30,6 +31,9 @@ while true; do
             exit 0
     elif [[ "$selected" == ".." ]]; then
             dir="$(dirname "$dir")"
+            continue
+    elif [[ "$selected" == "/" ]]; then
+            dir="/"
             continue
     elif [[ "$selected" == */ ]]; then
             dir="$dir/${selected%/}"
