@@ -18,7 +18,12 @@ let
     ];
   } (builtins.readFile ../../resources/discord/krisp-patcher.py);
 
-  patchedDiscord = pkgs.discord.overrideAttrs (old: {
+  discordPin = import (fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/b7c2ada94fe99c15b0dbcf4d11fd7850b957a436.tar.gz";
+    sha256 = "1hw875y585lkhygn09kcbmdgm58b0nb5k0d38qwlvfngprsnp2r0";
+  }) { inherit (pkgs) system; config.allowUnfree = true; };
+
+  patchedDiscord = discordPin.discord.overrideAttrs (old: {
     postFixup = (old.postFixup or "") + ''
       ${pkgs.findutils}/bin/find "$out/opt/Discord/modules" \
         -name 'discord_krisp.node' -exec ${discordPatcher} {} \;
@@ -49,7 +54,5 @@ let
   });
 in
 {
-  nixpkgs.overlays = [ (import ./overlays/discord.nix) ];
-
   environment.systemPackages = [ (patchedDiscord.override { withVencord = true;  withOpenASAR = true; })];
 }
