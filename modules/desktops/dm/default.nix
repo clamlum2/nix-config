@@ -1,3 +1,3 @@
 {
-  imports = [ ./greetd.nix ];
+  imports = [ ./ly.nix ];
 }
