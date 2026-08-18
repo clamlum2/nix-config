@@ -10,6 +10,7 @@
         ./audio.nix
         ./gtk.nix
         ./qt.nix
+        ./libinput.nix
       ]
     else
       [ ]

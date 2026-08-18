@@ -9,5 +9,17 @@
     [Glorious Model O]
     MatchName=Glorious Model O
     ModelBouncingKeys=1
+
+    [Endgame Gear HS Dongle]
+    MatchName=*Endgame Gear*
+    ModelBouncingKeys=1
+  '';
+
+  environment.etc."libinput/plugins/00-disable-debounce.lua".text = ''
+  libinput:register({1})
+
+  libinput:connect("new-evdev-device", function(device)
+    device:disable_feature("button-debouncing")
+  end)
   '';
 }
