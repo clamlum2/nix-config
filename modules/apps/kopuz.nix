@@ -1,10 +1,23 @@
-{ pkgs, inputs, device, ... }:
+{ pkgs, inputs, device, username, ... }:
+let
+  configDir = if device == "macbook" then
+    "Library/Application Support/com.temidaradev.kopuz"
+  else ".config/kopuz";
 
+  configFile = ''
+    discord_presence = false
+    settings_layout = "TopBar"
+    theme = "ayu-mirage"
+    ui_style = "Vaxry"
+  '';
+in
 if device == "nixos" then
 {
   environment.systemPackages = [
     inputs.custom-kopuz.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
+
+  home-manager.users.${username}.home.file."${configDir}/settings.toml".text = configFile;
 }
 else let
   system = pkgs.stdenv.hostPlatform.system;
@@ -16,19 +29,16 @@ else let
     version = "unstable";
     dontUnpack = true;
 
-    nativeBuildInputs = [ pkgs.imagemagick pkgs.libicns ];
-
     installPhase = ''
       appdir="$out/Applications/Kopuz.app/Contents"
       mkdir -p "$appdir/MacOS" "$appdir/Resources"
 
-      cat > "$appdir/MacOS/kopuz" <<EOF
-      #!/bin/sh
-      exec "${kopuzBin}/bin/kopuz" "\$@"
-      EOF
+      cp ${kopuzBin}/bin/kopuz "$appdir/MacOS/kopuz"
       chmod +x "$appdir/MacOS/kopuz"
 
-      cp ${kopuzSrc}/crates/kopuz/assets/icon.icns "$appdir/Resources/AppIcon.icns"
+      chmod +w "$appdir"
+
+      cp ${kopuzSrc}/crates/kopuz/assets/icon.icns "$appdir/Resources/Kopuz.icns"
       cp ${kopuzSrc}/crates/kopuz/Info.plist "$appdir/Info.plist"
     '';
   };
@@ -44,4 +54,6 @@ in
   environment.systemPackages = [
     kopuzApp
   ];
+
+  home-manager.users.${username}.home.file."${configDir}/settings.toml".text = configFile;
 }
