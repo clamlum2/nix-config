@@ -51,9 +51,9 @@ let
     pkgs.gradle_9
     pkgs.jdk25
     pkgs.jetbrains.idea
-    stable.prismlauncher
+    pkgs.prismlauncher
     pkgs.libreoffice-bin
-    pkgs.virt-manager
+    stable.virt-manager
     stable.yt-dlp
   ];
 in
