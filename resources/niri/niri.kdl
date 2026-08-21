@@ -16,6 +16,7 @@ input {
 
     touchpad {
         tap
+        scroll-factor 0.25
     }
 
     mouse {}
