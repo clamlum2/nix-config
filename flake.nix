@@ -78,6 +78,38 @@
             ];
           };
 
+        asahi =
+        let
+          device = "asahi";
+        in
+          mkSystem {
+            system = "aarch64-linux";
+            specialArgs = {
+              device = device;
+              inherit username;
+              inherit (inputs) self;
+              inherit inputs;
+            };
+            modules = [
+              ./modules
+              ./modules/devices/asahi
+              ./modules/apps
+              ./modules/shell
+              ./modules/desktops/niri
+              ./modules/services
+              ./modules/desktops/dm
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  sharedModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
+                  extraSpecialArgs = {
+                    inherit device username self;
+                  };
+                };
+              }
+            ];
+          };
+
         wsl =
           let
             device = "wsl";
