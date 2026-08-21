@@ -1,7 +1,6 @@
 { device, username, ... }:
 {
   imports = [
-    ./android.nix
     ./zed.nix
     ./kopuz.nix
 
@@ -10,6 +9,7 @@
   ++ (
     if device == "nixos" then
       [
+        ./android.nix
         ./gaming.nix
         ./obs.nix
         ./resolve.nix
@@ -23,7 +23,7 @@
   home-manager.users.${username}.imports =
     [ ]
     ++ (
-      if device == "nixos" || device == "laptop" then
+      if device != "macbook" then
         [
           ./fuzzel.nix
           ./micro.nix
