@@ -10,6 +10,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    apple-silicon-support = {
+      url = "github:nix-community/nixos-apple-silicon";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    asahi-firmware = {
+      url = "path:/etc/nixos-firmware";
+      flake = false;
+    };
+
     kopuz.url = "github:clamlum/kopuz";
     helium.url = "github:clamlum/helium-flake";
 
