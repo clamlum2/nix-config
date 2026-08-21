@@ -4,7 +4,7 @@
   imports =
     [ ]
     ++ (
-      if device == "nixos" || device == "laptop" then
+      if device != "macbook" then
         [
           ./configuration.nix
           ./pkgs.nix
