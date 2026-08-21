@@ -14,6 +14,7 @@
     pkgs.lsd
     pkgs.bat
     pkgs.zoxide
+    pkgs.file
   ];
 
   home.file.".zshrc".text = ''
