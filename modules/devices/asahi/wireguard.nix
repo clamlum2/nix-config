@@ -1,9 +1,10 @@
-{ ... }:
+{ username, ... }:
 
 {
   networking.wg-quick.interfaces = {
     wg0 = {
       configFile = "/etc/wireguard/wg0.conf";
+      autostart = false;
     };
   };
 
@@ -29,7 +30,7 @@
 
   security.sudo.extraRules = [
     {
-      users = [ "clamt" ];
+      users = [ username ];
       commands = [
         {
           command = "/run/current-system/sw/bin/systemctl start wg-quick-wg0";
