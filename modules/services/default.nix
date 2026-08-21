@@ -5,7 +5,7 @@
     ./fonts.nix
   ]
   ++ (
-    if device == "nixos" || device == "laptop" then
+    if device != "macbook" then
       [
         ./audio.nix
         ./gtk.nix
@@ -19,7 +19,7 @@
   home-manager.users.${username}.imports =
     [ ]
     ++ (
-      if device == "nixos" || device == "laptop" then
+      if device != "macbook" then
         [
           ./icons.nix
           ./mako.nix
