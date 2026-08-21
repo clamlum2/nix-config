@@ -23,7 +23,6 @@ let
     pkgs.ffmpeg
 
     pkgs.localsend
-    pkgs.obsidian
 
     inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
@@ -31,7 +30,6 @@ let
   linuxPkgs = [
     pkgs.easyeffects
     pkgs.playerctl
-    stable.handbrake
     pkgs.picard
     pkgs.libsForQt5.qt5ct
 
@@ -44,6 +42,12 @@ let
     pkgs.gradle_9
     pkgs.jdk25
     pkgs.idea
+  ];
+
+  asahiPkgs = [
+    pkgs.vesktop
+    pkgs.prismlauncher
+    pkgs.libreoffice-qt
   ];
 
   macbookPkgs = [
@@ -65,6 +69,8 @@ in
     ++ (
       if device == "nixos" then
         nixosPkgs ++ linuxPkgs
+      else if device == "asahi" then
+        asahiPkgs ++ linuxPkgs
       else if device == "macbook" then
         macbookPkgs
       else
