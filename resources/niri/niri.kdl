@@ -291,3 +291,7 @@ recent-windows {
         Mod+Shift+Tab { previous-window; }
     }
 }
+
+clipboard {
+    disable-primary
+}
