@@ -1,6 +1,13 @@
 { ... }:
 
 {
+  services.libinput = {
+    enable = true;
+    touchpad = {
+      disableWhileTyping = true;
+    };
+  };
+
   environment.etc."libinput/local-overrides.quirks".text = ''
     [Logitech PRO X 2 SE]
     MatchName=Logitech PRO X 2 SE
