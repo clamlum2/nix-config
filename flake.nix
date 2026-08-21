@@ -10,8 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    kopuz.url = "github:kopuz-org/kopuz";
-    custom-kopuz.url = "github:clamlum/kopuz";
+    kopuz.url = "github:clamlum/kopuz";
     helium.url = "github:clamlum/helium-flake";
 
     lanzaboote = {
