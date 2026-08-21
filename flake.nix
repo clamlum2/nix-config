@@ -97,7 +97,7 @@
             specialArgs = {
               device = device;
               inherit username;
-              inherit (inputs) self;
+              inherit (inputs) nixpkgs-stable self;
               inherit inputs;
             };
             modules = [
