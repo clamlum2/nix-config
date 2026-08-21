@@ -1,5 +1,4 @@
-{ pkgs,inputs, ... }:
-
+{ pkgs, inputs, ... }:
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -29,6 +28,7 @@
   environment.systemPackages = [
     pkgs.brightnessctl
     pkgs.btop
+    pkgs.distrobox
   ];
 
   services.upower.enable = true;
@@ -36,4 +36,9 @@
   hardware.bluetooth.enable = true;
 
   services.blueman.enable = true;
+
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
 }
