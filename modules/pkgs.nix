@@ -58,7 +58,6 @@ let
     pkgs.prismlauncher
     pkgs.libreoffice-bin
     stable.virt-manager
-    stable.yt-dlp
   ];
 in
 
@@ -81,11 +80,11 @@ in
     config.allowUnfree = true;
   };
 
-  nixpkgs.overlays =
-    if device != "macbook" then
+  nixpkgs.overlays = [ ] ++
+    (if device != "macbook" then
       [
         (import apps/overlays/idea.nix)
       ]
     else
-      [ ];
+      [ ]);
 }
