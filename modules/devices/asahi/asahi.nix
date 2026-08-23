@@ -46,4 +46,6 @@
     enable = true;
     dockerCompat = true;
   };
+
+  services.cloudflare-warp.enable = true;
 }
