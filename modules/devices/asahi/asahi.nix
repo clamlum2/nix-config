@@ -48,4 +48,17 @@
   };
 
   services.cloudflare-warp.enable = true;
+
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "lock";
+    HandlePowerKey = "suspend";
+
+    IdleAction = "suspend";
+    IdleActionSec = "5min";
+  };
+
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "15min";
+  };
 }
