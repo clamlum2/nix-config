@@ -46,7 +46,9 @@
       options = [ "subvol=@swap" ];
     };
 
-  swapDevices = [ ];
+  swapDevices = [
+    { device = "/.swapvol/swapfile"; size = 8192; }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }
