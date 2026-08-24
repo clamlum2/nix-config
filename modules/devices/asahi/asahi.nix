@@ -4,7 +4,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "asahi";
-  networking.networkmanager.wifi.backend = "iwd";
+  # networking.networkmanager.wifi.backend = "iwd";
 
   services.libinput.enable = true;
 
