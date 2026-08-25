@@ -2,6 +2,7 @@
   config,
   pkgs,
   username,
+  device,
   ...
 }:
 
@@ -28,6 +29,10 @@
         lock = "${pkgs.swaylock-effects}/bin/swaylock -fF";
         before-sleep = "${pkgs.swaylock-effects}/bin/swaylock -fF";
       };
+      timeouts = [ ] ++ (if device == "asahi" then [
+        { timeout = 300; command = "${pkgs.swaylock-effects}/bin/swaylock -fF"; }
+        { timeout = 310; command = "${pkgs.systemd}/bin/systemctl suspend"; }
+      ] else []);
     };
   };
 }
