@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, lib, inputs, username, ... }:
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -44,16 +44,13 @@
 
   services.cloudflare-warp.enable = true;
 
-  services.logind.settings.Login = {
-    HandleLidSwitch = "suspend";
-    HandleLidSwitchExternalPower = "lock";
-    HandlePowerKey = "suspend";
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="apple-panel-bl", \
+      RUN+="${pkgs.coreutils}/bin/chown root:video /sys/class/backlight/%k/brightness", \
+      RUN+="${pkgs.coreutils}/bin/chmod 777 /sys/class/backlight/%k/brightness"
 
-    IdleAction = "suspend";
-    IdleActionSec = "5min";
-  };
-
-  systemd.sleep.settings.Sleep = {
-    HibernateDelaySec = "15min";
-  };
+    ACTION=="add", SUBSYSTEM=="leds", KERNEL=="kbd_backlight", \
+      RUN+="${pkgs.coreutils}/bin/chown root:video /sys/class/leds/%k/brightness", \
+      RUN+="${pkgs.coreutils}/bin/chmod 777 /sys/class/leds/%k/brightness"
+  '';
 }
