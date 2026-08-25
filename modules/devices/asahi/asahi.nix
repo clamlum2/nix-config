@@ -20,12 +20,7 @@
 
   hardware.apple.touchBar = {
     enable = true;
-    package = pkgs.tiny-dfr;
-    settings = {
-      MediaLayerDefault = true;
-      ShowButtonOutlines = false;
-      EnablePixelShift = true;
-    };
+    package = inputs.not-quite-tiny-dfr.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   hardware.asahi.peripheralFirmwareDirectory = inputs.asahi-firmware;
