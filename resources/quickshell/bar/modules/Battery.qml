@@ -4,6 +4,8 @@ import Quickshell.Io
 Item {
     id: root
 
+    visible: available
+
     implicitWidth: available ? (level >= 100 ? 42 : level <= 9 ? 26 : 34) : 0
     implicitHeight: parent.height
 
@@ -13,16 +15,32 @@ Item {
     property string icon: charging ? "󰂄" : level >= 90 ? "󰁹" : level >= 80 ? "󰂀" : level >= 70 ? "󰁿" : level >= 60 ? "󰁾" : level >= 50 ? "󰁽" : level >= 40 ? "󰁼" : level >= 30 ? "󰁻" : level >= 20 ? "󰁺" : level >= 10 ? "󰂃" : "󰂎"
 
     Process {
-        id: batteryProc
-        command: ["sh", "-c", "upower -b | awk '/percentage/{pct=int($2)} /state/{st=$2} END{print pct, st}'"]
+        id: batteryCheckProc
+        command: ["sh", "-c", "command -v upower >/dev/null 2>&1 && echo yes || echo no"]
         running: true
+        stdout: SplitParser {
+            onRead: data => {
+                root.available = data.trim() === "yes";
+                if (root.available) {
+                    batteryProc.running = true;
+                    monitor.running = true;
+                }
+            }
+        }
+    }
+
+    Process {
+        id: batteryProc
+        command: ["sh", "-c", "upower -i $(upower -e | grep 'BAT') | awk '/percentage/{pct=int($2)} /state/{st=$2} END{print pct, st}'"]
+        running: false
         stdout: SplitParser {
             onRead: data => {
                 const parts = data.trim().split(/\s+/);
                 const parsedLevel = parseInt(parts[0]);
-                root.available = !isNaN(parsedLevel);
-                root.level = root.available ? parsedLevel : "0";
-                root.charging = root.available && parts[1] === "charging";
+                if (!isNaN(parsedLevel)) {
+                    root.level = parsedLevel;
+                    root.charging = parts[1] === "charging";
+                }
             }
         }
     }
@@ -30,7 +48,7 @@ Item {
     Process {
         id: monitor
         command: ["sh", "-c", "upower -m"]
-        running: true
+        running: false
         stdout: SplitParser {
             onRead: batteryProc.running = true
         }

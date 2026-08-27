@@ -76,12 +76,12 @@ Item {
 
     Process {
         id: focusedProc
-        command: ["sh", "-c", "niri msg -j focused-window 2>/dev/null | jq -r '.app_id // empty'"]
+        command: ["sh", "-c", "niri msg -j focused-window 2>/dev/null | jq -r '.app_id // \"\"'"]
         running: true
         stdout: SplitParser {
             onRead: data => {
                 const v = data.trim();
-                root.windowClass = v || "";
+                root.windowClass = v;
             }
         }
     }
