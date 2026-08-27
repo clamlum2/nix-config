@@ -4,7 +4,7 @@
   home.file.".oh-my-zsh/custom/themes/custom.zsh-theme".text = ''
     PROMPT="%F{#4CAF50}%n@%f"
     PROMPT+="%F{#81C784}%m%f "
-    PROMPT+="%F{#A5D6A7}%~%f  "
+    PROMPT+="%F{#A5D6A7}%4~%f  "
     PROMPT+="%(?:%F{#4CAF50}%1{➜%} :%F{#E53935}%1{➜%} )%{$reset_color%}"
 
     RPROMPT='$(git_prompt_info)'
