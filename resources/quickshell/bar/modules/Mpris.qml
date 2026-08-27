@@ -5,7 +5,9 @@ Item {
     id: root
     implicitHeight: Theme.barHeight
 
-    property var preferredPlayers: ["kopuz", "spotify", "helium"]
+    property var preferredPlayers: ["kopuz", "helium"]
+    property int maxTitleLength: 80
+    property int maxArtistLength: 80
     property var playerList: Mpris.players ? Mpris.players.values : []
 
     function matches(pref, p) {
@@ -31,9 +33,16 @@ Item {
         }
         return list.find(pl => isPlaying(pl)) || list[0] || null;
     }
-    property string title: player?.metadata?.["xesam:title"] || ""
-    property string artist: player?.metadata?.["xesam:artist"]?.join(", ") || ""
+
+    function _clip(s, max) {
+        const str = (s || "").toString();
+        return max > 0 && str.length > max ? str.slice(0, max - 1) + "…" : str;
+    }
+
+    property string title: _clip(player?.metadata?.["xesam:title"] || "", maxTitleLength)
+    property string artist: _clip(player?.metadata?.["xesam:artist"]?.join(", ") || "", maxArtistLength)
     property string trackText: title && artist ? (title + " - " + artist) : (title || artist || "")
+
     property bool active: !!player && player.playbackStatus !== "Stopped"
     property string identity: (player?.identity || "").toString()
 
