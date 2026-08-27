@@ -5,5 +5,6 @@
     ./zsh.nix
     ./themes/blue.nix
     ./git.nix
+    ./nix-shell.nix
   ];
 }

@@ -48,18 +48,6 @@
       fi
     }
 
-    f () {
-      if [[ $# -eq 0 ]]; then
-        if [[ -f flake.nix ]]; then
-          nix develop
-        else
-          nix shell
-        fi
-      else
-        nix shell "''${@/#/nixpkgs#}"
-      fi
-    }
-
     function sshkey() {
         if [[ -n $SSH_CONNECTION ]]; then
             echo "Not running copy command over SSH."
