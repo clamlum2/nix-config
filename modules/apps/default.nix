@@ -27,7 +27,6 @@
         [
           ./fuzzel.nix
           ./micro.nix
-          ./yazi.nix
 
           ./bars/quickshell.nix
         ]
