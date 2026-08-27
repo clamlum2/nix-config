@@ -4,16 +4,33 @@ import QtQuick
 Item {
     id: root
 
-    implicitWidth: 16
+    visible: available
+
+    implicitWidth: available ? 16 : 0
     implicitHeight: parent.height
 
+    property bool available: false
     property bool bluetoothStatus: false
     property string icon: bluetoothStatus ? "" : "󰂲"
 
     Process {
+        id: bluetoothCheckProc
+        command: ["sh", "-c", "command -v bluetoothctl >/dev/null 2>&1 && echo yes || echo no"]
+        running: true
+        stdout: SplitParser {
+            onRead: data => {
+                root.available = data.trim() === "yes";
+                if (root.available) {
+                    monitor.running = true;
+                }
+            }
+        }
+    }
+
+    Process {
         id: bluetoothStatusProc
         command: ["sh", "-c", "bluetoothctl show | grep 'Powered:' | awk '{print $2}'"]
-        running: true
+        running: false
         stdout: SplitParser {
             onRead: data => {
                 root.bluetoothStatus = data.trim() === "yes";
@@ -24,7 +41,7 @@ Item {
     Process {
         id: monitor
         command: ["sh", "-c", "bluetoothctl monitor"]
-        running: true
+        running: false
         stdout: SplitParser {
             onRead: data => {
                 bluetoothStatusProc.running = true;
