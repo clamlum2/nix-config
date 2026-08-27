@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1786862401,
-        "narHash": "sha256-zRPYCn5RJWxr9uyUwNIQjPsTFcIFRwuRnI91dqvGA0k=",
+        "lastModified": 1787749944,
+        "narHash": "sha256-kJx0zNcW00CSRWHm0w1dhHBF+bNP89eW8ekdfN6pwqs=",
         "owner": "nix-community",
         "repo": "nixos-apple-silicon",
-        "rev": "53798a0eb0fa4c8cfaeca7bdc5b4ad22ed210c95",
+        "rev": "cae818c72b2138510334850a3ff435831703bd23",
         "type": "github"
       },
       "original": {
@@ -24,8 +24,8 @@
     "asahi-firmware": {
       "flake": false,
       "locked": {
-        "lastModified": 1787282518,
-        "narHash": "sha256-dBbT+gb06tWWUvOwcDyXdxCNjajtBx8wwbCFCNntlDk=",
+        "lastModified": 1787546558,
+        "narHash": "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=",
         "path": "/etc/nixos-firmware",
         "type": "path"
       },
@@ -203,11 +203,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787715947,
-        "narHash": "sha256-jT6g5aWwA6TrIUJhqQ9ssm8W5e8vAl2Bv8gddEKKVNU=",
+        "lastModified": 1787792689,
+        "narHash": "sha256-mpSjCFly5xK0UhDb6/55dnbNYR+M8ZNoFQlqgztuThY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7690127e7e1c90ab1dcaff525d0dafbeb7e14182",
+        "rev": "9dc641cd5243420033731784b4cad15b16d8f47c",
         "type": "github"
       },
       "original": {
@@ -224,11 +224,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1787726537,
-        "narHash": "sha256-OGW6GS3AljPpqGHTyETZtNIKBP3PNf5rAMSM5AbmRcg=",
+        "lastModified": 1787795388,
+        "narHash": "sha256-y/PT9/gKNF/faXSCawWclooebHVJcfYdZbTnemrt6bM=",
         "owner": "clamlum",
         "repo": "kopuz",
-        "rev": "4dcc29ff37877828e59ad36b389ca9574d530a49",
+        "rev": "cb07a83186b89067df8512c4b0ad79ec87224bc8",
         "type": "github"
       },
       "original": {
@@ -319,11 +319,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1787640266,
-        "narHash": "sha256-MrkfE5hF5xx4L/0h5NyJ3xQkKVftwSuKSkFSrvlTxGY=",
+        "lastModified": 1787753485,
+        "narHash": "sha256-BZWCi9ZRJiARTuKTbbtvFTj7t1TK4G3UEckT3HyNfRg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f4f698677b11021a8f84f452e23ae9ef2427bec3",
+        "rev": "062346a6d85bc4b49dfaa61c986e9c5be21217d1",
         "type": "github"
       },
       "original": {
@@ -400,14 +400,17 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1787723926,
-        "narHash": "sha256-w7qLX2WqMeM5NTT9PvKY3YO1NNaXl9nfz4idGRMrwmc=",
-        "path": "/home/clamt/Projects/not-quite-tiny-dfr",
-        "type": "path"
+        "lastModified": 1787795124,
+        "narHash": "sha256-/1+S6I9k+kfjiwf4g1aJaR8p6B+JjlhKw6OHIN38rd0=",
+        "ref": "refs/heads/master",
+        "rev": "cf602c301862bf5febc651076428e0972e234217",
+        "revCount": 210,
+        "type": "git",
+        "url": "ssh://git@github.com/clamlum/not-quite-tiny-dfr.git"
       },
       "original": {
-        "path": "/home/clamt/Projects/not-quite-tiny-dfr",
-        "type": "path"
+        "type": "git",
+        "url": "ssh://git@github.com/clamlum/not-quite-tiny-dfr.git"
       }
     },
     "plasma-manager": {
