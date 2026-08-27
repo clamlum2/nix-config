@@ -34,11 +34,13 @@
     alias cd="z"
     alias zed="zeditor"
 
-    alias nrs="sh ~/nix-config/scripts/rebuild.sh -a switch"
-    alias nrt="sh ~/nix-config/scripts/rebuild.sh -a test"
-    alias nrbu="sh ~/nix-config/scripts/rebuild.sh -a build"
-    alias nrbo="sh ~/nix-config/scripts/rebuild.sh -a boot"
-    alias ncg="sudo nix-collect-garbage -d 2>/dev/null | tail -n 1 && nix-collect-garbage -d 2>/dev/null | tail -n 1"
+    REBUILD_SCRIPT="~/nix-config/scripts/rebuild.sh"
+
+    alias nrs="sh $REBUILD_SCRIPT -a switch"
+    alias nrt="sh $REBUILD_SCRIPT -a test"
+    alias nrbu="sh $REBUILD_SCRIPT -a build"
+    alias nrbo="sh $REBUILD_SCRIPT -a boot"
+    alias ncg="echo Running nix-collect-garbage... && sudo nix-collect-garbage -d 2>/dev/null | tail -n 1 && nix-collect-garbage -d 2>/dev/null | tail -n 1"
 
     i () {
       if [[ $# -eq 0 ]]; then
@@ -55,14 +57,6 @@
         else
             cat ~/.ssh/id_ed25519.pub | wl-copy
             echo "Public key copied to clipboard."
-        fi
-    }
-
-    function prox() {
-        if [[ -n $1 ]]; then
-            ssh root@192.168.1.$1
-        else
-            echo "Usage: prox <last octet of remote machine ip>"
         fi
     }
 
