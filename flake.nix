@@ -20,7 +20,7 @@
       flake = false;
     };
 
-    not-quite-tiny-dfr.url = "path:/home/clamt/Projects/not-quite-tiny-dfr";
+    not-quite-tiny-dfr.url = "git+ssh://git@github.com/clamlum/not-quite-tiny-dfr.git";
 
     kopuz.url = "github:clamlum/kopuz";
     helium.url = "github:clamlum/helium-flake";
