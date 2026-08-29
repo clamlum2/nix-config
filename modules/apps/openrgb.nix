@@ -4,7 +4,7 @@ let
     owner = "VirulentArc";
     repo = "openrgb-asrock-rx9070xt-steel-legend-controller";
     rev = "main";
-    hash = "sha256-RHO3Cux6oknXNjPZipR66kLdy3vP/qH7Ao0ANEembTo=";
+    hash = "sha256-6jqo7uuC+7Q6j9Jpr/O6b6KkaYTJy2mBX535V5CDHvY=";
   };
 
   openrgbWithAsrock = pkgs.openrgb.overrideAttrs (old: {
