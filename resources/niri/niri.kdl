@@ -246,7 +246,7 @@ binds {
     Mod+Ctrl+Up { spawn-sh "sh $HOME/nix-config/scripts/volume.sh +"; }
     Mod+Ctrl+Down { spawn-sh "sh $HOME/nix-config/scripts/volume.sh -"; }
 
-    KP_Subtract { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle ** echo 1 > /tmp/mic-changed"; }
+    KP_Subtract { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
     Mod+Shift+Grave { spawn-sh "sh $HOME/.config/quickshell/position.sh"; }
 
