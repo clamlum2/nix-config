@@ -31,7 +31,7 @@ Item {
 
     Process {
         id: batteryProc
-        command: ["sh", "-c", "upower -i $(upower -e | grep 'BAT') | awk '/percentage/{pct=int($2)} /state/{st=$2} END{print pct, st}'"]
+        command: ["sh", "-c", "upower -i $(upower -e | grep 'battery') | awk '/percentage/{pct=int($2)} /state/{st=$2} END{print pct, st}'"]
         running: false
         stdout: SplitParser {
             onRead: data => {
