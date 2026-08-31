@@ -1,5 +1,5 @@
 import QtQuick
-import Quickshell.Io
+import Quickshell.Networking
 
 Item {
     id: root
@@ -7,60 +7,29 @@ Item {
     implicitWidth: 20
     implicitHeight: parent.height
 
-    property bool ethernetStatus: false
-    property bool wifiStatus: false
-    property int wifiStrength: 0
-    property string icon: ethernetStatus ? "" : wifiStatus ? wifiStrengthIcon : "󰌙"
+    property var ethernetDevice: {
+        for (const d of Networking.devices.values)
+            if (d.type === DeviceType.Wired) return d
+        return null;
+    }
+
+    property var wifiDevice: {
+        for (const d of Networking.devices.values)
+            if (d.type === DeviceType.Wifi) return d
+        return null;
+    }
+
+    property bool ethernetStatus: ethernetDevice?.connected ?? false
+    property bool wifiStatus: wifiDevice?.connected ?? false
+
+    property int wifiStrength: {
+        if (!wifiDevice) return 0;
+        const net = wifiDevice.networks.values.find(n => n.connected);
+        return net ? Math.round(net.signalStrength * 100) : 0
+    }
+
     property string wifiStrengthIcon: wifiStrength > 75 ? "󰤨" : wifiStrength > 50 ? "󰤥" : wifiStrength > 25 ? "󰤢" : "󰤟"
-
-    Process {
-        id: networkStatusProc
-        command: ["sh", "-c", "nmcli -t -f TYPE,STATE device | grep -E 'ethernet|wifi'"]
-        running: true
-        stdout: SplitParser {
-            onRead: data => {
-                if (data.includes("ethernet:connected")) {
-                    root.ethernetStatus = true;
-                } else if (data.includes("ethernet:disconnected")) {
-                    root.ethernetStatus = false;
-                }
-
-                if (data.includes("wifi:connected")) {
-                    root.wifiStatus = true;
-                } else if (data.includes("wifi:disconnected")) {
-                    root.wifiStatus = false;
-                }
-            }
-        }
-    }
-
-    Process {
-        id: wifiStrengthProc
-        command: ["sh", "-c", "nmcli -t -f active,signal dev wifi list | grep '^yes' | cut -d: -f2"]
-        running: true
-        stdout: SplitParser {
-            onRead: data => {
-                root.wifiStrength = data;
-            }
-        }
-    }
-
-    Process {
-        id: monitor
-        command: ["sh", "-c", "nmcli m"]
-        running: true
-        stdout: SplitParser {
-            onRead: networkStatusProc.running = true
-        }
-    }
-
-    Timer {
-        id: wifiStrengthTimer
-        interval: 5000
-        repeat: true
-        running: true
-        onTriggered: wifiStrengthProc.running = true
-    }
+    property string icon: ethernetStatus ? "" : wifiStatus ? wifiStrengthIcon : "󰌙"
 
     Text {
         id: network_status

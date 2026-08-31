@@ -54,17 +54,13 @@ RowLayout {
 
             QsMenuAnchor {
                 id: menuAnchor
-                // qmllint disable unresolved-type
                 menu: delegate.item.menu
-                // qmllint enable unresolved-type
 
                 anchor.window: delegate.QsWindow.window
 
                 anchor.onAnchoring: {
                     const window = delegate.QsWindow.window;
-                    // qmllint disable missing-property
                     const widgetRect = window.contentItem.mapFromItem(delegate, 0, delegate.height, delegate.width, delegate.height);
-                    // qmllint enable missing-property
 
                     if (systemTray.isBottom === true) {
                         menuAnchor.anchor.rect = Qt.rect(widgetRect.x, -delegate.height, delegate.width, widgetRect.height);

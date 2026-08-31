@@ -1,4 +1,4 @@
-import Quickshell.Io
+import Quickshell.Bluetooth
 import QtQuick
 
 Item {
@@ -9,58 +9,13 @@ Item {
     implicitWidth: available ? 16 : 0
     implicitHeight: parent.height
 
-    property bool available: false
-    property bool bluetoothStatus: false
+    property bool available: Bluetooth.defaultAdapter !== null
+    property bool bluetoothStatus: Bluetooth.defaultAdapter ? Bluetooth.defaultAdapter.enabled : false
     property string icon: bluetoothStatus ? "" : "󰂲"
 
-    Process {
-        id: bluetoothCheckProc
-        command: ["sh", "-c", "command -v bluetoothctl >/dev/null 2>&1 && echo yes || echo no"]
-        running: true
-        stdout: SplitParser {
-            onRead: data => {
-                root.available = data.trim() === "yes";
-                if (root.available) {
-                    monitor.running = true;
-                }
-            }
-        }
-    }
-
-    Process {
-        id: bluetoothStatusProc
-        command: ["sh", "-c", "bluetoothctl show | grep 'Powered:' | awk '{print $2}'"]
-        running: false
-        stdout: SplitParser {
-            onRead: data => {
-                root.bluetoothStatus = data.trim() === "yes";
-            }
-        }
-    }
-
-    Process {
-        id: monitor
-        command: ["sh", "-c", "bluetoothctl monitor"]
-        running: false
-        stdout: SplitParser {
-            onRead: data => {
-                bluetoothStatusProc.running = true;
-            }
-        }
-    }
-
     function toggle() {
-        toggleBluetoothProc.running = true;
-    }
-
-    Process {
-        id: toggleBluetoothProc
-        command: ["sh", "-c", "bluetoothctl power " + (root.bluetoothStatus ? "off" : "on")]
-        // qmllint disable signal-handler-parameters
-        onExited: {
-            bluetoothStatusProc.running = true;
-        }
-        // qmllint enable signal-handler-parameters
+        if (Bluetooth.defaultAdapter)
+            Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled;
     }
 
     Text {

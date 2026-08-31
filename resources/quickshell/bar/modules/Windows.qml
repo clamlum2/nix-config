@@ -1,6 +1,5 @@
-import Quickshell.Io
 import QtQuick
-import "."
+import ".." as Bar
 
 Item {
     id: root
@@ -10,8 +9,9 @@ Item {
 
     property int maxTitleChars: 40
 
-    property string windowClass: ""
-    property string windowTitle: ""
+    property var currentWindow: Bar.Niri.focusedWindow
+    property string windowClass: currentWindow?.app_id || ""
+    property string windowTitle: currentWindow?.title || ""
 
     property var classOverrides: ({
             "code": {
@@ -46,17 +46,21 @@ Item {
                 name: "Nautilus",
                 icon: ""
             },
-            "feishin": {
-                name: "Feishin",
+            "kopuz": {
+                name: "Kopuz",
                 icon: ""
             },
             "dev.zed.Zed": {
                 name: "Zed",
-                icon: ""
+                icon: ""
             },
             "steam": {
                 name: "Steam",
                 icon: ""
+            },
+            "org.prismlauncher.PrismLauncher": {
+                name: "Prism Launcher",
+                icon: "󰍳"
             }
         })
 
@@ -73,27 +77,6 @@ Item {
     property var activeOverride: _override()
     property string displayIcon: activeOverride ? activeOverride.icon : ""
     property string displayName: activeOverride ? activeOverride.name : windowClass
-
-    Process {
-        id: focusedProc
-        command: ["sh", "-c", "niri msg -j focused-window 2>/dev/null | jq -r '.app_id // \"\"'"]
-        running: true
-        stdout: SplitParser {
-            onRead: data => {
-                const v = data.trim();
-                root.windowClass = v;
-            }
-        }
-    }
-
-    Process {
-        id: eventStream
-        command: ["niri", "msg", "-j", "event-stream"]
-        running: true
-        stdout: SplitParser {
-            onRead: focusedProc.running = true
-        }
-    }
 
     Row {
         id: row

@@ -4,7 +4,6 @@ import QtQuick.Layouts
 import "modules"
 import "../"
 
-// qmllint disable uncreatable-type
 PanelWindow {
     id: root
 
@@ -147,4 +146,3 @@ PanelWindow {
         }
     }
 }
-// qmllint enable uncreatable-type

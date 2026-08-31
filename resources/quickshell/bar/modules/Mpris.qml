@@ -13,8 +13,9 @@ Item {
     function matches(pref, p) {
         return ((p?.identity) || "").toString().toLowerCase().includes(pref);
     }
+
     function isPlaying(p) {
-        return p?.playbackStatus === "Playing" || p?.isPlaying === true;
+        return p?.isPlaying === true;
     }
 
     property var player: {
@@ -39,11 +40,11 @@ Item {
         return max > 0 && str.length > max ? str.slice(0, max - 1) + "…" : str;
     }
 
-    property string title: _clip(player?.metadata?.["xesam:title"] || "", maxTitleLength)
-    property string artist: _clip(player?.metadata?.["xesam:artist"]?.join(", ") || "", maxArtistLength)
+    property string title: _clip(player?.trackTitle || "", maxTitleLength)
+    property string artist: _clip(player?.trackArtist || "", maxArtistLength)
     property string trackText: title && artist ? (title + " - " + artist) : (title || artist || "")
 
-    property bool active: !!player && player.playbackStatus !== "Stopped"
+    property bool active: !!player && player.playbackState !== MprisPlaybackState.Stopped
     property string identity: (player?.identity || "").toString()
 
     property string icon: {

@@ -248,7 +248,7 @@ binds {
 
     KP_Subtract { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    Mod+Shift+Grave { spawn-sh "sh $HOME/.config/quickshell/position.sh"; }
+    Mod+Shift+Grave { spawn-sh "qs ipc call bar toggle 2>/dev/null || setsid -f qs"; }
 
     Mod+L { spawn "swaylock"; }
 

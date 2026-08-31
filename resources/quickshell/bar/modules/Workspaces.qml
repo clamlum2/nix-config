@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
-import Quickshell.Io
 import QtQuick
+import ".." as Bar
 
 Item {
     id: root
@@ -11,41 +11,7 @@ Item {
     implicitHeight: 32
 
     property string outputName: ""
-    property var workspaceData: []
-
-    Process {
-        id: workspacesProc
-        command: ["sh", "-c", "niri msg -j workspaces | jq -c ."]
-        running: true
-        stdout: SplitParser {
-            onRead: data => {
-                try {
-                    const p = JSON.parse(data.trim());
-                    if (Array.isArray(p))
-                        root.workspaceData = p;
-                } catch (e) {}
-            }
-        }
-    }
-
-    Process {
-        id: eventStream
-        command: ["niri", "msg", "-j", "event-stream"]
-        running: true
-        stdout: SplitParser {
-            onRead: workspacesProc.running = true
-        }
-    }
-
-    Process {
-        id: focusProc
-        command: ["niri", "msg", "action", "focus-workspace", "1"]
-    }
-
-    function focusWorkspace(idx) {
-        focusProc.command = ["niri", "msg", "action", "focus-workspace", String(idx)];
-        focusProc.running = true;
-    }
+    property var workspaceData: Bar.Niri.workspaces
 
     Row {
         id: row
@@ -92,7 +58,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: root.focusWorkspace(item.modelData.idx)
+                    onClicked: Bar.Niri.focusWorkspace(item.modelData.idx)
                 }
             }
         }

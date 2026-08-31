@@ -1,57 +1,41 @@
 import QtQuick
-import Quickshell.Io
+import Quickshell.Services.UPower
 
 Item {
     id: root
 
-    visible: available
+    property var batteryDevice: {
+        for (const d of UPower.devices.values) {
+            if (d.isLaptopBattery) return d
+        }
+        return null
+    }
 
-    implicitWidth: available ? (level >= 100 ? 42 : level <= 9 ? 26 : 34) : 0
+    property bool available: batteryDevice !== null && batteryDevice.ready
+    property bool charging: batteryDevice?.state === UPowerDeviceState.Charging
+    property int level: batteryDevice ? Math.round(batteryDevice.percentage * 100) : 0
+
+    property string icon: {
+        if (!available) return "󰂎"
+        if (charging) return "󰂄"
+        if (level >= 90) return "󰁹"
+        if (level >= 80) return "󰂀"
+        if (level >= 70) return "󰁿"
+        if (level >= 60) return "󰁾"
+        if (level >= 50) return "󰁽"
+        if (level >= 40) return "󰁼"
+        if (level >= 30) return "󰁻"
+        if (level >= 20) return "󰁺"
+        if (level >= 10) return "󰂃"
+        return "󰂎"
+    }
+
+    visible: available
+    implicitWidth: available ? (level.toString().length === 3 ? 42 : level.toString().length === 1 ? 26 : 34) : 0
     implicitHeight: parent.height
 
-    property bool available: false
-    property bool charging: false
-    property string level: "0"
-    property string icon: charging ? "󰂄" : level >= 90 ? "󰁹" : level >= 80 ? "󰂀" : level >= 70 ? "󰁿" : level >= 60 ? "󰁾" : level >= 50 ? "󰁽" : level >= 40 ? "󰁼" : level >= 30 ? "󰁻" : level >= 20 ? "󰁺" : level >= 10 ? "󰂃" : "󰂎"
-
-    Process {
-        id: batteryCheckProc
-        command: ["sh", "-c", "command -v upower >/dev/null 2>&1 && echo yes || echo no"]
-        running: true
-        stdout: SplitParser {
-            onRead: data => {
-                root.available = data.trim() === "yes";
-                if (root.available) {
-                    batteryProc.running = true;
-                    monitor.running = true;
-                }
-            }
-        }
-    }
-
-    Process {
-        id: batteryProc
-        command: ["sh", "-c", "upower -i $(upower -e | grep 'battery') | awk '/percentage/{pct=int($2)} /state/{st=$2} END{print pct, st}'"]
-        running: false
-        stdout: SplitParser {
-            onRead: data => {
-                const parts = data.trim().split(/\s+/);
-                const parsedLevel = parseInt(parts[0]);
-                if (!isNaN(parsedLevel)) {
-                    root.level = parsedLevel;
-                    root.charging = parts[1] === "charging";
-                }
-            }
-        }
-    }
-
-    Process {
-        id: monitor
-        command: ["sh", "-c", "upower -m"]
-        running: false
-        stdout: SplitParser {
-            onRead: batteryProc.running = true
-        }
+    Component.onCompleted: {
+        console.log(available)
     }
 
     Text {

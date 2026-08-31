@@ -6,7 +6,6 @@ Item {
     implicitWidth: clock.implicitWidth
     implicitHeight: Theme.barHeight
 
-
     property string text: Qt.formatDateTime(new Date(), "ddd MMM dd - hh:mm AP")
 
     Timer {

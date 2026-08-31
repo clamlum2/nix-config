@@ -1,5 +1,5 @@
 import QtQuick
-import Quickshell.Io
+import Quickshell.Services.Pipewire
 
 Item {
     id: root
@@ -7,47 +7,17 @@ Item {
     implicitWidth: 16
     implicitHeight: parent.height
 
-    property bool muted: false
+    property PwNode source: Pipewire.defaultAudioSource
+    property bool muted: source?.audio?.muted ?? false
     property string icon: muted ? "" : ""
 
-    Process {
-        id: micStatusProc
-        command: ["sh", "-c", "wpctl get-volume @DEFAULT_AUDIO_SOURCE@"]
-        stdout: SplitParser {
-            onRead: data => {
-                root.muted = data.includes("MUTED");
-            }
-        }
-    }
-
-    Process {
-        id: micWatcher
-        command: ["inotifywait", "-m", "-e", "close_write", "/tmp/mic-changed"]
-        running: true
-        stdout: SplitParser {
-            onRead: micStatusProc.running = true
-        }
+    PwObjectTracker {
+        objects: [root.source]
     }
 
     function toggle() {
-        toggleMicProc.running = true;
-    }
-
-    Timer {
-        interval: 1000
-        repeat: true
-        running: true
-        onTriggered: micStatusProc.running = true
-    }
-
-    Process {
-        id: toggleMicProc
-        command: ["sh", "-c", "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"]
-        // qmllint disable signal-handler-parameters
-        onExited: {
-            micStatusProc.running = true;
-        }
-        // qmllint enable signal-handler-parameters
+        if (root.source?.audio)
+            root.source.audio.muted = !root.source.audio.muted
     }
 
     Text {
@@ -57,7 +27,7 @@ Item {
         text: root.icon
         color: Theme.text
         font.family: Theme.font
-        font.pixelSize: 30
+        font.pixelSize: 28
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }

@@ -1,5 +1,5 @@
 import QtQuick
-import Quickshell.Io
+import Quickshell.Services.Pipewire
 
 Item {
     id: root
@@ -7,52 +7,38 @@ Item {
     implicitWidth: level >= 100 ? 40 : level <= 9 ? 24 : 31
     implicitHeight: parent.height
 
-    property int level: 0
-    property string icon: muted ? "" : level >= 66 ? "" : level >= 33 ? "" : level > 0 ? "" : ""
-    property bool muted: false
+    property PwNode sink: Pipewire.defaultAudioSink
+    property int level: sink?.audio ? Math.round(sink.audio.volume * 100) : 0
+    property bool muted: sink?.audio?.muted ?? false
 
-    Process {
-        id: volumeProc
-        command: ["sh", "-c", "wpctl get-volume @DEFAULT_SINK@"]
-        running: true
-        stdout: SplitParser {
-            onRead: data => {
-                root.muted = data.includes("MUTED");
-                root.level = parseInt(parseFloat(data.split(" ")[1]) * 100);
-            }
+    property string icon: {
+        if (!sink || !sink.audio) return ""
+        if (muted) return level < 50 ? "󰸈" : "󰖁"
+        if (level >= 75) return ""
+        if (level >= 50) return ""
+        if (level >= 25) return ""
+        if (level > 0) return ""
+        return ""
+    }
+
+    readonly property var oversizedIcons: ["󰸈", "󰖁"]
+    readonly property real iconScaleCorrection: oversizedIcons.includes(icon) ? 0.8 : 1.0
+
+    PwObjectTracker {
+        objects: [root.sink]
+    }
+
+    function muteToggle() {
+        if (root.sink?.audio) {
+            root.sink.audio.muted = !root.sink.audio.muted
         }
     }
 
-    Timer {
-        interval: 1000
-        repeat: true
-        running: true
-        onTriggered: volumeProc.running = true
-    }
-
-    function muteUnmute() {
-        toggleMuteProc.running = true;
-    }
-
-    Process {
-        id: toggleMuteProc
-        command: ["wpctl", "set-mute", "@DEFAULT_SINK@", "toggle"]
-        // qmllint disable signal-handler-parameters
-        onExited: volumeProc.running = true
-        // qmllint enable signal-handler-parameters
-    }
-
     function volumeMod(direction) {
-        changeVolumeProc.command = ["wpctl", "set-volume", "@DEFAULT_SINK@", direction === "up" ? "1%+" : direction === "down" ? "1%-" : "0%"];
-        changeVolumeProc.running = true;
-    }
-
-    Process {
-        id: changeVolumeProc
-        command: []
-        // qmllint disable signal-handler-parameters
-        onExited: volumeProc.running = true
-        // qmllint enable signal-handler-parameters
+        if (!root.sink?.audio) return
+        const step = 0.01
+        const delta = direction === "up" ? step : -step
+        root.sink.audio.volume = Math.max(0, root.sink.audio.volume + delta)
     }
 
     Text {
@@ -65,7 +51,7 @@ Item {
         text: root.icon
         color: Theme.text
         font.family: Theme.font
-        scale: 2.25
+        scale: 2.25 * root.iconScaleCorrection
         transformOrigin: Item.Center
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -93,7 +79,7 @@ Item {
     MouseArea {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
-        onClicked: root.muteUnmute()
+        onClicked: root.muteToggle()
         onWheel: wheel.angleDelta.y > 0 ? root.volumeMod("up") : root.volumeMod("down")
     }
 }

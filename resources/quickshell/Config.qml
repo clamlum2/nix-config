@@ -4,18 +4,15 @@ import Quickshell.Io
 
 Singleton {
     id: root
-    property alias barPosition: adapter.barPosition
+    property string barPosition: "bottom"
 
-    FileView {
-        path: Quickshell.env("HOME") + "/.config/quickshell/bar-state.json"
-        watchChanges: true
-        onFileChanged: reload()
-        onAdapterUpdated: writeAdapter()
-        // qmllint disable unresolved-type
-        JsonAdapter {
-            id: adapter
-            property string barPosition: "top"
-        }
-        // qmllint enable unresolved-type
+    function toggle() {
+        root.barPosition = root.barPosition === "top" ? "bottom" : "top"
+    }
+
+    IpcHandler {
+        target: "bar"
+        function toggle(): void { root.toggle() }
+        function get(): string { return root.barPosition }
     }
 }
