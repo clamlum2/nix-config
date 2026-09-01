@@ -29,7 +29,7 @@ Item {
     }
 
     property string wifiStrengthIcon: wifiStrength > 75 ? "󰤨" : wifiStrength > 50 ? "󰤥" : wifiStrength > 25 ? "󰤢" : "󰤟"
-    property string icon: ethernetStatus ? "" : wifiStatus ? wifiStrengthIcon : "󰌙"
+    property string icon: ethernetStatus ? "" : wifiStatus ? wifiStrengthIcon : "󰌙"
 
     Text {
         id: network_status
