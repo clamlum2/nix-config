@@ -5,3 +5,4 @@ Lock 1.0 Lock.qml
 LockSurface 1.0 LockSurface.qml
 InputField 1.0 InputField.qml
 Clock 1.0 Clock.qml
+LockBattery 1.0 LockBattery.qml

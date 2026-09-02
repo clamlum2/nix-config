@@ -1,6 +1,6 @@
 import QtQuick
-import ".." as Bar
-import qs
+import "../../"
+import "../../services" as Services
 
 Item {
     id: root
@@ -10,7 +10,7 @@ Item {
 
     property int maxTitleChars: 40
 
-    property var currentWindow: Bar.Niri.focusedWindow
+    property var currentWindow: Services.Niri.focusedWindow
     property string windowClass: currentWindow?.app_id || ""
     property string windowTitle: currentWindow?.title || ""
 

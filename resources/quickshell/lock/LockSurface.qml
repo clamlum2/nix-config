@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
-import qs
-import qs.bar.modules
+import "../"
+import "../bar/modules/"
 
 WlSessionLockSurface {
     id: root
@@ -36,8 +36,9 @@ WlSessionLockSurface {
     Item {
         id: lockGroup
         anchors.centerIn: parent
+        anchors.verticalCenterOffset: -48
 
-        readonly property real spacing: 24
+        readonly property real spacing: 16
         width: Math.max(clock.implicitWidth, passwordField.width)
         height: clock.implicitHeight + spacing + passwordField.height
 
@@ -52,6 +53,12 @@ WlSessionLockSurface {
             lockContext: root.lockContext
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: clock.bottom
+            anchors.topMargin: lockGroup.spacing
+        }
+
+        LockBattery {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: passwordField.bottom
             anchors.topMargin: lockGroup.spacing
         }
     }

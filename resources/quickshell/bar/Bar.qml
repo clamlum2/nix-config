@@ -123,7 +123,7 @@ PanelWindow {
                 color: Theme.muted
             }
 
-            Battery {
+            BarBattery {
                 id: batteryModule
                 Layout.preferredWidth: implicitWidth
                 Layout.alignment: Qt.AlignVCenter

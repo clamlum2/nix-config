@@ -1,43 +1,17 @@
 import QtQuick
-import Quickshell.Services.UPower
-import qs
+import "../../"
+import "../../services" as Services
 
 Item {
     id: root
 
-    property var batteryDevice: {
-        for (const d of UPower.devices.values) {
-            if (d.isLaptopBattery) return d
-        }
-        return null
-    }
-
-    property bool available: batteryDevice !== null && batteryDevice.ready
-    property bool charging: batteryDevice?.state === UPowerDeviceState.Charging
-    property int level: batteryDevice ? Math.round(batteryDevice.percentage * 100) : 0
-
-    property string icon: {
-        if (!available) return "󰂎"
-        if (charging) return "󰂄"
-        if (level >= 90) return "󰁹"
-        if (level >= 80) return "󰂀"
-        if (level >= 70) return "󰁿"
-        if (level >= 60) return "󰁾"
-        if (level >= 50) return "󰁽"
-        if (level >= 40) return "󰁼"
-        if (level >= 30) return "󰁻"
-        if (level >= 20) return "󰁺"
-        if (level >= 10) return "󰂃"
-        return "󰂎"
-    }
+    property bool available: Services.Battery.available
+    property int level: Services.Battery.level
+    property string icon: Services.Battery.icon
 
     visible: available
     implicitWidth: available ? (level.toString().length === 3 ? 42 : level.toString().length === 1 ? 26 : 34) : 0
     implicitHeight: parent.height
-
-    Component.onCompleted: {
-        console.log(available)
-    }
 
     Text {
         id: battery_icon
@@ -47,7 +21,6 @@ Item {
         height: parent.height
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: 0
         color: Theme.text
         font.family: Theme.font
         scale: 1.25

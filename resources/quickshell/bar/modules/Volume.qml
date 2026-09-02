@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell.Services.Pipewire
-import qs
+import "../../"
 
 Item {
     id: root

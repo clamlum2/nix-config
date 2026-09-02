@@ -1,6 +1,6 @@
 import Quickshell.Bluetooth
 import QtQuick
-import qs
+import "../../"
 
 Item {
     id: root

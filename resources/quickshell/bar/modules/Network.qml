@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell.Networking
-import qs
+import "../../"
 
 Item {
     id: root

@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import ".." as Bar
-import qs
+import "../../"
+import "../../services" as Services
 
 Item {
     id: root
@@ -12,7 +12,7 @@ Item {
     implicitHeight: 32
 
     property string outputName: ""
-    property var workspaceData: Bar.Niri.workspaces
+    property var workspaceData: Services.Niri.workspaces
 
     Row {
         id: row
