@@ -250,7 +250,7 @@ binds {
 
     Mod+Shift+Grave { spawn-sh "qs ipc call bar toggle 2>/dev/null || setsid -f qs"; }
 
-    Mod+L { spawn "swaylock"; }
+    Mod+L { spawn-sh "qs ipc call lock activate"; }
 
     Mod+C { spawn "wtype" "-M" "ctrl" "-k" "Insert" "-m" "ctrl"; }
     Mod+V { spawn "wtype" "-M" "shift" "-k" "Insert" "-m" "shift"; }

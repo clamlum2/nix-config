@@ -1,6 +1,7 @@
 //@ pragma UseQApplication
 import Quickshell
 import "bar"
+import "lock"
 
 ShellRoot {
     Variants {
@@ -10,4 +11,5 @@ ShellRoot {
             screen: modelData
         }
     }
+    Lock {}
 }

@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell.Networking
+import qs
 
 Item {
     id: root

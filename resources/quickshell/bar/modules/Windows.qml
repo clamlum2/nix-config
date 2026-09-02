@@ -1,5 +1,6 @@
 import QtQuick
 import ".." as Bar
+import qs
 
 Item {
     id: root

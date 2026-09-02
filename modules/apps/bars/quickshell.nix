@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ osConfig, pkgs, ... }:
 
 let
   quickshell-wrapped = pkgs.symlinkJoin {
@@ -24,5 +24,9 @@ in
       path: type: baseNameOf path != ".qmlls.ini"
     ) ../../../resources/quickshell;
     recursive = true;
+  };
+
+  systemd.user.sessionVariables = {
+    WALLPAPER_PATH = osConfig.vars.wallpaperPath;
   };
 }
