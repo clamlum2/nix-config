@@ -59,7 +59,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
-                    onClicked: Bar.Niri.focusWorkspace(item.modelData.idx)
+                    onClicked: Services.Niri.focusWorkspace(item.modelData.idx)
                 }
             }
         }
