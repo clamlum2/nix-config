@@ -6,6 +6,7 @@ QtObject {
     // Colors
     readonly property color background: "#0C0F1B"
     readonly property color text: "#c8c8e6"
+    readonly property color textSecondary: "#b8b8d6"
     readonly property color primary: "#4ea1ff"
     readonly property color secondary: "#6c8aff"
     readonly property color inactive: "#595959"

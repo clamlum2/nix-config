@@ -1,8 +1,12 @@
 module lock
 
-singleton LockContext 1.0 LockContext.qml
 Lock 1.0 Lock.qml
+singleton LockContext 1.0 LockContext.qml
 LockSurface 1.0 LockSurface.qml
+
 InputField 1.0 InputField.qml
 Clock 1.0 Clock.qml
 LockBattery 1.0 LockBattery.qml
+LockMedia 1.0 LockMedia.qml
+
+MediaButton 1.0 MediaButton.qml

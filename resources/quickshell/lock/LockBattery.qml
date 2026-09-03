@@ -10,6 +10,8 @@ Item {
     implicitWidth: Math.max(iconText.implicitWidth, levelText.implicitWidth)
     implicitHeight: row.height
 
+    visible: Services.Battery.available
+
     Row {
         id: row
         anchors.horizontalCenter: parent.horizontalCenter

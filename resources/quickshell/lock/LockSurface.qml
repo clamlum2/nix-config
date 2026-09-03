@@ -3,7 +3,7 @@ import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
 import "../"
-import "../bar/modules/"
+import "../bar/modules"
 
 WlSessionLockSurface {
     id: root
@@ -56,10 +56,18 @@ WlSessionLockSurface {
             anchors.topMargin: lockGroup.spacing
         }
 
-        LockBattery {
+        LockMedia {
+            id: media
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: passwordField.bottom
             anchors.topMargin: lockGroup.spacing
         }
+    }
+
+    LockBattery {
+        anchors.right: parent.right
+        anchors.rightMargin: lockGroup.spacing
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: lockGroup.spacing
     }
 }

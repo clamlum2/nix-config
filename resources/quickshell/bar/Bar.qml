@@ -55,7 +55,7 @@ PanelWindow {
             width: Math.min(barContent.width * 0.5, 500)
             height: parent.height
 
-            Mpris {
+            BarMedia {
                 id: mprisModule
                 anchors.fill: parent
                 anchors.horizontalCenter: parent.horizontalCenter

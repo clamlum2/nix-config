@@ -1,7 +1,9 @@
+module bar
+
 BarBattery 1.0 BarBattery.qml
+BarMedia 1.0 BarMedia.qml
 Bluetooth 1.0 Bluetooth.qml
 Microphone 1.0 Microphone.qml
-Mpris 1.0 Mpris.qml
 Network 1.0 Network.qml
 SystemTray 1.0 SystemTray.qml
 TimeDisplay 1.0 TimeDisplay.qml
