@@ -37,11 +37,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-
-    zed-launcher = {
-      url = "path:./zed-launcher";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
   };
 
   outputs =
