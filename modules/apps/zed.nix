@@ -6,5 +6,6 @@
     pkgs.nil
     pkgs.nixd
     pkgs.kdePackages.qtdeclarative
+    pkgs.color-lsp
   ];
 }
