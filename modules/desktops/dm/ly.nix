@@ -26,6 +26,8 @@ in
 
   environment.systemPackages = [ pkgs.ly ];
 
+  fonts.packages = [ pkgs.unscii ];
+
   services.kmscon = {
     enable = true;
   };
@@ -44,7 +46,7 @@ in
     serviceConfig = {
       ExecStart = lib.mkForce [
         ""
-        "${pkgs.kmscon}/bin/kmscon --vt=tty${kmsconTty} --font-size=20 --login -- ${pkgs.ly}/bin/ly --use-kmscon-vt"
+        "${pkgs.kmscon}/bin/kmscon --vt=tty${kmsconTty} --font-engine=freetype --font-name=unscii-16 --login -- ${pkgs.ly}/bin/ly --use-kmscon-vt"
       ];
     };
   };
