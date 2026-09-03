@@ -22,8 +22,6 @@ let
     pkgs.mpv
     pkgs.ffmpeg
 
-    pkgs.localsend
-
     inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
@@ -42,6 +40,7 @@ let
     pkgs.gradle_9
     pkgs.jdk25
     pkgs.idea
+    pkgs.localsend
   ];
 
   asahiPkgs = [
